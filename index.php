@@ -16,34 +16,38 @@ if (!$conn) {
 
 mysqli_set_charset($conn, "utf8mb4");
 
-function normalizeString($str)
-{
-    // Keep UTF-8 sane when legacy-encoded data slips in.
+function normalizeString($str) {
     if (function_exists('mb_check_encoding') && function_exists('mb_convert_encoding') && !mb_check_encoding($str, 'UTF-8')) {
         $str = mb_convert_encoding($str, 'UTF-8', 'ISO-8859-1, Windows-1252');
     }
-
     if (function_exists('mb_strtolower')) {
         $str = mb_strtolower($str, 'UTF-8');
     } else {
         $str = strtolower($str);
     }
-
     if (function_exists('transliterator_transliterate')) {
         $str = transliterator_transliterate('Any-Latin; Latin-ASCII;', $str);
     } else {
         $converted = @iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $str);
-        if ($converted !== false) {
-            $str = $converted;
-        }
+        if ($converted !== false) $str = $converted;
     }
-
-    // Force a filename-safe slug: "Pékin" => "pekin".
     $str = preg_replace('/[^a-z0-9]+/', '', $str);
     return $str ?? '';
 }
 
+// 1. Récupérer la recherche
+$recherche = $_POST['recherche'] ?? '';
+
+// 2. Construire la requête
 $sql = "SELECT ville, pays, nom FROM destinations";
+if (!empty($recherche)) {
+    $recherche_escaped = mysqli_real_escape_string($conn, $recherche);
+    $sql .= " WHERE ville LIKE '%$recherche_escaped%'
+              OR pays LIKE '%$recherche_escaped%'
+              OR nom LIKE '%$recherche_escaped%'";
+}
+
+// 3. Exécuter la requête
 $result = mysqli_query($conn, $sql);
 
 $destinations = [];
@@ -53,6 +57,7 @@ if ($result && mysqli_num_rows($result) > 0) {
     }
 }
 
+// 4. Fermer la connexion
 mysqli_close($conn);
 
 if (isset($_POST["deconnectetoi"])) {
@@ -61,12 +66,10 @@ if (isset($_POST["deconnectetoi"])) {
 }
 
 $supprime = $_GET['supprime'] ?? null;
-
 if ($supprime === 'ok') {
     $message = 'Votre compte a été supprimé avec succès';
     $messageClass = "success";
-} 
-else if ($supprime === 'non') {
+} else if ($supprime === 'non') {
     $message = 'Votre compte n\'a pas été supprimé. Veuillez recommencer.';
     $messageClass = "error";
 }
@@ -320,11 +323,26 @@ if (!empty($message)) {
         <?php endif; ?>
 
         <div class="nav-main">
-            <h1>Bienvenue sur Nomadix</h1>
-            <p>Découvrez nos destinations et <a href="inscription.php" style="color : rgb(152, 0, 207);">créez votre
-                    compte</a> dès maintenant !</p>
+            <?php if (!isset($_SESSION["user"])): ?>
+                <h1>Bienvenue sur Nomadix</h1>
+                <p>Découvrez nos destinations et <a href="inscription.php" style="color : rgb(152, 0, 207);">créez votre
+                        compte</a> dès maintenant !</p>
+            <?php else: ?>
+                <h1>Nomadix</h1>
+            <?php endif; ?>
+        </div>
+        <div class="search">
+            <form method="POST" action="">
+                Recherche : <input type="text" name="recherche" value="<?= htmlspecialchars($recherche) ?>">
+                <input type="submit" value="Search!">
+            </form>
         </div>
         <div class="destinations">
+            <?php if (empty($destinations)): ?>
+                <p style="text-align:center; color: rgb(97, 0, 132); font-size: 1.2em;">
+                    Aucune destination trouvée pour "<?= htmlspecialchars($recherche) ?>".
+                </p>
+            <?php endif; ?>
             <?php foreach ($destinations as $dest): ?>
                 <?php
                 $ville = $dest['ville'];
