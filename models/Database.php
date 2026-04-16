@@ -5,12 +5,19 @@ class Database {
 
     public function __construct() {
         try {
-            $dsn = "sqlsrv:server=" . DB_HOST . ";Database=" . DB_NAME;
-            $this->connection = new PDO($dsn, DB_USER, DB_PASS);
-            $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $this->connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            // Options de connexion dans le DSN pour Azure SQL
+            $dsn = "sqlsrv:server=tcp:nomadix.database.windows.net,1433;Database=Nomadix;Encrypt=yes;TrustServerCertificate=no";
+
+            // Options PDO générales
+            $options = [
+                PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_EMULATE_PREPARES   => false,
+            ];
+
+            $this->connection = new PDO($dsn, DB_USER, DB_PASS, $options);
         } catch (PDOException $e) {
-            die("Erreur de connexion à la base de données : " . $e->getMessage());
+            die("❌ Erreur de connexion à Azure SQL : " . $e->getMessage());
         }
     }
 
