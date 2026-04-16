@@ -4,11 +4,14 @@ class Database {
     private $connection;
 
     public function __construct() {
-        $this->connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-        if (!$this->connection) {
-            die("Connection failed: " . mysqli_connect_error());
+        try {
+            $dsn = "sqlsrv:server=" . DB_HOST . ";Database=" . DB_NAME;
+            $this->connection = new PDO($dsn, DB_USER, DB_PASS);
+            $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            die("Erreur de connexion à la base de données : " . $e->getMessage());
         }
-        mysqli_set_charset($this->connection, "utf8mb4");
     }
 
     public function getConnection() {

@@ -12,20 +12,16 @@ class DestinationModel {
     public function searchDestinations($recherche = '') {
         $conn = $this->db->getConnection();
         $sql = "SELECT ville, pays, nom FROM destinations";
+        $params = [];
+
         if (!empty($recherche)) {
-            $recherche_escaped = mysqli_real_escape_string($conn, $recherche);
-            $sql .= " WHERE ville LIKE '%$recherche_escaped%'
-                      OR pays LIKE '%$recherche_escaped%'
-                      OR nom LIKE '%$recherche_escaped%'";
+            $sql .= " WHERE ville LIKE :recherche OR pays LIKE :recherche OR nom LIKE :recherche";
+            $params[':recherche'] = "%$recherche%";
         }
-        $result = mysqli_query($conn, $sql);
-        $destinations = [];
-        if ($result && mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                $destinations[] = $row;
-            }
-        }
-        mysqli_close($conn);
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute($params);
+        $destinations = $stmt->fetchAll();
         return $destinations;
     }
 }
