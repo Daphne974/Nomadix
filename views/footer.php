@@ -1,6 +1,6 @@
 <?php
 // views/footer.php
 ?>
-<footer>&copy; 2025 Nomadix - Tous droits réservés</footer>
+<footer>&copy; 2026 Nomadix - Tous droits réservés</footer>
 </body>
 </html>

@@ -1,5 +1,10 @@
 <?php
 // config/config.php
+define('DB_HOST', 'localhost');
+define('DB_USER', 'root');
+define('DB_PASS', ''); // Mot de passe MySQL (vide par défaut en local)
+define('DB_NAME', 'voyage');
+
 function normalizeString($str) {
     if (function_exists('mb_check_encoding') && function_exists('mb_convert_encoding') && !mb_check_encoding($str, 'UTF-8')) {
         $str = mb_convert_encoding($str, 'UTF-8', 'ISO-8859-1, Windows-1252');
