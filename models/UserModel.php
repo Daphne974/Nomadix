@@ -15,10 +15,8 @@ class UserModel {
     public function emailExists($email) {
         $conn = $this->db->getConnection();
         $stmt = $conn->prepare("SELECT id FROM utilisateurs WHERE email = ?");
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $stmt->store_result();
-        return $stmt->num_rows > 0;
+        $stmt->execute([$email]);
+        return $stmt->fetch() !== false;
     }
 
     /**
@@ -27,8 +25,7 @@ class UserModel {
     public function registerUser($login, $email, $motDePasseHache) {
         $conn = $this->db->getConnection();
         $stmt = $conn->prepare("INSERT INTO utilisateurs (login, email, motDePasse) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $login, $email, $motDePasseHache);
-        return $stmt->execute();
+        return $stmt->execute([$login, $email, $motDePasseHache]);
     }
 
     /**
@@ -37,9 +34,8 @@ class UserModel {
     public function getUserByLogin($login) {
         $conn = $this->db->getConnection();
         $stmt = $conn->prepare("SELECT * FROM utilisateurs WHERE login = ?");
-        $stmt->bind_param("s", $login);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->fetch_assoc();
+        $stmt->execute([$login]);
+        return $stmt->fetch();
     }
 }
+?>

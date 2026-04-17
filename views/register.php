@@ -19,26 +19,19 @@ require_once __DIR__ . '/header.php';
     <div class="forms">
         <form method="POST">
             <h2>Inscription</h2>
-
             <label>Login :</label>
             <input type="text" name="login" required><br><br>
-
             <label>Email :</label>
             <input type="email" name="email" required><br><br>
-
             <label>Mot de passe :</label>
             <input type="password" name="motDePasse" required><br><br>
-
             <label>Confirmer le mot de passe :</label>
             <input type="password" name="confirmerMotDePasse" required>
-
             <input type="submit" value="S'inscrire"><br><br>
         </form>
-
-        <form action="connexion.php" method="get" style="">
+        <form action="connexion.php" method="get">
             <button type="submit" class="connect-button">Aller se connecter</button>
         </form>
-
         <form action="index.php" method="get">
             <button type="submit" class="home-button">Retour à l'accueil</button>
         </form>

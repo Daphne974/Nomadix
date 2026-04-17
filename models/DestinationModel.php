@@ -1,5 +1,5 @@
 <?php
-// models/DestinationModel.php
+// Nomadix/models/DestinationModel.php
 require_once __DIR__ . '/Database.php';
 
 class DestinationModel {
@@ -12,22 +12,16 @@ class DestinationModel {
     public function searchDestinations($recherche = '') {
         $conn = $this->db->getConnection();
         $sql = "SELECT ville, pays, nom FROM destinations";
-        $destinations = [];
+        $params = [];
 
         if (!empty($recherche)) {
-            $recherche_escaped = $conn->real_escape_string($recherche);
-            $sql .= " WHERE ville LIKE '%$recherche_escaped%'
-                      OR pays LIKE '%$recherche_escaped%'
-                      OR nom LIKE '%$recherche_escaped%'";
+            $sql .= " WHERE ville LIKE :recherche OR pays LIKE :recherche OR nom LIKE :recherche";
+            $params[':recherche'] = "%$recherche%";
         }
 
-        $result = $conn->query($sql);
-        if ($result && $result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $destinations[] = $row;
-            }
-        }
-
-        return $destinations;
+        $stmt = $conn->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchAll();
     }
 }
+?>

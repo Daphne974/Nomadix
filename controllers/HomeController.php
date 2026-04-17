@@ -1,10 +1,13 @@
 <?php
-// controllers/HomeController.php
+// Nomadix/controllers/HomeController.php
 require_once __DIR__ . '/../models/DestinationModel.php';
 
 class HomeController {
     public function index() {
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
         $_SESSION['page_davant'] = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
         $destinationModel = new DestinationModel();
@@ -24,11 +27,8 @@ class HomeController {
         }
 
         if (!empty($message)) {
-            if (!isset($_SESSION['messageShown'])) {
-                $_SESSION['messageShown'] = true;
-            } else {
-                $message = '';
-            }
+            $_SESSION['flash_message'] = $message;
+            $_SESSION['flash_message_class'] = $messageClass;
         }
 
         // Gestion de la déconnexion
@@ -43,3 +43,4 @@ class HomeController {
         require_once __DIR__ . '/../views/home.php';
     }
 }
+?>

@@ -4,7 +4,10 @@ require_once __DIR__ . '/../models/UserModel.php';
 
 class AuthController {
     public function register() {
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
         $userModel = new UserModel();
         $message = '';
         $messageClass = '';
@@ -49,7 +52,7 @@ class AuthController {
                     $message = "Inscription réussie !";
                     $messageClass = "success";
                 } else {
-                    $message = "Erreur lors de l'inscription : " . $this->db->getConnection()->error;
+                    $message = "Erreur lors de l'inscription.";
                     $messageClass = "error";
                 }
             }
@@ -65,3 +68,4 @@ class AuthController {
         require_once __DIR__ . '/../views/register.php';
     }
 }
+?>
