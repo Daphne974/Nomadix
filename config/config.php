@@ -1,9 +1,9 @@
 <?php
 // config/config.php
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', ''); // Mot de passe MySQL (vide par défaut en local)
-define('DB_NAME', 'voyage');
+define('DB_HOST', '172.20.0.103');
+define('DB_USER', 'administrateur');
+define('DB_PASS', 'LeMotDePasse974!'); // Mot de passe
+define('DB_NAME', 'Nomadix'); // Nom de la base de données
 
 function normalizeString($str) {
     if (function_exists('mb_check_encoding') && function_exists('mb_convert_encoding') && !mb_check_encoding($str, 'UTF-8')) {
