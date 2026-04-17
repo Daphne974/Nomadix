@@ -1,13 +1,27 @@
 <?php
-// views/header.php
+// Nomadix/views/header.php
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Accueil - Nomadix</title>
-    <link rel="stylesheet" href="public/css/style.css">
-    <script src="public/js/script.js"></script>
+    <title>
+        <?php
+        $currentPage = basename($_SERVER['PHP_SELF']);
+        if ($currentPage === 'inscription.php') {
+            echo "Inscription - Nomadix";
+        } elseif ($currentPage === 'connexion.php') {
+            echo "Connexion - Nomadix";
+        } else {
+            echo "Nomadix";
+        }
+        ?>
+    </title>
+    <!-- Lien vers le CSS -->
+    <link rel="stylesheet" href="/Nomadix/public/css/style.css">
+    <!-- Lien vers le JS -->
+    <script src="/Nomadix/public/js/script.js" defer></script>
 </head>
 <body>
     <header>

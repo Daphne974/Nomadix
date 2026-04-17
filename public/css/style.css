@@ -1,9 +1,15 @@
-/* public/css/style.css */
+/* Nomadix/public/css/style.css */
+
+/* Styles globaux */
 body {
     font-family: Arial, sans-serif;
     background: linear-gradient(to right, #dda0dd, #add8e6);
-    margin: 0;
     padding: 0;
+    margin: 0;
+    min-height: 100vh;
+    position: relative;
+    padding-bottom: 80px;
+    box-sizing: border-box;
 }
 
 h1, p {
@@ -48,46 +54,75 @@ p {
     transform: scale(1.05);
 }
 
-.destinations {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    padding: 40px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.destinations a {
-    text-decoration: none;
-    color: inherit;
-}
-
-.destination {
-    background-color: #ffffff;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
-}
-
-.destination:hover {
-    transform: scale(1.02);
-}
-
-.destination img {
+/* Styles pour le formulaire */
+.forms {
     width: 100%;
-    height: 160px;
-    object-fit: cover;
+    max-width: 400px;
+    margin: 0 auto;
+    margin-top: 5%;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
 }
 
-.city-name {
+.forms label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.forms input[type="text"],
+.forms input[type="email"],
+.forms input[type="password"] {
+    width: 100%;
     padding: 10px;
-    font-size: 16px;
-    font-weight: bold;
-    color: rgb(67, 0, 110);
-    text-align: center;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
 }
 
+.forms input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: rgb(10, 49, 248);
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.connect-button {
+    background: none;
+    border: none;
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 0;
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: -10px;
+}
+
+.home-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: rgb(10, 49, 248);
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Styles pour les messages flash */
 .message {
     max-width: 400px;
     margin: 20px auto;
@@ -126,8 +161,12 @@ p {
 }
 
 @keyframes shrinkBar {
-    from { width: 100%; }
-    to { width: 0%; }
+    from {
+        width: 100%;
+    }
+    to {
+        width: 0%;
+    }
 }
 
 .success {
@@ -142,8 +181,93 @@ p {
     border: 1px solid #f5c6cb;
 }
 
-@media screen and (max-width: 600px) {
-    h1 { font-size: 28px; }
-    p { font-size: 1em; }
-    .destination img { height: 140px; }
+footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 5px;
+    text-align: center;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Styles pour les destinations */
+.destinations {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.destination {
+    background-color: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.destination:hover {
+    transform: scale(1.02);
+}
+
+.destination img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+}
+
+.city-name {
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: rgb(67, 0, 110);
+    text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .forms {
+        padding: 20px;
+        margin: 20px;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    input[type="submit"],
+    .connect-button {
+        font-size: 15px;
+    }
+
+    .home-button {
+        bottom: 10px;
+        right: 10px;
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    footer {
+        font-size: 12px;
+    }
+
+    .destinations {
+        padding: 20px;
+        margin: 20px;
+    }
+
+    .destinations a {
+        width: 100%;
+    }
+}
+
+@media (max-height: 500px) {
+    .home-button,
+    footer {
+        position: absolute;
+        margin-top: 20px;
+    }
 }

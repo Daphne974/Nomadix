@@ -1,9 +1,9 @@
 <?php
-// config/config.php
+// Nomadix/config/config.php
 define('DB_HOST', '172.20.0.103');
-define('DB_USER', 'administrateur');
-define('DB_PASS', 'LeMotDePasse974!'); // Mot de passe
-define('DB_NAME', 'Nomadix'); // Nom de la base de données
+define('DB_USER', 'nomadix');
+define('DB_PASS', 'MotDePasseSecurise123!');
+define('DB_NAME', 'Nomadix');
 
 function normalizeString($str) {
     if (function_exists('mb_check_encoding') && function_exists('mb_convert_encoding') && !mb_check_encoding($str, 'UTF-8')) {
@@ -23,3 +23,4 @@ function normalizeString($str) {
     $str = preg_replace('/[^a-z0-9]+/', '', $str);
     return $str ?? '';
 }
+?>
