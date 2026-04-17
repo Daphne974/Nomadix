@@ -23,7 +23,7 @@ require_once __DIR__ . '/header.php';
 
     <div class="search">
         <form method="POST" action="index.php">
-            Recherche : <input type="text" name="recherche" value="<?= htmlspecialchars($recherche ?? '') ?>">
+            <input type="text" name="recherche" value="<?= htmlspecialchars($recherche ?? '') ?>" placeholder="Recherche...">
             <input type="submit" value="Search!">
         </form>
     </div>
