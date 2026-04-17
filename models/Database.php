@@ -1,27 +1,21 @@
 <?php
-// models/Database.php
-class Database {
-    private $connection;
-
-    public function __construct() {
-        try {
-            // Options de connexion dans le DSN pour Azure SQL
-            $dsn = "sqlsrv:server=tcp:nomadix.database.windows.net,1433;Database=Nomadix;Encrypt=yes;TrustServerCertificate=no";
-
-            // Options PDO générales
-            $options = [
-                PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                PDO::ATTR_EMULATE_PREPARES   => false,
-            ];
-
-            $this->connection = new PDO($dsn, DB_USER, DB_PASS, $options);
-        } catch (PDOException $e) {
-            die("❌ Erreur de connexion à Azure SQL : " . $e->getMessage());
+// Initialisation à la connexion à la base de données MySQL :
+$connexion = null;
+if (file_exists(dirname(__FILE__).DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."config.ini")) {
+    $config = parse_ini_file(dirname(__FILE__).DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."config.ini");
+    if(!isset($config["host"]) || !isset($config["user"]) || !isset($config["password"]) || !isset($config["database"])) {
+        die("Erreur : le fichier config.ini est incorrect. Paramètres attendus : host, user, password, database");
+    }
+    else {
+        $connexion = mysqli_connect($config["host"], $config["user"], $config["password"], $config["database"]);
+        if (mysqli_connect_errno()) {
+            die("Erreur : la connexion à la base de données a échoué. Erreur MySQL : ". mysqli_connect_error());
+        }
+        else {
+            mysqli_set_charset($connexion, 'utf8mb4');
         }
     }
-
-    public function getConnection() {
-        return $this->connection;
-    }
+}
+else {
+    die("Erreur : le fichier config.ini est introuvable à la racine du répertoire ventes_sig");
 }
