@@ -1,0 +1,10 @@
+# Activer le moteur de réécriture d'URL
+RewriteEngine On
+
+# Définir la page 404 personnalisée
+ErrorDocument 404 /Nomadix/404.php
+
+# Rediriger les requêtes invalides vers 404.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /Nomadix/404.php [L]

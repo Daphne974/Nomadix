@@ -1,0 +1,46 @@
+<?php
+// Nomadix/404.php
+require_once __DIR__ . '/views/header.php';
+?>
+
+<main>
+    <div class="error-container">
+        <h1>404 - Page non trouvée</h1>
+        <p>Désolé, la page que vous cherchez n'existe pas ou a été déplacée.</p>
+        <div class="error-actions">
+            <a href="index.php" class="home-button">Retour à l'accueil</a>
+            <a href="connexion.php" class="connect-button">Se connecter</a>
+        </div>
+    </div>
+</main>
+
+<style>
+    .error-container {
+        text-align: center;
+        padding: 50px 20px;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    .error-container h1 {
+        color: rgb(97, 0, 132);
+        font-size: 3em;
+        margin-bottom: 20px;
+    }
+    .error-container p {
+        color: rgb(152, 0, 207);
+        font-size: 1.2em;
+        margin-bottom: 30px;
+    }
+    .error-actions {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+    .error-actions a {
+        text-decoration: none;
+    }
+</style>
+
+<?php
+require_once __DIR__ . '/views/footer.php';
+?>

@@ -1,9 +1,9 @@
 <?php
 // Nomadix/connexion.php
-require_once __DIR__ . '/config/config.php'; // Inclusion du fichier de config
+require_once __DIR__ . '/config/config.php'; // Inclusion obligatoire du fichier de config
 
 try {
-    // Utilise les constantes CLIENT ou ADMIN selon tes besoins
+    // Utilise DB_HOST_CLIENT pour la connexion (ou DB_HOST_ADMIN si besoin)
     $dsn = "mysql:host=" . DB_HOST_CLIENT . ";dbname=" . DB_NAME_CLIENT . ";charset=utf8mb4";
     $conn = new PDO($dsn, DB_USER_CLIENT, DB_PASS_CLIENT, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
