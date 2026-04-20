@@ -1,5 +1,6 @@
 <?php
 // Nomadix/models/Database.php
+require_once __DIR__ . '/../config/config.php';
 class Database {
     private static $readConnection = null;
     private static $writeConnection = null;
