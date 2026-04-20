@@ -1,10 +1,11 @@
 <?php
 // Nomadix/connexion.php
-require_once __DIR__ . '/config/config.php';
+require_once __DIR__ . '/config/config.php'; // Inclusion du fichier de config
 
 try {
-    $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4";
-    $conn = new PDO($dsn, DB_USER, DB_PASS, [
+    // Utilise les constantes CLIENT ou ADMIN selon tes besoins
+    $dsn = "mysql:host=" . DB_HOST_CLIENT . ";dbname=" . DB_NAME_CLIENT . ";charset=utf8mb4";
+    $conn = new PDO($dsn, DB_USER_CLIENT, DB_PASS_CLIENT, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES => false,
@@ -19,7 +20,9 @@ try {
         $user = $stmt->fetch();
 
         if ($user && password_verify($motDePasse, $user['motDePasse'])) {
-            session_start();
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
             $_SESSION['user'] = $user;
             header("Location: index.php");
             exit;

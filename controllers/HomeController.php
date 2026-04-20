@@ -15,20 +15,11 @@ class HomeController {
         $destinations = $destinationModel->searchDestinations($recherche);
 
         // Gestion des messages flash
-        $message = '';
-        $messageClass = '';
-        $supprime = $_GET['supprime'] ?? null;
-        if ($supprime === 'ok') {
-            $message = 'Votre compte a été supprimé avec succès';
-            $messageClass = "success";
-        } else if ($supprime === 'non') {
-            $message = 'Votre compte n\'a pas été supprimé. Veuillez recommencer.';
-            $messageClass = "error";
-        }
-
-        if (!empty($message)) {
-            $_SESSION['flash_message'] = $message;
-            $_SESSION['flash_message_class'] = $messageClass;
+        if (isset($_SESSION['flash_message']) && isset($_SESSION['flash_message_class'])) {
+            $message = $_SESSION['flash_message'];
+            $messageClass = $_SESSION['flash_message_class'];
+            unset($_SESSION['flash_message']);
+            unset($_SESSION['flash_message_class']);
         }
 
         // Gestion de la déconnexion
