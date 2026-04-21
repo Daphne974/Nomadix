@@ -6,12 +6,14 @@ define('DB_HOST_CLIENT', '172.20.0.103');
 define('DB_USER_CLIENT', 'nomadix');
 define('DB_PASS_CLIENT', 'MotDePasseSecurise123!');
 define('DB_NAME_CLIENT', 'Nomadix');
+define('ROLE_USER', 0);
 
 // Connexion pour admin
 define('DB_HOST_ADMIN', '172.20.0.103');
 define('DB_USER_ADMIN', 'administrateur');
 define('DB_PASS_ADMIN', 'OMGUn4dminTresDoue^^');
 define('DB_NAME_ADMIN', 'Nomadix');
+define('ROLE_ADMIN', 1);
 
 function normalizeString($str) {
     // Ta fonction existante

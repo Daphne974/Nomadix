@@ -24,6 +24,15 @@ try {
 } catch (PDOException $e) {
     die("❌ Erreur : " . $e->getMessage());
 }
+
+// Exemple pour une page réservée aux admins
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION['user']) || !isset($_SESSION['user']['is_admin']) || !$_SESSION['user']['is_admin']) {
+    header("HTTP/1.0 403 Forbidden");
+    die("Accès refusé. Réservé aux administrateurs.");
+}
 ?>
 
 <main>

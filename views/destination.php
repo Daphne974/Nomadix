@@ -35,7 +35,7 @@
         <h1><a href="index.php" style="text-decoration: none;">Nomadix</a></h1>
     </div>
 
-    <div class="destination-panels" style="background-image: url('/Nomadix/public/images/<?= normalizeString($destination['ville']) ?>.jpg');">
+    <div class="destination-panels" style="background-image: url('<?= htmlspecialchars($destination['image']) ?>');">
         <div class="destination-container">
             <h1 class="destination-title">
                 <?= htmlspecialchars($destination['nom']) ?>, <?= htmlspecialchars($destination['pays']) ?>

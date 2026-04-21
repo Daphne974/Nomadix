@@ -1,6 +1,19 @@
 <?php
 // Nomadix/views/header.php
 ?>
+<!-- Dans la partie où tu affiches les boutons de navigation -->
+<?php if (isset($_SESSION["user"])): ?>
+    <div class="nav-buttons">
+        <form method="post">
+            <button type="submit" name="deconnectetoi" class="button1" onclick="return confirm('Es-tu sûr de vouloir te déconnecter ?')">Se déconnecter</button>
+        </form>
+        <?php if (isset($_SESSION['user']['is_admin']) && $_SESSION['user']['is_admin']): ?>
+            <a href="admin.php" class="button2">Admin</a> <!-- <-- Ajoute cette ligne -->
+        <?php endif; ?>
+    </div>
+<?php else: ?>
+    <!-- ... (le reste de ton code) -->
+<?php endif; ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
