@@ -38,7 +38,12 @@ if (isset($_POST['deconnectetoi'])) {
     <header class="main-header">
         <div class="header-content">
             <div class="logo">
-                <a href="index.php"><h1>🌍 Nomadix</h1></a>
+                <?php if(isset($_SESSION["user"])): ?>
+                    <a href="index.php"><h1>Nomadix</h1></a>
+                <?php else: ?>
+                    <a href="index.php"><h1>Bienvenue sur Nomadix</h1></a>
+                    <p>Découvrez nos destinations et <a href="inscription.php" style="color: rgb(152, 0, 207);">créez votre compte</a> dès maintenant !</p>
+                <?php endif; ?>
             </div>
             <nav class="nav-buttons">
                 <?php if (isset($_SESSION["user"])): ?>

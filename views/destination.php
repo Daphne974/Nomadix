@@ -16,6 +16,9 @@ if (isset($_SESSION['flash_message']) && isset($_SESSION['flash_message_class'])
     unset($_SESSION['flash_message']);
     unset($_SESSION['flash_message_class']);
 }
+
+
+require_once __DIR__ . '/header.php';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -47,30 +50,6 @@ if (isset($_SESSION['flash_message']) && isset($_SESSION['flash_message_class'])
     <?php if (!empty($message)): ?>
         <div class="message <?= htmlspecialchars($messageClass) ?>"><?= htmlspecialchars($message) ?></div>
     <?php endif; ?>
-
-    <header>
-        <?php if (isset($_SESSION["user"])): ?>
-            <div class="nav-buttons">
-                <span class="user-info">👤 <?= htmlspecialchars($_SESSION["user"]["login"]) ?></span>
-                <a href="profil.php" class="button4">Profil</a>
-                <?php if ((int)$_SESSION['user']['admin'] === 1): ?>
-                    <a href="admin.php" class="button-admin">Admin</a>
-                <?php endif; ?>
-                <form method="post" style="display:inline;">
-                    <button type="submit" name="deconnectetoi" class="button1" onclick="return confirm('Êtes-vous sûr de vouloir vous déconnecter?')">Déconnexion</button>
-                </form>
-            </div>
-        <?php else: ?>
-            <div class="nav-buttons">
-                <a href="connexion.php" class="button2">Se connecter</a>
-                <a href="inscription.php" class="button1">S'inscrire</a>
-            </div>
-        <?php endif; ?>
-    </header>
-
-    <div class="nav-main">
-        <h1><a href="index.php" style="text-decoration: none;">Nomadix</a></h1>
-    </div>
 
     <div class="destination-panels" style="background-image: url('<?= htmlspecialchars($destination['image']) ?>');">
         <div class="destination-container">

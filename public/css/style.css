@@ -418,6 +418,10 @@ p {
     gap: 15px;
 }
 
+a{
+    text-decoration: none;
+}
+
 .avis-form textarea {
     width: 100%;
     padding: 10px;
