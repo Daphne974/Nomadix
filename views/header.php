@@ -14,6 +14,7 @@ if (isset($_POST['deconnectetoi'])) {
 ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,28 +35,46 @@ if (isset($_POST['deconnectetoi'])) {
     <link rel="stylesheet" href="public/css/style.css">
     <script src="public/js/script.js" defer></script>
 </head>
+
 <body>
     <header class="main-header">
         <div class="header-content">
             <div class="logo">
-                <?php if(isset($_SESSION["user"])): ?>
+                <?php if (isset($currentPage) && ($currentPage === '404.php' || $currentPage === '403.php')): ?>
+                    <!-- Pages d'erreur : affiche simplement le logo -->
+                    <a href="index.php">
+                        <h1>Nomadix</h1>
+                    </a>
+
+                <?php elseif (isset($_SESSION["user"])): ?>
                     <a href="index.php"><h1>Nomadix</h1></a>
+                    <?php $currentPage = basename($_SERVER['PHP_SELF']); ?>
+                    <?php if ($currentPage === 'index.php'): ?>
+                        <p>Heureux de te revoir <?= htmlspecialchars($_SESSION["user"]["login"]) ?>!</p>
+                    <?php endif; ?>
+
+
                 <?php else: ?>
-                    <a href="index.php"><h1>Bienvenue sur Nomadix</h1></a>
-                    <p>Découvrez nos destinations et <a href="inscription.php" style="color: rgb(152, 0, 207);">créez votre compte</a> dès maintenant !</p>
+                    <!-- Utilisateur non connecté : affiche le message de bienvenue -->
+                    <a href="index.php">
+                        <h1>Bienvenue sur Nomadix</h1>
+                    </a>
+                    <p>Découvrez nos destinations et <a href="inscription.php" style="color: rgb(152, 0, 207);">créez votre
+                            compte</a> dès maintenant !</p>
                 <?php endif; ?>
             </div>
             <nav class="nav-buttons">
-                <?php 
+                <?php
                 $currentPage = basename($_SERVER['PHP_SELF']);
                 if (isset($_SESSION["user"])): ?>
                     <span class="user-info">👤 <?= htmlspecialchars($_SESSION["user"]["login"]) ?></span>
                     <a href="profil.php" class="button4">Profil</a>
-                    <?php if ((int)$_SESSION['user']['admin'] === 1): ?>
-                        <a href="admin.php" class="button-admin">Admin</a>
+                    <?php if ((int) $_SESSION['user']['admin'] === 1): ?>
+                        <a href="admin.php" class="button4">Admin</a>
                     <?php endif; ?>
                     <form method="post" style="display:inline;">
-                        <button type="submit" name="deconnectetoi" class="button3" onclick="return confirm('Êtes-vous sûr de vouloir vous déconnecter?')">Déconnexion</button>
+                        <button type="submit" name="deconnectetoi" class="button3"
+                            onclick="return confirm('Êtes-vous sûr de vouloir vous déconnecter?')">Déconnexion</button>
                     </form>
                 <?php elseif ($currentPage === 'connexion.php'): ?>
                     <a href="index.php" class="button1">Accueil</a>
@@ -63,6 +82,10 @@ if (isset($_POST['deconnectetoi'])) {
                 <?php elseif ($currentPage === 'inscription.php'): ?>
                     <a href="index.php" class="button1">Accueil</a>
                     <a href="connexion.php" class="button2">Connexion</a>
+                <?php elseif ($currentPage === '404.php'): ?>
+                    <a href="index.php" class="button1">Accueil</a>
+                <?php elseif ($currentPage === '403.php'): ?>
+                    <a href="index.php" class="button1">Accueil</a>
                 <?php else: ?>
                     <a href="connexion.php" class="button2">Se connecter</a>
                     <a href="inscription.php" class="button1">S'inscrire</a>
