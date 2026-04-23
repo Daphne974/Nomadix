@@ -46,7 +46,9 @@ if (isset($_POST['deconnectetoi'])) {
                 <?php endif; ?>
             </div>
             <nav class="nav-buttons">
-                <?php if (isset($_SESSION["user"])): ?>
+                <?php 
+                $currentPage = basename($_SERVER['PHP_SELF']);
+                if (isset($_SESSION["user"])): ?>
                     <span class="user-info">👤 <?= htmlspecialchars($_SESSION["user"]["login"]) ?></span>
                     <a href="profil.php" class="button4">Profil</a>
                     <?php if ((int)$_SESSION['user']['admin'] === 1): ?>
@@ -55,6 +57,12 @@ if (isset($_POST['deconnectetoi'])) {
                     <form method="post" style="display:inline;">
                         <button type="submit" name="deconnectetoi" class="button3" onclick="return confirm('Êtes-vous sûr de vouloir vous déconnecter?')">Déconnexion</button>
                     </form>
+                <?php elseif ($currentPage === 'connexion.php'): ?>
+                    <a href="index.php" class="button1">Accueil</a>
+                    <a href="inscription.php" class="button1">Inscription</a>
+                <?php elseif ($currentPage === 'inscription.php'): ?>
+                    <a href="index.php" class="button1">Accueil</a>
+                    <a href="connexion.php" class="button2">Connexion</a>
                 <?php else: ?>
                     <a href="connexion.php" class="button2">Se connecter</a>
                     <a href="inscription.php" class="button1">S'inscrire</a>

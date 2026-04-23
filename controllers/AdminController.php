@@ -139,6 +139,41 @@ class AdminController {
     }
     
     /**
+     * Gère tous les appels d'administration
+     */
+    public function handleAdmin() {
+        $page = $_GET['page'] ?? 'dashboard';
+        $action = $_GET['action'] ?? null;
+
+        // Traiter les actions POST
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $action = $_POST['action'] ?? null;
+            
+            if ($action === 'toggle_admin') {
+                $this->toggleAdmin();
+            } elseif ($action === 'delete_user') {
+                $this->deleteUser();
+            } elseif ($action === 'delete_review') {
+                $this->deleteReview();
+            }
+        }
+
+        // Afficher les pages
+        switch ($page) {
+            case 'users':
+                $this->manageUsers();
+                break;
+            case 'reviews':
+                $this->manageReviews();
+                break;
+            case 'dashboard':
+            default:
+                $this->showDashboard();
+                break;
+        }
+    }
+
+    /**
      * Génère un token CSRF
      */
     public function generateCsrfToken() {
@@ -152,7 +187,7 @@ class AdminController {
         
         return $_SESSION['csrf_token'];
     }
-    
+
     /**
      * Vérifie un token CSRF
      */

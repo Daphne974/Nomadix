@@ -67,5 +67,54 @@ class AuthController {
         // Inclure la vue
         require_once __DIR__ . '/../views/register.php';
     }
+
+    public function login() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $message = '';
+        $messageClass = '';
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $login = trim($_POST['login'] ?? '');
+            $motDePasse = $_POST['motDePasse'] ?? '';
+
+            // Validation des champs
+            if (empty($login) || empty($motDePasse)) {
+                $message = "Veuillez remplir tous les champs.";
+                $messageClass = "error";
+            } else {
+                $userModel = new UserModel();
+                $user = $userModel->getUserByLogin($login);
+
+                // Vérifier les identifiants
+                if ($user && password_verify($motDePasse, $user['motDePasse'])) {
+                    $_SESSION['user'] = $user;
+                    $_SESSION['user']['is_admin'] = (int)$user['admin'] === 1;
+                    
+                    // Redirection selon le rôle
+                    if ($_SESSION['user']['is_admin']) {
+                        header("Location: admin.php");
+                    } else {
+                        header("Location: index.php");
+                    }
+                    exit;
+                } else {
+                    $message = "Identifiants incorrects.";
+                    $messageClass = "error";
+                }
+            }
+        }
+
+        // Gestion des messages flash
+        if (!empty($message)) {
+            $_SESSION['flash_message'] = $message;
+            $_SESSION['flash_message_class'] = $messageClass;
+        }
+
+        // Inclure la vue
+        require_once __DIR__ . '/../views/login.php';
+    }
 }
 ?>

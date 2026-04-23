@@ -1,5 +1,5 @@
 <?php
-// Nomadix/views/register.php
+// Nomadix/views/login.php
 require_once __DIR__ . '/header.php';
 ?>
 
@@ -18,19 +18,15 @@ require_once __DIR__ . '/header.php';
 
     <div class="forms">
         <form method="POST">
-            <h2>Inscription</h2>
+            <h2>Se connecter</h2>
             <label>Login :</label>
             <input type="text" name="login" required><br><br>
-            <label>Email :</label>
-            <input type="email" name="email" required><br><br>
             <label>Mot de passe :</label>
-            <input type="password" name="motDePasse" required><br><br>
-            <label>Confirmer le mot de passe :</label>
-            <input type="password" name="confirmerMotDePasse" required>
-            <input type="submit" value="S'inscrire"><br><br>
+            <input type="password" name="motDePasse" required>
+            <input type="submit" value="Se connecter"><br><br>
         </form>
         <div class="register-link">
-                <p>Déjà un compte ? <a href="connexion.php">Se connecter</a></p>
+                <p>Pas encore de compte ? <a href="inscription.php">S'inscrire</a></p>
         </div>
     </div>
 </main>

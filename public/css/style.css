@@ -553,6 +553,76 @@ footer {
 }
 
 /* ========================= */
+/*     AUTH CONTAINER        */
+/* ========================= */
+
+.auth-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.auth-container h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.auth-container label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: bold;
+}
+
+.auth-container input[type="text"],
+.auth-container input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.auth-container input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: rgb(10, 49, 248);
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.auth-container input[type="submit"]:hover {
+    background-color: #2980b9;
+}
+
+.form-divider {
+    text-align: center;
+    margin: 20px 0;
+    color: #7f8c8d;
+}
+
+.register-link {
+    text-align: center;
+}
+
+.register-link a {
+    color: rgb(10, 49, 248);
+    text-decoration: none;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+/* ========================= */
 /*        RESPONSIVE         */
 /* ========================= */
 
