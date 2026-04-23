@@ -15,7 +15,7 @@ class UserModel
     public function registerUser($login, $email, $motDePasseHache)
     {
         $conn = Database::getAdminConnection();
-        $stmt = $conn->prepare("INSERT INTO utilisateurs (login, email, motDePasse) VALUES (?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO utilisateurs (login, email, motDePasse, admin) VALUES (?, ?, ?, 0)");
         return $stmt->execute([$login, $email, $motDePasseHache]);
     }
 

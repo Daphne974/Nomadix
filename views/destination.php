@@ -1,26 +1,63 @@
 <?php
 // Nomadix/views/destination.php
 // Les variables suivantes doivent être définies par le contrôleur :
-// $destination, $allAvis, $noteMoyenne, $userAvis, $message, $messageClass
+// $destination, $allAvis, $noteMoyenne, $userAvis, $csrfToken
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Récupérer les messages flash
+$message = '';
+$messageClass = '';
+if (isset($_SESSION['flash_message']) && isset($_SESSION['flash_message_class'])) {
+    $message = $_SESSION['flash_message'];
+    $messageClass = $_SESSION['flash_message_class'];
+    unset($_SESSION['flash_message']);
+    unset($_SESSION['flash_message_class']);
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title><?= htmlspecialchars($destination['nom']) ?> - <?= htmlspecialchars($destination['pays']) ?> | Nomadix</title>
-    <link rel="stylesheet" href="/Nomadix/public/css/style.css">
+    <link rel="stylesheet" href="public/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .message {
+            padding: 15px 20px;
+            margin: 20px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
 </head>
 <body>
-    <?php if (isset($message) && isset($messageClass)): ?>
-        <div class="message <?= $messageClass ?>"><?= htmlspecialchars($message) ?></div>
+    <?php if (!empty($message)): ?>
+        <div class="message <?= htmlspecialchars($messageClass) ?>"><?= htmlspecialchars($message) ?></div>
     <?php endif; ?>
 
     <header>
         <?php if (isset($_SESSION["user"])): ?>
             <div class="nav-buttons">
-                <form method="post">
-                    <button type="submit" name="deconnectetoi" class="button1" onclick="return confirm('Es-tu sûr de vouloir te déconnecter ?')">Se déconnecter</button>
+                <span class="user-info">👤 <?= htmlspecialchars($_SESSION["user"]["login"]) ?></span>
+                <a href="profil.php" class="button4">Profil</a>
+                <?php if ((int)$_SESSION['user']['admin'] === 1): ?>
+                    <a href="admin.php" class="button-admin">Admin</a>
+                <?php endif; ?>
+                <form method="post" style="display:inline;">
+                    <button type="submit" name="deconnectetoi" class="button1" onclick="return confirm('Êtes-vous sûr de vouloir vous déconnecter?')">Déconnexion</button>
                 </form>
             </div>
         <?php else: ?>
@@ -73,6 +110,7 @@
                 </div>
             <?php else: ?>
                 <form action="" method="post" class="avis-form">
+                    <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken) ?>">
                     <div class="evaluation">
                         <input type="radio" name="note" id="star5" value="5" <?= ($userAvis && $userAvis['note'] == 5) ? 'checked' : '' ?>>
                         <label for="star5">&#9733;</label>
@@ -88,8 +126,8 @@
                     <textarea name="commentaire" placeholder="Partagez votre expérience..." maxlength="1000"><?= htmlspecialchars($userAvis['commentaire'] ?? '') ?></textarea>
                     <?php if ($userAvis): ?>
                         <div class="boutons_modifetsupp">
-                            <button name="ok" type="submit" class="envoyer" onclick="return confirm('Es-tu sûr de vouloir modifier ton commentaire ?')">Modifier</button>
-                            <button name="supprimer_avis" type="submit" class="supp_avis" onclick="return confirm('Es-tu sûr de vouloir supprimer ton commentaire ?')">Supprimer</button>
+                            <button name="ok" type="submit" class="envoyer" onclick="return confirm('Êtes-vous sûr de vouloir modifier votre commentaire?')">Modifier</button>
+                            <button name="supprimer_avis" type="submit" class="supp_avis" onclick="return confirm('Êtes-vous sûr de vouloir supprimer votre commentaire?')">Supprimer</button>
                         </div>
                     <?php else: ?>
                         <button name="ok" type="submit" class="envoyer">Envoyer</button>
