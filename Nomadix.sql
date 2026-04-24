@@ -15,25 +15,26 @@ CREATE TABLE `avis` (
   `note` int NOT NULL,
   `commentaire` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `dateAvis` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `verified` tinyint NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idUtilisateur` (`idUtilisateur`),
   KEY `idDestination` (`idDestination`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `avis` (`id`, `idUtilisateur`, `idDestination`, `note`, `commentaire`, `dateAvis`) VALUES
-(1,	1,	1,	5,	'Incroyable, surtout la nuit !',	'2025-05-12 10:44:26'),
-(2,	2,	2,	4,	'Très impressionnant mais un peu bondé.',	'2025-05-12 10:44:26'),
-(3,	3,	3,	5,	'Un voyage dans le temps !',	'2025-05-12 10:44:26'),
-(4,	1,	3,	4,	'Magnifique architecture.',	'2025-05-12 10:44:26'),
-(5,	2,	1,	3,	'Belle vue, mais beaucoup de monde.',	'2025-05-12 10:44:26'),
-(6,	6,	4,	3,	'Super endroit à visiter !',	'2025-05-16 10:44:25'),
-(7,	12,	4,	4,	'Le Taj Mahal est un chef-d\'œuvre architectural impressionnant, symbole d\'amour éternel. Son marbre blanc, ses jardins symétriques et son histoire émouvante en font une destination incontournable en Inde.',	'2025-05-16 10:46:10'),
-(8,	12,	1,	5,	'Réservation pour le sommet impossible à J-60 : complet. Mais quelques jours avant ,oh miracle,beaucoup de places ont été disponibles sans doute redonnés par des tours opérateurs. J ai ainsi constaté que chaque jour, un jour était libéré, mais vite pris. Sinon pour nous, peu d\'attente avec nos réservations. Un peu plus long pour le 2é ascenseur alors que c’était les vacances scolaires. Paysage vraiment plus impressionnant du sommet !',	'2025-05-16 12:26:37'),
-(9,	3,	1,	5,	'Beau pays , ma belle france\r\n',	'2025-05-23 07:41:07'),
-(10,	14,	1,	3,	'coucou',	'2025-05-21 11:59:46'),
-(14,	1,	2,	5,	'',	'2025-05-21 12:03:37'),
-(19,	16,	1,	5,	'Ma belle france',	'2025-05-23 07:31:16'),
-(31,	6,	3,	4,	'Super ! J\'étais petite lorsque j\'y suis allée et j\'en garde de super souvenirs. Le seul problème c\'est les personnes qui arnaque les gens.',	'2025-05-25 20:52:53');
+INSERT INTO `avis` (`id`, `idUtilisateur`, `idDestination`, `note`, `commentaire`, `dateAvis`, `verified`) VALUES
+(1,	1,	1,	5,	'Incroyable, surtout la nuit !',	'2025-05-12 10:44:26',	0),
+(2,	2,	2,	4,	'Très impressionnant mais un peu bondé.',	'2025-05-12 10:44:26',	0),
+(3,	3,	3,	5,	'Un voyage dans le temps !',	'2025-05-12 10:44:26',	0),
+(4,	1,	3,	4,	'Magnifique architecture.',	'2025-05-12 10:44:26',	0),
+(5,	2,	1,	3,	'Belle vue, mais beaucoup de monde.',	'2025-05-12 10:44:26',	0),
+(6,	6,	4,	3,	'Super endroit à visiter !',	'2025-05-16 10:44:25',	0),
+(7,	12,	4,	4,	'Le Taj Mahal est un chef-d\'œuvre architectural impressionnant, symbole d\'amour éternel. Son marbre blanc, ses jardins symétriques et son histoire émouvante en font une destination incontournable en Inde.',	'2025-05-16 10:46:10',	0),
+(8,	12,	1,	5,	'Réservation pour le sommet impossible à J-60 : complet. Mais quelques jours avant ,oh miracle,beaucoup de places ont été disponibles sans doute redonnés par des tours opérateurs. J ai ainsi constaté que chaque jour, un jour était libéré, mais vite pris. Sinon pour nous, peu d\'attente avec nos réservations. Un peu plus long pour le 2é ascenseur alors que c’était les vacances scolaires. Paysage vraiment plus impressionnant du sommet !',	'2025-05-16 12:26:37',	0),
+(9,	3,	1,	5,	'Beau pays , ma belle france\r\n',	'2025-05-23 07:41:07',	0),
+(10,	14,	1,	3,	'coucou',	'2025-05-21 11:59:46',	0),
+(14,	1,	2,	5,	'',	'2025-05-21 12:03:37',	0),
+(19,	16,	1,	5,	'Ma belle france',	'2025-05-23 07:31:16',	0),
+(31,	6,	3,	4,	'Super ! J\'étais petite lorsque j\'y suis allée et j\'en garde de super souvenirs. Le seul problème c\'est les personnes qui arnaque les gens.',	'2025-05-25 20:52:53',	0);
 
 DROP TABLE IF EXISTS `destinations`;
 CREATE TABLE `destinations` (
@@ -78,7 +79,7 @@ INSERT INTO `utilisateurs` (`id`, `login`, `motDePasse`, `email`, `dateCreation`
 (4,	'Lori',	'$2y$10$IgYYXAmQyNXZZVJpROSq9uPWSLkeLkELgfexuJEdcC9T7Dy8lp6iu',	'Lori55@gmail.com',	'2025-05-15 11:47:12',	0),
 (5,	'Lola',	'$2y$10$WAOOcXfjmdd8.EcTZX1Sl.MScrK21Km9lcPCKcwtOPVrp6sEYbkM2',	'Lola78@gmail.com',	'2025-05-15 11:59:45',	0),
 (6,	'Daphné',	'$2y$10$fU1wABvU/fPDYCohFD0Xp.XAGLGcdyvzeqfqFh/sk9iZKa03I1wMi',	'daphneliret@gmail.com',	'2025-05-15 12:02:03',	0),
-(12,	'lola',	'$2y$10$RRgzneU.7PVeXvFnU1ZUVeiSD4EVbefCEDNL0u1/Ok.9PJ3XOI6zK',	'lola@bdye',	'2025-05-15 13:55:34',	0),
+(12,	'lola',	'$2y$10$RRgzneU.7PVeXvFnU1ZUVeiSD4EVbefCEDNL0u1/Ok.9PJ3XOI6zK',	'lola@bdye.com',	'2025-05-15 13:55:34',	0),
 (14,	'Laura',	'$2y$10$eUxNt6s11AIlcSwplveE3uQc7ZKrFV2RSSWXyvF3O1NDh68BGz54a',	'Laura10@gmail.com',	'2025-05-21 11:32:39',	0),
 (16,	'oui',	'$2y$10$otiTBFkSJAUdhSxH1VVwqOoDAYKfZvlfDqh8PMFeQZXoXSdaROy/a',	'oui72@gmail.com',	'2025-05-23 07:29:24',	0),
 (17,	'oYI',	'$2y$10$s0OWJrZrJJP5q34R9AHD9uKz2LvhCD2sHTPBaHPB2lzejTirimdxa',	'daphneliret9@gmail.com',	'2025-05-23 07:45:11',	0),
@@ -93,4 +94,4 @@ INSERT INTO `utilisateurs` (`id`, `login`, `motDePasse`, `email`, `dateCreation`
 (28,	'bryan',	'$2y$10$QTeRowaqdna1tLLnRnTuhex07UJ1YtJE/Jri5Wy5yFjHgVW.nmGYi',	'bryan@gmail.com',	'2026-04-23 08:55:41',	1),
 (29,	'tablette',	'$2y$10$DDNGlgCTDviNsgVaYzFLo.4scfjeTPkcA5ldOzscAAYiaPQG.hqPK',	'chocolat@gmail.com',	'2026-04-23 09:52:52',	0);
 
--- 2026-04-23 10:12:56
+-- 2026-04-24 08:56:47

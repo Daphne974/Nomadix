@@ -47,7 +47,9 @@ if (isset($_POST['deconnectetoi'])) {
                     </a>
 
                 <?php elseif (isset($_SESSION["user"])): ?>
-                    <a href="index.php"><h1>Nomadix</h1></a>
+                    <a href="index.php">
+                        <h1>Nomadix</h1>
+                    </a>
                     <?php $currentPage = basename($_SERVER['PHP_SELF']); ?>
                     <?php if ($currentPage === 'index.php'): ?>
                         <p>Heureux de te revoir <?= htmlspecialchars($_SESSION["user"]["login"]) ?>!</p>
@@ -94,4 +96,4 @@ if (isset($_POST['deconnectetoi'])) {
         </div>
     </header>
 
-    </header>
+</body>

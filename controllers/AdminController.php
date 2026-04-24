@@ -3,17 +3,20 @@
 require_once __DIR__ . '/../models/AdminModel.php';
 require_once __DIR__ . '/../models/Database.php';
 
-class AdminController {
+class AdminController
+{
     private $adminModel;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->adminModel = new AdminModel();
     }
 
     /**
      * Verifie que l'utilisateur est admin
      */
-    public static function checkAdminAccess() {
+    public static function checkAdminAccess()
+    {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
@@ -27,7 +30,8 @@ class AdminController {
     /**
      * Affiche le dashboard admin
      */
-    public function showDashboard() {
+    public function showDashboard()
+    {
         $stats = $this->adminModel->getDashboardStats();
         $recentReviews = $this->adminModel->getRecentReviews(5);
         $users = $this->adminModel->getAllUsers();
@@ -38,7 +42,8 @@ class AdminController {
     /**
      * Affiche la page de gestion des utilisateurs
      */
-    public function manageUsers() {
+    public function manageUsers()
+    {
         $users = $this->adminModel->getAllUsers();
         require_once __DIR__ . '/../views/admin-users.php';
     }
@@ -46,7 +51,8 @@ class AdminController {
     /**
      * Affiche la page de gestion des avis
      */
-    public function manageReviews() {
+    public function manageReviews()
+    {
         $reviews = $this->adminModel->getAllReviews();
         require_once __DIR__ . '/../views/admin-reviews.php';
     }
@@ -54,7 +60,8 @@ class AdminController {
     /**
      * Bascule le statut admin d'un utilisateur
      */
-    public function toggleAdmin() {
+    public function toggleAdmin()
+    {
         if (!isset($_POST['userId']) || !isset($_POST['csrf_token'])) {
             http_response_code(400);
             die("Parametres manquants");
@@ -66,7 +73,7 @@ class AdminController {
             die("Token CSRF invalide");
         }
 
-        $userId = (int)$_POST['userId'];
+        $userId = (int) $_POST['userId'];
         $user = $this->adminModel->getUserById($userId);
 
         if (!$user) {
@@ -90,7 +97,8 @@ class AdminController {
     /**
      * Supprime un utilisateur
      */
-    public function deleteUser() {
+    public function deleteUser()
+    {
         if (!isset($_POST['userId']) || !isset($_POST['csrf_token'])) {
             http_response_code(400);
             die("Parametres manquants");
@@ -102,7 +110,7 @@ class AdminController {
             die("Token CSRF invalide");
         }
 
-        $userId = (int)$_POST['userId'];
+        $userId = (int) $_POST['userId'];
 
         // Ne pas supprimer le propre compte
         if ($userId === $_SESSION['user']['id']) {
@@ -119,7 +127,8 @@ class AdminController {
     /**
      * Supprime un avis
      */
-    public function deleteReview() {
+    public function deleteReview()
+    {
         if (!isset($_POST['reviewId']) || !isset($_POST['csrf_token'])) {
             http_response_code(400);
             die("Parametres manquants");
@@ -131,7 +140,7 @@ class AdminController {
             die("Token CSRF invalide");
         }
 
-        $reviewId = (int)$_POST['reviewId'];
+        $reviewId = (int) $_POST['reviewId'];
         $this->adminModel->deleteReview($reviewId);
 
         header("Location: admin.php?page=reviews&success=deleted");
@@ -141,7 +150,8 @@ class AdminController {
     /**
      * Gere tous les appels d'administration
      */
-    public function handleAdmin() {
+    public function handleAdmin()
+    {
         $page = $_GET['page'] ?? 'dashboard';
         $action = $_GET['action'] ?? null;
 
@@ -176,7 +186,8 @@ class AdminController {
     /**
      * Genere un token CSRF
      */
-    public function generateCsrfToken() {
+    public function generateCsrfToken()
+    {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
@@ -191,12 +202,125 @@ class AdminController {
     /**
      * Verifie un token CSRF
      */
-    private function verifyCsrfToken($token) {
+    private function verifyCsrfToken($token)
+    {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
 
         return isset($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
+    }
+
+    // Nomadix/controllers/AdminController.php
+    public function showAdminPanel()
+    {
+        $conn = Database::getAdminConnection();
+
+        // Récupère les statistiques
+        $stats = $this->getStats($conn);
+
+        // Récupère les avis récents (non vérifiés par défaut)
+        $recentReviews = $this->getRecentReviews($conn, false); // false = non vérifiés seulement
+
+        // Récupère les utilisateurs
+        $users = $this->getUsers($conn);
+
+        require_once __DIR__ . '/../views/admin.php';
+    }
+
+    public function getRecentReviews($conn, $showAll = false)
+    {
+        $query = "SELECT avis.*, utilisateurs.login, destinations.nom as destinationNom
+              FROM avis
+              INNER JOIN utilisateurs ON avis.idUtilisateur = utilisateurs.id
+              INNER JOIN destinations ON avis.idDestination = destinations.id";
+
+        if (!$showAll) {
+            $query .= " WHERE avis.verified = 0"; // Filtre pour les avis non vérifiés
+        }
+
+        $query .= " ORDER BY avis.dateAvis DESC LIMIT 5";
+
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    public function getAllReviews($conn)
+    {
+        return $this->getRecentReviews($conn, true); // true = tous les avis
+    }
+
+    public function toggleReviewVerification()
+    {
+        if (!isset($_GET['id'])) {
+            header("Location: admin.php");
+            exit;
+        }
+
+        $reviewId = (int) $_GET['id'];
+        $conn = Database::getAdminConnection();
+
+        // Bascule l'état de vérification
+        $stmt = $conn->prepare("SELECT verified FROM avis WHERE id = ?");
+        $stmt->execute([$reviewId]);
+        $review = $stmt->fetch();
+
+        if (!$review) {
+            die("Avis non trouvé.");
+        }
+
+        $newVerifiedStatus = $review['verified'] ? 0 : 1;
+        $stmt = $conn->prepare("UPDATE avis SET verified = ? WHERE id = ?");
+        $stmt->execute([$newVerifiedStatus, $reviewId]);
+
+        header("Location: admin.php?success=1");
+        exit;
+    }
+
+    public function getStats($conn)
+    {
+        // Récupère les statistiques (utilisateurs, avis, etc.)
+        $stats = [];
+
+        // Total utilisateurs
+        $stmt = $conn->prepare("SELECT COUNT(*) as count FROM utilisateurs");
+        $stmt->execute();
+        $stats['totalUsers'] = $stmt->fetch()['count'];
+
+        // Total admins
+        $stmt = $conn->prepare("SELECT COUNT(*) as count FROM utilisateurs WHERE admin = 1");
+        $stmt->execute();
+        $stats['totalAdmins'] = $stmt->fetch()['count'];
+
+        // Total avis
+        $stmt = $conn->prepare("SELECT COUNT(*) as count FROM avis");
+        $stmt->execute();
+        $stats['totalReviews'] = $stmt->fetch()['count'];
+
+        // Total destinations
+        $stmt = $conn->prepare("SELECT COUNT(*) as count FROM destinations");
+        $stmt->execute();
+        $stats['totalDestinations'] = $stmt->fetch()['count'];
+
+        // Note moyenne
+        $stmt = $conn->prepare("SELECT AVG(note) as avg FROM avis");
+        $stmt->execute();
+        $stats['averageRating'] = number_format($stmt->fetch()['avg'], 1);
+
+        // Nouveaux utilisateurs ce mois
+        $stmt = $conn->prepare("SELECT COUNT(*) as count FROM utilisateurs WHERE dateCreation >= DATE_SUB(NOW(), INTERVAL 1 MONTH)");
+        $stmt->execute();
+        $stats['usersThisMonth'] = $stmt->fetch()['count'];
+
+        return $stats;
+    }
+
+    public function getUsers($conn)
+    {
+        $stmt = $conn->prepare("SELECT id, login, email, admin FROM utilisateurs ORDER BY dateCreation DESC");
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
 }
 ?>
