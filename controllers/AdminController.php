@@ -403,9 +403,12 @@ class AdminController
     private function sanitizeVille($ville)
     {
         $name = $ville ?: '';
+        // transliterate accents
         $name = iconv('UTF-8', 'ASCII//TRANSLIT', $name);
-        $name = preg_replace('/[^A-Za-z0-9-_]/', '-', $name);
-        $name = trim($name, '-');
+        // remove all whitespace (concatenate words)
+        $name = preg_replace('/\s+/', '', $name);
+        // remove any remaining non-alphanumeric characters
+        $name = preg_replace('/[^A-Za-z0-9]/', '', $name);
         $name = strtolower($name);
         if ($name === '') {
             $name = bin2hex(random_bytes(6));
