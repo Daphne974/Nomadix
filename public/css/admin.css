@@ -7,15 +7,13 @@
     display: flex;
     width: 100%;
     max-width: 1400px;
-    margin: 0 auto;
 }
 
 .admin-sidebar {
     width: 250px;
-    background-color: #2c3e50;
-    color: white;
     padding: 20px 0;
     box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
 }
 
 .admin-sidebar h2 {
@@ -44,11 +42,11 @@
 
 .admin-sidebar .nav-link:hover,
 .admin-sidebar .nav-link.active {
-    background-color: #3498db;
+    background-color: rgb(97, 0, 132);
 }
 
 .admin-sidebar .nav-link.logout {
-    color: #e74c3c;
+    color: rgb(0, 191, 255);
     margin-top: 20px;
     border-top: 1px solid #34495e;
 }
@@ -86,13 +84,9 @@
 }
 
 .stat-card {
-    background-color: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    display: flex;
-    align-items: center;
-    gap: 20px;
 }
 
 .stat-icon {
@@ -200,6 +194,11 @@
 
 .btn-small:hover {
     background-color: #2980b9;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
 }
 
 @media (max-width: 768px) {

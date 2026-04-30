@@ -22,9 +22,11 @@ require_once __DIR__ . '/header.php';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
-    <title><?= htmlspecialchars($destination['nom']) ?> - <?= htmlspecialchars($destination['pays']) ?> | Nomadix</title>
+    <title><?= htmlspecialchars($destination['nom']) ?> - <?= htmlspecialchars($destination['pays']) ?> | Nomadix
+    </title>
     <link rel="stylesheet" href="public/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -34,11 +36,13 @@ require_once __DIR__ . '/header.php';
             border-radius: 5px;
             font-weight: bold;
         }
+
         .message.success {
             background-color: #d4edda;
             color: #155724;
             border: 1px solid #c3e6cb;
         }
+
         .message.error {
             background-color: #f8d7da;
             color: #721c24;
@@ -46,6 +50,7 @@ require_once __DIR__ . '/header.php';
         }
     </style>
 </head>
+
 <body>
     <?php if (!empty($message)): ?>
         <div class="message <?= htmlspecialchars($messageClass) ?>"><?= htmlspecialchars($message) ?></div>
@@ -102,11 +107,14 @@ require_once __DIR__ . '/header.php';
                         <input type="radio" name="note" id="star1" value="1" <?= ($userAvis && $userAvis['note'] == 1) ? 'checked' : '' ?>>
                         <label for="star1">&#9733;</label>
                     </div>
-                    <textarea name="commentaire" placeholder="Partagez votre expérience..." maxlength="1000"><?= htmlspecialchars($userAvis['commentaire'] ?? '') ?></textarea>
+                    <textarea name="commentaire" placeholder="Partagez votre expérience..."
+                        maxlength="1000"><?= htmlspecialchars($userAvis['commentaire'] ?? '') ?></textarea>
                     <?php if ($userAvis): ?>
                         <div class="boutons_modifetsupp">
-                            <button name="ok" type="submit" class="envoyer" onclick="return confirm('Êtes-vous sûr de vouloir modifier votre commentaire?')">Modifier</button>
-                            <button name="supprimer_avis" type="submit" class="supp_avis" onclick="return confirm('Êtes-vous sûr de vouloir supprimer votre commentaire?')">Supprimer</button>
+                            <button name="ok" type="submit" class="envoyer"
+                                onclick="return confirm('Êtes-vous sûr de vouloir modifier votre commentaire?')">Modifier</button>
+                            <button name="supprimer_avis" type="submit" class="supp_avis"
+                                onclick="return confirm('Êtes-vous sûr de vouloir supprimer votre commentaire?')">Supprimer</button>
                         </div>
                     <?php else: ?>
                         <button name="ok" type="submit" class="envoyer">Envoyer</button>
@@ -144,13 +152,9 @@ require_once __DIR__ . '/header.php';
         <button class="nav-button right" onclick="scrollAvis(1)">&#155;</button>
     </div>
 
-    <form action="index.php" method="get">
-        <button type="submit" class="home-button">Retour à l'accueil</button>
-    </form>
-
-    <footer>
-        <p>&copy; 2026 Nomadix - Tous droits réservés</p>
-    </footer>
+    <?php
+    require_once __DIR__ . '/footer.php';
+    ?>
 
     <script>
         function scrollAvis(direction) {
@@ -163,4 +167,5 @@ require_once __DIR__ . '/header.php';
         }
     </script>
 </body>
+
 </html>

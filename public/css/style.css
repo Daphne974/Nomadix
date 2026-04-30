@@ -543,10 +543,10 @@ a{
 /* ========================= */
 
 footer {
-    position: fixed;
+    position: absolute;
     left: 0;
     right: 0;
-    bottom: 5px;
+    bottom: 0;
     text-align: center;
     font-size: 14px;
     color: rgba(255, 255, 255, 0.7);
@@ -654,7 +654,6 @@ footer {
 
     .home-button,
     footer {
-        position: absolute;
         margin-top: 20px;
     }
 }

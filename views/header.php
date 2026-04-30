@@ -95,5 +95,3 @@ if (isset($_POST['deconnectetoi'])) {
             </nav>
         </div>
     </header>
-
-</body>

@@ -1,6 +1,7 @@
 <?php
 // Nomadix/controllers/HomeController.php
 require_once __DIR__ . '/../models/DestinationModel.php';
+require_once __DIR__ . '/../models/UserModel.php';
 
 class HomeController {
     public function index() {
@@ -32,6 +33,31 @@ class HomeController {
 
         // Inclure la vue
         require_once __DIR__ . '/../views/home.php';
+    }
+
+    public function showProfile() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        // Vérifier que l'utilisateur est connecté
+        if (!isset($_SESSION['user'])) {
+            header("Location: connexion.php");
+            exit;
+        }
+
+        $userModel = new UserModel();
+        $userId = (int)$_SESSION['user']['id'];
+        $user = $userModel->getUserById($userId);
+
+        if (!$user) {
+            die("Utilisateur non trouvé.");
+        }
+
+        // Inclure la vue
+        require_once __DIR__ . '/../views/header.php';
+        require_once __DIR__ . '/../views/profil.php';
+        require_once __DIR__ . '/../views/footer.php';
     }
 }
 ?>
