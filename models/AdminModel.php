@@ -62,7 +62,7 @@ class AdminModel {
     public function getAllReviews() {
         $conn = Database::getClientConnection();
         $stmt = $conn->query("
-            SELECT a.id, a.note, a.commentaire, a.dateAvis,
+            SELECT a.id, a.note, a.commentaire, a.dateAvis, a.verified,
                    u.login, u.email,
                    d.nom as destinationNom, d.image
             FROM avis a

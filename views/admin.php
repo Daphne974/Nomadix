@@ -97,26 +97,7 @@ $csrfToken = $controller->generateCsrfToken();
 
 <main class="admin-dashboard">
     <div class="admin-container">
-        <!-- Navigation admin -->
-        <aside class="admin-sidebar">
-            <h2>Administration</h2>
-            <nav>
-                <ul>
-                    <li><a href="admin.php?page=dashboard"
-                            class="nav-link <?= ($page === 'dashboard') ? 'active' : '' ?>"><i
-                                class="fas fa-chart-line"></i> Dashboard</a></li>
-                    <li><a href="admin.php?page=users"
-                            class="nav-link <?= ($page === 'users') ? 'active' : '' ?>"><i
-                                class="fas fa-users"></i> Utilisateurs</a></li>
-                    <li><a href="admin.php?page=reviews"
-                            class="nav-link <?= ($page === 'reviews') ? 'active' : '' ?>"><i
-                                class="fas fa-star"></i> Avis</a></li>
-                    <li><a href="profil.php" class="nav-link"><i class="fas fa-user"></i> Mon profil</a></li>
-                    <li><a href="connexion.php?logout=1" class="nav-link logout"><i class="fas fa-sign-out-alt"></i>
-                            Déconnexion</a></li>
-                </ul>
-            </nav>
-        </aside>
+        <?php require_once __DIR__ . '/nav-admin.php'; ?>
 
         <!-- Contenu principal -->
         <section class="admin-content">
@@ -236,7 +217,17 @@ $csrfToken = $controller->generateCsrfToken();
                                                 <input type="hidden" name="page" value="dashboard">
                                                 <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken) ?>">
                                                 <button type="submit" class="btn-small">
-                                                    <?= ($review['verified'] ?? false) ? 'Non vérifié' : 'Vérifié' ?>
+                                                    <?= ($review['verified'] ?? false) ? 'À vérifier' : 'Vérifier' ?>
+                                                </button>
+                                            </form>
+                                            <form method="POST" action="admin.php" style="display: inline;">
+                                                <input type="hidden" name="action" value="delete_review">
+                                                <input type="hidden" name="reviewId" value="<?= htmlspecialchars($review['id']) ?>">
+                                                <input type="hidden" name="page" value="dashboard">
+                                                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken) ?>">
+                                                <button type="submit" class="btn-small" style="background-color: #e74c3c;"
+                                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet avis ?')">
+                                                    Supprimer
                                                 </button>
                                             </form>
                                         </div>
@@ -245,7 +236,7 @@ $csrfToken = $controller->generateCsrfToken();
                             <?php endforeach; ?>
                         </div>
                     <?php else: ?>
-                        <p>Aucun avis non vérifié pour le moment.</p>
+                        <p>Aucun avis à vérifier pour le moment.</p>
                     <?php endif; ?>
                 </section>
 

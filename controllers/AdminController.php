@@ -230,7 +230,7 @@ class AdminController
 
     public function getRecentReviews($conn, $showAll = false)
     {
-        $query = "SELECT avis.*, utilisateurs.login, destinations.nom as destinationNom
+        $query = "SELECT avis.*, utilisateurs.login, utilisateurs.email, destinations.nom as destinationNom
               FROM avis
               INNER JOIN utilisateurs ON avis.idUtilisateur = utilisateurs.id
               INNER JOIN destinations ON avis.idDestination = destinations.id";
@@ -239,7 +239,11 @@ class AdminController
             $query .= " WHERE avis.verified = 0"; // Filtre pour les avis non vérifiés
         }
 
-        $query .= " ORDER BY avis.dateAvis DESC LIMIT 5";
+        $query .= " ORDER BY avis.dateAvis DESC";
+        
+        if (!$showAll) {
+            $query .= " LIMIT 5";
+        }
 
         $stmt = $conn->prepare($query);
         $stmt->execute();
@@ -318,7 +322,7 @@ class AdminController
 
     public function getUsers($conn)
     {
-        $stmt = $conn->prepare("SELECT id, login, email, admin FROM utilisateurs ORDER BY dateCreation DESC");
+        $stmt = $conn->prepare("SELECT id, login, email, dateCreation, admin FROM utilisateurs ORDER BY dateCreation DESC");
         $stmt->execute();
         return $stmt->fetchAll();
     }
