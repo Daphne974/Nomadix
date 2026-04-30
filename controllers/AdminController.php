@@ -269,6 +269,16 @@ class AdminController
         ];
 
         if (!empty($_FILES['image_file']['name'])) {
+            // remove previous local image (if any) before saving the new one
+            $existing = $this->adminModel->getDestinationById($id);
+            if (!empty($existing) && !empty($existing['ville'])) {
+                $oldName = $this->sanitizeVille($existing['ville']) . '.jpg';
+                $oldPath = __DIR__ . '/../public/images/' . $oldName;
+                if (is_file($oldPath)) {
+                    @unlink($oldPath);
+                }
+            }
+
             $ville = $data['ville'] ?? '';
             $uploadedLocal = $this->handleImageUpload($_FILES['image_file'], $ville);
             // keep DB image as URL field from form unless explicitly changed in image_url
@@ -388,6 +398,22 @@ class AdminController
     }
 
     /**
+     * Retourne un nom de fichier normalisé à partir du nom de la ville
+     */
+    private function sanitizeVille($ville)
+    {
+        $name = $ville ?: '';
+        $name = iconv('UTF-8', 'ASCII//TRANSLIT', $name);
+        $name = preg_replace('/[^A-Za-z0-9-_]/', '-', $name);
+        $name = trim($name, '-');
+        $name = strtolower($name);
+        if ($name === '') {
+            $name = bin2hex(random_bytes(6));
+        }
+        return $name;
+    }
+
+    /**
      * Supprime une destination (POST)
      */
     public function deleteDestination()
@@ -403,6 +429,16 @@ class AdminController
         }
 
         $destinationId = (int) $_POST['destinationId'];
+        // remove local image file if it exists
+        $existing = $this->adminModel->getDestinationById($destinationId);
+        if (!empty($existing) && !empty($existing['ville'])) {
+            $localName = $this->sanitizeVille($existing['ville']) . '.jpg';
+            $localPath = __DIR__ . '/../public/images/' . $localName;
+            if (is_file($localPath)) {
+                @unlink($localPath);
+            }
+        }
+
         $this->adminModel->deleteDestination($destinationId);
 
         header("Location: admin.php?page=destinations&success=deleted");
