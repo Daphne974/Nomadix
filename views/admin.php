@@ -104,7 +104,7 @@ $csrfToken = $controller->generateCsrfToken();
             <!-- Messages de succès -->
             <?php if ($success): ?>
                 <div class="alert alert-success">
-                    <i class="fas fa-check-circle"></i> 
+                    <i class="fas fa-check-circle"></i>
                     <?php
                     switch ($success) {
                         case '1':
@@ -181,7 +181,7 @@ $csrfToken = $controller->generateCsrfToken();
                         <h2><i class="fas fa-star"></i> Avis récents non vérifiés</h2>
                         <a href="admin.php?page=reviews" class="btn-small">Voir tous les avis</a>
                     </div>
-                    <?php 
+                    <?php
                     $unverifiedReviews = array_filter($allReviews ?? [], function ($review) {
                         return !($review['verified'] ?? false);
                     });
@@ -203,7 +203,8 @@ $csrfToken = $controller->generateCsrfToken();
                                     <p class="review-text">
                                         <?= htmlspecialchars(substr($review['commentaire'] ?? '', 0, 100)) ?>...
                                     </p>
-                                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+                                    <div
+                                        style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
                                         <small class="review-date">
                                             <?= date('d/m/Y H:i', strtotime($review['dateAvis'] ?? 'now')) ?>
                                         </small>
@@ -251,7 +252,7 @@ $csrfToken = $controller->generateCsrfToken();
                                 <th>Login</th>
                                 <th>Email</th>
                                 <th>Admin</th>
-                                <th>Actions</th>
+                                <th>Date d'inscription</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -261,15 +262,20 @@ $csrfToken = $controller->generateCsrfToken();
                                     <td><?= htmlspecialchars($user['login'] ?? '') ?></td>
                                     <td><?= htmlspecialchars($user['email'] ?? '') ?></td>
                                     <td>
-                                        <?= ($user['admin'] ?? false) ? '<i class="fas fa-check-circle" style="color: #27ae60;"></i>' : '<i class="fas fa-times-circle" style="color: #e74c3c;"></i>' ?>
+                                        <?php if ($user['admin']): ?>
+                                            <span class="badge badge-admin">Administrateur</span>
+                                        <?php else: ?>
+                                            <span class="badge badge-user">Utilisateur</span>
+                                        <?php endif; ?>
                                     </td>
                                     <td>
-                                        <a href="admin.php?page=users" class="btn-small">Voir tout</a>
+                                        <?= htmlspecialchars($user['dateCreation'] ?? '') ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
                     </table>
+                    <a href="admin.php?page=users" class="btn-small2">Voir tout</a>
                 </section>
 
             <?php elseif ($page === 'reviews'): ?>

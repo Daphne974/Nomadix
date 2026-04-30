@@ -165,6 +165,12 @@ class AdminController
                 $this->deleteUser();
             } elseif ($action === 'delete_review') {
                 $this->deleteReview();
+            } elseif ($action === 'delete_destination') {
+                $this->deleteDestination();
+            } elseif ($action === 'create_destination') {
+                $this->createDestination();
+            } elseif ($action === 'update_destination') {
+                $this->updateDestination();
             }
         }
 
@@ -176,11 +182,231 @@ class AdminController
             case 'reviews':
                 $this->manageReviews();
                 break;
+            case 'destinations':
+                $this->manageDestinations();
+                break;
             case 'dashboard':
             default:
                 $this->showDashboard();
                 break;
         }
+    }
+
+    /**
+     * Affiche la page de gestion des destinations
+     */
+    public function manageDestinations()
+    {
+        $destinations = $this->adminModel->getAllDestinations();
+        $page = 'destinations';
+        $csrfToken = $this->generateCsrfToken();
+        $success = $_GET['success'] ?? null;
+        // If editing, load the destination
+        $editDestination = null;
+        if (isset($_GET['edit'])) {
+            $editId = (int) $_GET['edit'];
+            $editDestination = $this->adminModel->getDestinationById($editId);
+        }
+        require_once __DIR__ . '/../views/admin-destinations.php';
+    }
+
+    /**
+     * Crée une nouvelle destination (POST)
+     */
+    public function createDestination()
+    {
+        if (!isset($_POST['csrf_token'])) {
+            http_response_code(400);
+            die("Parametres manquants");
+        }
+        if (!$this->verifyCsrfToken($_POST['csrf_token'])) {
+            http_response_code(403);
+            die("Token CSRF invalide");
+        }
+
+        $data = [
+            'nom' => $_POST['nom'] ?? '',
+            'description' => $_POST['description'] ?? '',
+            'pays' => $_POST['pays'] ?? '',
+            'ville' => $_POST['ville'] ?? '',
+            'image' => $_POST['image_url'] ?? null
+        ];
+
+        // handle file upload if any (save local copy named after the city)
+        if (!empty($_FILES['image_file']['name'])) {
+            $ville = $data['ville'] ?? '';
+            $uploadedLocal = $this->handleImageUpload($_FILES['image_file'], $ville);
+            // do not overwrite DB image field here: keep remote URL in DB (image)
+            // uploaded local image is saved to public/images/<ville>.jpg
+        }
+
+        $this->adminModel->createDestination($data);
+        header("Location: admin.php?page=destinations&success=1");
+        exit;
+    }
+
+    /**
+     * Met à jour une destination (POST)
+     */
+    public function updateDestination()
+    {
+        if (!isset($_POST['csrf_token']) || !isset($_POST['destinationId'])) {
+            http_response_code(400);
+            die("Parametres manquants");
+        }
+        if (!$this->verifyCsrfToken($_POST['csrf_token'])) {
+            http_response_code(403);
+            die("Token CSRF invalide");
+        }
+
+        $id = (int) $_POST['destinationId'];
+        $data = [
+            'nom' => $_POST['nom'] ?? '',
+            'description' => $_POST['description'] ?? '',
+            'pays' => $_POST['pays'] ?? '',
+            'ville' => $_POST['ville'] ?? '',
+            'image' => $_POST['image_url'] ?? null
+        ];
+
+        if (!empty($_FILES['image_file']['name'])) {
+            $ville = $data['ville'] ?? '';
+            $uploadedLocal = $this->handleImageUpload($_FILES['image_file'], $ville);
+            // keep DB image as URL field from form unless explicitly changed in image_url
+        }
+
+        $this->adminModel->updateDestination($id, $data);
+        header("Location: admin.php?page=destinations&success=1");
+        exit;
+    }
+
+    /**
+     * Handle image upload: saves under public/images/destinations/ and returns stored path or null
+     */
+    private function handleImageUpload($file, $ville)
+    {
+        $uploadDir = __DIR__ . '/../public/images/';
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0755, true);
+        }
+
+        if ($file['error'] !== UPLOAD_ERR_OK) {
+            return null;
+        }
+
+        // sanitize ville to build filename
+        $name = $ville ?: pathinfo($file['name'], PATHINFO_FILENAME);
+        // remove accents, spaces and unwanted chars
+        $name = iconv('UTF-8', 'ASCII//TRANSLIT', $name);
+        $name = preg_replace('/[^A-Za-z0-9-_]/', '-', $name);
+        $name = trim($name, '-');
+        $name = strtolower($name);
+        if ($name === '') {
+            $name = bin2hex(random_bytes(6));
+        }
+
+        $destFilename = $name . '.jpg';
+        $destPath = $uploadDir . $destFilename;
+
+        // ensure storage for debug logs
+        $storageDir = __DIR__ . '/../storage/';
+        if (!is_dir($storageDir)) {
+            @mkdir($storageDir, 0755, true);
+        }
+
+        $log = function($msg) use ($storageDir) {
+            $line = '['.date('Y-m-d H:i:s').'] '.$msg."\n";
+            @file_put_contents($storageDir.'upload_debug.log', $line, FILE_APPEND);
+        };
+
+        // First try moving the uploaded file directly (most reliable)
+        if (@move_uploaded_file($file['tmp_name'], $destPath)) {
+            @chmod($destPath, 0644);
+            $log("moved uploaded file to $destPath");
+            return '/Nomadix/public/images/' . $destFilename;
+        }
+
+        $log("move_uploaded_file failed for $destPath; attempting GD conversion fallback");
+
+        // Try to convert uploaded image to JPEG to ensure .jpg using GD (fallback)
+        $info = @getimagesize($file['tmp_name']);
+        if ($info === false) {
+            $log("getimagesize failed: not an image");
+            return null;
+        }
+
+        $mime = $info['mime'];
+
+        if (!function_exists('imagejpeg') || !function_exists('imagecreatefromstring')) {
+            $log('GD not available');
+            return null;
+        }
+
+        $img = null;
+        switch ($mime) {
+            case 'image/jpeg':
+                $img = @imagecreatefromjpeg($file['tmp_name']);
+                break;
+            case 'image/png':
+                $img = @imagecreatefrompng($file['tmp_name']);
+                if ($img !== false) {
+                    $bg = imagecreatetruecolor(imagesx($img), imagesy($img));
+                    $white = imagecolorallocate($bg, 255, 255, 255);
+                    imagefill($bg, 0, 0, $white);
+                    imagecopy($bg, $img, 0, 0, 0, 0, imagesx($img), imagesy($img));
+                    imagedestroy($img);
+                    $img = $bg;
+                }
+                break;
+            case 'image/gif':
+                $img = @imagecreatefromgif($file['tmp_name']);
+                break;
+            case 'image/webp':
+                if (function_exists('imagecreatefromwebp')) {
+                    $img = @imagecreatefromwebp($file['tmp_name']);
+                }
+                break;
+            default:
+                $img = null;
+        }
+
+        if ($img !== null && $img !== false) {
+            if (@imagejpeg($img, $destPath, 85)) {
+                @chmod($destPath, 0644);
+                imagedestroy($img);
+                $log("converted image to JPEG at $destPath");
+                return '/Nomadix/public/images/' . $destFilename;
+            } else {
+                $log("imagejpeg failed for $destPath");
+            }
+            imagedestroy($img);
+        } else {
+            $log('GD could not create image resource from uploaded file');
+        }
+
+        $log('upload handling failed');
+        return null;
+    }
+
+    /**
+     * Supprime une destination (POST)
+     */
+    public function deleteDestination()
+    {
+        if (!isset($_POST['destinationId']) || !isset($_POST['csrf_token'])) {
+            http_response_code(400);
+            die("Parametres manquants");
+        }
+
+        if (!$this->verifyCsrfToken($_POST['csrf_token'])) {
+            http_response_code(403);
+            die("Token CSRF invalide");
+        }
+
+        $destinationId = (int) $_POST['destinationId'];
+        $this->adminModel->deleteDestination($destinationId);
+
+        header("Location: admin.php?page=destinations&success=deleted");
+        exit;
     }
 
     /**

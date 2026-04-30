@@ -139,5 +139,79 @@ class AdminModel {
         $stmt->execute([(int)$limit]);
         return $stmt->fetchAll();
     }
+
+    /**
+     * Récupère toutes les destinations
+     */
+    public function getAllDestinations() {
+        $conn = Database::getAdminConnection();
+        $stmt = $conn->query("SELECT id, nom, pays, ville, image FROM destinations ORDER BY id DESC");
+        return $stmt->fetchAll();
+    }
+
+    /**
+     * Supprime une destination et ses avis associés
+     */
+    public function deleteDestination($destinationId) {
+        $conn = Database::getAdminConnection();
+        try {
+            $conn->beginTransaction();
+
+            // Supprimer les avis liés
+            $stmt = $conn->prepare("DELETE FROM avis WHERE idDestination = ?");
+            $stmt->execute([(int)$destinationId]);
+
+            // Supprimer la destination
+            $stmt = $conn->prepare("DELETE FROM destinations WHERE id = ?");
+            $stmt->execute([(int)$destinationId]);
+
+            $conn->commit();
+            return true;
+        } catch (Exception $e) {
+            $conn->rollBack();
+            throw $e;
+        }
+    }
+
+    /**
+     * Récupère une destination par ID
+     */
+    public function getDestinationById($id) {
+        $conn = Database::getAdminConnection();
+        $stmt = $conn->prepare("SELECT id, nom, description, pays, ville, image FROM destinations WHERE id = ?");
+        $stmt->execute([(int)$id]);
+        return $stmt->fetch();
+    }
+
+    /**
+     * Crée une nouvelle destination
+     */
+    public function createDestination($data) {
+        $conn = Database::getAdminConnection();
+        $stmt = $conn->prepare("INSERT INTO destinations (nom, description, pays, ville, image) VALUES (?, ?, ?, ?, ?)");
+        return $stmt->execute([
+            $data['nom'] ?? null,
+            $data['description'] ?? null,
+            $data['pays'] ?? null,
+            $data['ville'] ?? null,
+            $data['image'] ?? null
+        ]);
+    }
+
+    /**
+     * Met à jour une destination
+     */
+    public function updateDestination($id, $data) {
+        $conn = Database::getAdminConnection();
+        $stmt = $conn->prepare("UPDATE destinations SET nom = ?, description = ?, pays = ?, ville = ?, image = ? WHERE id = ?");
+        return $stmt->execute([
+            $data['nom'] ?? null,
+            $data['description'] ?? null,
+            $data['pays'] ?? null,
+            $data['ville'] ?? null,
+            $data['image'] ?? null,
+            (int)$id
+        ]);
+    }
 }
 ?>

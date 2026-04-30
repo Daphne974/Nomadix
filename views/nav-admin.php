@@ -9,6 +9,9 @@
                     <li><a href="admin.php?page=users"
                             class="nav-link <?= ($page === 'users') ? 'active' : '' ?>"><i
                                 class="fas fa-users"></i> Utilisateurs</a></li>
+                    <li><a href="admin.php?page=destinations"
+                            class="nav-link <?= ($page === 'destinations') ? 'active' : '' ?>"><i
+                                class="fas fa-map-marker-alt"></i> Destinations</a></li>
                     <li><a href="admin.php?page=reviews"
                             class="nav-link <?= ($page === 'reviews') ? 'active' : '' ?>"><i
                                 class="fas fa-star"></i> Avis</a></li>

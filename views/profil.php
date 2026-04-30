@@ -14,14 +14,10 @@
                 <p><strong>Compte créé le :</strong> <?= date('d/m/Y H:i', strtotime($user['dateCreation'])) ?></p>
             <?php endif; ?>
             <?php if (isset($user['admin']) && $user['admin']): ?>
-                <p><strong>Statut :</strong> <span style="color: #e74c3c;">Administrateur</span></p>
+                <p><strong>Statut :</strong> <span style="color: #ff0000;">Administrateur</span></p>
             <?php else: ?>
                 <p><strong>Statut :</strong> <span>Utilisateur</span></p>
             <?php endif; ?>
-        </div>
-
-        <div style="margin-top: 20px;">
-            <a href="index.php" class="home-button">Retour à l'accueil</a>
         </div>
     </div>
 </main>

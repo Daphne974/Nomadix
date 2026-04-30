@@ -76,8 +76,6 @@ $success = $_GET['success'] ?? null;
 
         <!-- Contenu principal -->
         <section class="admin-content">
-            <h1>Gestion des utilisateurs</h1>
-
             <!-- Messages de succès -->
             <?php if ($success): ?>
             <div class="alert alert-success">
