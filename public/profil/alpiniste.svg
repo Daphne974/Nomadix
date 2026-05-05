@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160">
+  <defs><clipPath id="c"><circle cx="80" cy="80" r="76"/></clipPath></defs>
+  <circle cx="80" cy="80" r="78" fill="#fff"/>
+  <g clip-path="url(#c)">
+    <!-- fond sommet enneigé ciel bleu froid -->
+    <rect x="0" y="0" width="160" height="160" fill="#cce7f5"/>
+    <rect x="0" y="0" width="160" height="60" fill="#90d0ee"/>
+    <!-- nuages hauts -->
+    <ellipse cx="30" cy="18" rx="24" ry="10" fill="#fff" opacity="0.85"/>
+    <ellipse cx="50" cy="14" rx="18" ry="9" fill="#fff" opacity="0.85"/>
+    <ellipse cx="130" cy="22" rx="22" ry="10" fill="#fff" opacity="0.85"/>
+    <!-- flanc enneigé -->
+    <polygon points="0,160 0,70 80,20 160,70 160,160" fill="#e8f4fc"/>
+    <polygon points="0,160 0,80 80,32 160,80 160,160" fill="#d0e8f5"/>
+    <!-- crevasses -->
+    <path d="M20,130 Q30,120 25,110" fill="none" stroke="#90c0d8" stroke-width="2"/>
+    <path d="M120,125 Q130,115 126,105" fill="none" stroke="#90c0d8" stroke-width="2"/>
+    <!-- corde d'escalade -->
+    <path d="M80,160 Q75,140 70,120 Q65,100 68,85" fill="none" stroke="#e63946" stroke-width="3" stroke-dasharray="6,3"/>
+    <!-- jambes -->
+    <rect x="64" y="120" width="14" height="30" rx="5" fill="#c0392b"/>
+    <rect x="82" y="118" width="14" height="32" rx="5" fill="#c0392b" transform="rotate(8,89,134)"/>
+    <!-- crampon chaussure -->
+    <rect x="61" y="143" width="20" height="10" rx="3" fill="#2c3e50"/>
+    <line x1="63" y1="150" x2="79" y2="150" stroke="#aaa" stroke-width="1.5"/>
+    <line x1="65" y1="143" x2="65" y2="153" stroke="#aaa" stroke-width="1.5"/>
+    <line x1="70" y1="143" x2="70" y2="153" stroke="#aaa" stroke-width="1.5"/>
+    <line x1="75" y1="143" x2="75" y2="153" stroke="#aaa" stroke-width="1.5"/>
+    <rect x="79" y="144" width="20" height="10" rx="3" fill="#2c3e50"/>
+    <line x1="81" y1="150" x2="97" y2="150" stroke="#aaa" stroke-width="1.5"/>
+    <line x1="83" y1="144" x2="83" y2="154" stroke="#aaa" stroke-width="1.5"/>
+    <line x1="88" y1="144" x2="88" y2="154" stroke="#aaa" stroke-width="1.5"/>
+    <line x1="93" y1="144" x2="93" y2="154" stroke="#aaa" stroke-width="1.5"/>
+    <!-- pantalon ski rouge -->
+    <rect x="61" y="106" width="38" height="20" rx="5" fill="#c0392b"/>
+    <!-- veste d'alpinisme orange -->
+    <rect x="56" y="74" width="48" height="36" rx="7" fill="#e67e22"/>
+    <!-- bandes réfléchissantes -->
+    <rect x="56" y="92" width="48" height="4" rx="2" fill="#f39c12" opacity="0.7"/>
+    <rect x="60" y="78" width="4" height="28" fill="#d35400" opacity="0.5"/>
+    <rect x="96" y="78" width="4" height="28" fill="#d35400" opacity="0.5"/>
+    <!-- fermeture éclair -->
+    <rect x="78" y="75" width="4" height="30" fill="#d35400"/>
+    <!-- bras gauche tendu vers paroi -->
+    <rect x="34" y="76" width="24" height="12" rx="5" fill="#e67e22" transform="rotate(-30,46,82)"/>
+    <!-- piolet -->
+    <line x1="24" y1="55" x2="44" y2="82" stroke="#718096" stroke-width="4"/>
+    <rect x="14" y="50" width="22" height="7" rx="3" fill="#2d3748" transform="rotate(-30,25,53)"/>
+    <path d="M14,48 Q16,42 22,44" fill="#4a5568" stroke="#2d3748" stroke-width="1"/>
+    <!-- bras droit -->
+    <rect x="102" y="78" width="22" height="12" rx="5" fill="#e67e22" transform="rotate(15,113,84)"/>
+    <!-- mousqueton à la ceinture -->
+    <ellipse cx="70" cy="108" rx="5" ry="7" fill="none" stroke="#718096" stroke-width="2.5"/>
+    <ellipse cx="90" cy="108" rx="5" ry="7" fill="none" stroke="#718096" stroke-width="2.5"/>
+    <!-- cou -->
+    <rect x="74" y="61" width="12" height="15" rx="4" fill="#c8856a"/>
+    <!-- cache-cou -->
+    <rect x="63" y="68" width="34" height="8" rx="4" fill="#e63946"/>
+    <!-- tête avec casque -->
+    <ellipse cx="80" cy="50" rx="23" ry="22" fill="#2d3748"/>
+    <!-- visière casque -->
+    <ellipse cx="80" cy="68" rx="26" ry="7" fill="#2d3748"/>
+    <!-- face avant casque -->
+    <ellipse cx="80" cy="52" rx="20" ry="18" fill="#c8856a"/>
+    <!-- lunettes glacier -->
+    <rect x="59" y="50" width="18" height="10" rx="5" fill="#1a1a2e"/>
+    <rect x="83" y="50" width="18" height="10" rx="5" fill="#1a1a2e"/>
+    <line x1="77" y1="55" x2="83" y2="55" stroke="#555" stroke-width="1.5"/>
+    <!-- reflets lunettes -->
+    <ellipse cx="65" cy="53" rx="4" ry="2.5" fill="#90e0ef" opacity="0.3"/>
+    <ellipse cx="89" cy="53" rx="4" ry="2.5" fill="#90e0ef" opacity="0.3"/>
+    <!-- sangles casque -->
+    <path d="M63,56 Q60,62 63,68" fill="none" stroke="#2d3748" stroke-width="2.5"/>
+    <path d="M97,56 Q100,62 97,68" fill="none" stroke="#2d3748" stroke-width="2.5"/>
+    <!-- nez -->
+    <ellipse cx="80" cy="62" rx="3" ry="2.5" fill="#b07050"/>
+    <!-- joues rouges froid -->
+    <ellipse cx="69" cy="62" rx="5" ry="3" fill="#e88080" opacity="0.4"/>
+    <ellipse cx="91" cy="62" rx="5" ry="3" fill="#e88080" opacity="0.4"/>
+    <!-- bouche déterminée -->
+    <path d="M74,67 Q80,70 86,67" fill="none" stroke="#a06040" stroke-width="2"/>
+    <!-- lampe frontale casque -->
+    <rect x="71" y="34" width="18" height="8" rx="3" fill="#4a5568"/>
+    <circle cx="80" cy="38" r="4" fill="#FFD166" opacity="0.8"/>
+    <circle cx="80" cy="38" r="2" fill="#fff" opacity="0.6"/>
+    <!-- ventilation casque -->
+    <rect x="63" y="40" width="6" height="3" rx="1" fill="#1a1a2e"/>
+    <rect x="91" y="40" width="6" height="3" rx="1" fill="#1a1a2e"/>
+  </g>
+  <circle cx="80" cy="80" r="76" fill="none" stroke="#2d3748" stroke-width="4"/>
+</svg>

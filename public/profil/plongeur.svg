@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160">
+  <defs><clipPath id="c"><circle cx="80" cy="80" r="76"/></clipPath></defs>
+  <circle cx="80" cy="80" r="78" fill="#fff"/>
+  <g clip-path="url(#c)">
+    <!-- fond sous-marin -->
+    <rect x="0" y="0" width="160" height="160" fill="#023e8a"/>
+    <rect x="0" y="0" width="160" height="40" fill="#0077b6"/>
+    <!-- rayons de lumière -->
+    <polygon points="60,0 80,0 100,80 70,80" fill="#90e0ef" opacity="0.08"/>
+    <polygon points="20,0 40,0 60,80 30,80" fill="#90e0ef" opacity="0.06"/>
+    <!-- bulles remontantes -->
+    <circle cx="55" cy="30" r="4" fill="none" stroke="#90e0ef" stroke-width="1.5" opacity="0.7"/>
+    <circle cx="60" cy="15" r="3" fill="none" stroke="#90e0ef" stroke-width="1.5" opacity="0.7"/>
+    <circle cx="50" cy="5" r="2" fill="none" stroke="#90e0ef" stroke-width="1" opacity="0.6"/>
+    <circle cx="100" cy="22" r="3" fill="none" stroke="#90e0ef" stroke-width="1.5" opacity="0.7"/>
+    <circle cx="95" cy="8" r="2" fill="none" stroke="#90e0ef" stroke-width="1" opacity="0.6"/>
+    <!-- poissons tropicaux -->
+    <ellipse cx="130" cy="55" rx="12" ry="7" fill="#FFD166"/>
+    <polygon points="142,55 152,48 152,62" fill="#FFD166"/>
+    <ellipse cx="130" cy="55" rx="4" ry="3" fill="#e07b00" opacity="0.5"/>
+    <circle cx="126" cy="53" r="2" fill="#1a1a2e"/>
+    <ellipse cx="25" cy="90" rx="10" ry="6" fill="#e63946"/>
+    <polygon points="35,90 44,85 44,95" fill="#e63946"/>
+    <circle cx="22" cy="88" r="1.5" fill="#1a1a2e"/>
+    <!-- coraux -->
+    <path d="M10,160 Q15,130 12,110 Q16,95 14,80 Q18,80 16,95 Q20,110 18,130 Q20,145 18,160" fill="#e63946"/>
+    <path d="M20,160 Q22,140 20,125" fill="#e63946"/>
+    <path d="M140,160 Q144,128 142,108 Q146,95 144,78 Q148,78 146,95 Q148,108 150,128 Q148,145 150,160" fill="#ff85a1"/>
+    <!-- algues -->
+    <path d="M5,160 Q8,140 5,125 Q10,110 7,95 Q12,80 9,65" fill="none" stroke="#52b788" stroke-width="4"/>
+    <path d="M150,160 Q153,138 150,122 Q155,107 152,92" fill="none" stroke="#52b788" stroke-width="4"/>
+    <!-- étoile de mer -->
+    <polygon points="135,140 137,133 140,140 133,136 142,136" fill="#f4a261"/>
+    <!-- corps plongeur -->
+    <!-- palmes -->
+    <ellipse cx="62" cy="148" rx="18" ry="7" fill="#27ae60" transform="rotate(-10,62,148)"/>
+    <ellipse cx="98" cy="148" rx="18" ry="7" fill="#27ae60" transform="rotate(10,98,148)"/>
+    <!-- jambes -->
+    <rect x="65" y="118" width="13" height="32" rx="5" fill="#1a3a5c"/>
+    <rect x="82" y="118" width="13" height="32" rx="5" fill="#1a3a5c"/>
+    <!-- combinaison néoprène -->
+    <rect x="58" y="78" width="44" height="44" rx="8" fill="#1a3a5c"/>
+    <rect x="65" y="82" width="10" height="30" fill="#0d2137"/>
+    <rect x="85" y="82" width="10" height="30" fill="#0d2137"/>
+    <!-- détails combinaison -->
+    <rect x="60" y="90" width="40" height="3" rx="1" fill="#e63946" opacity="0.6"/>
+    <rect x="60" y="100" width="40" height="3" rx="1" fill="#e63946" opacity="0.6"/>
+    <!-- bras gauche avec torche -->
+    <rect x="36" y="84" width="24" height="11" rx="5" fill="#1a3a5c" transform="rotate(10,48,89)"/>
+    <!-- torche sous-marine -->
+    <rect x="22" y="88" width="22" height="10" rx="4" fill="#4a5568"/>
+    <circle cx="44" cy="93" r="7" fill="#FFD166" opacity="0.4"/>
+    <circle cx="44" cy="93" r="4" fill="#FFD166" opacity="0.7"/>
+    <circle cx="22" cy="93" r="5" fill="#2d3748"/>
+    <!-- bras droit -->
+    <rect x="100" y="84" width="24" height="11" rx="5" fill="#1a3a5c" transform="rotate(-10,112,89)"/>
+    <!-- cou -->
+    <rect x="74" y="62" width="12" height="18" rx="4" fill="#d4a07a"/>
+    <!-- tête -->
+    <ellipse cx="80" cy="52" rx="21" ry="22" fill="#d4a07a"/>
+    <!-- masque de plongée -->
+    <rect x="58" y="44" width="44" height="18" rx="8" fill="#2d3748"/>
+    <rect x="62" y="47" width="16" height="12" rx="5" fill="#90e0ef" opacity="0.8"/>
+    <rect x="82" y="47" width="16" height="12" rx="5" fill="#90e0ef" opacity="0.8"/>
+    <line x1="78" y1="52" x2="82" y2="52" stroke="#4a5568" stroke-width="2"/>
+    <!-- sangles masque -->
+    <path d="M58,50 Q50,52 50,60" fill="none" stroke="#2d3748" stroke-width="3"/>
+    <path d="M102,50 Q110,52 110,60" fill="none" stroke="#2d3748" stroke-width="3"/>
+    <!-- tuba -->
+    <path d="M102,46 Q115,40 118,25 Q118,15 112,12" fill="none" stroke="#e63946" stroke-width="4"/>
+    <ellipse cx="112" cy="11" rx="5" ry="4" fill="#e63946"/>
+    <!-- cheveux qui flottent -->
+    <path d="M59,44 Q50,35 55,22 Q60,12 70,14" fill="#1a1a2e" stroke="none"/>
+    <path d="M60,42 Q48,32 52,18" fill="none" stroke="#1a1a2e" stroke-width="5"/>
+    <path d="M65,40 Q55,28 58,14" fill="none" stroke="#2d3748" stroke-width="4"/>
+    <!-- détails visage sous masque -->
+    <ellipse cx="70" cy="53" rx="5" ry="5" fill="#90e0ef" opacity="0.3"/>
+    <circle cx="70" cy="53" r="2.5" fill="#2c3e50"/>
+    <ellipse cx="90" cy="53" rx="5" ry="5" fill="#90e0ef" opacity="0.3"/>
+    <circle cx="90" cy="53" r="2.5" fill="#2c3e50"/>
+    <!-- embout tuba bouche -->
+    <rect x="73" y="62" width="14" height="6" rx="3" fill="#e63946"/>
+    <rect x="76" y="60" width="8" height="4" rx="2" fill="#c0392b"/>
+  </g>
+  <circle cx="80" cy="80" r="76" fill="none" stroke="#0077b6" stroke-width="4"/>
+</svg>

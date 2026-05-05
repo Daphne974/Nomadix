@@ -135,8 +135,17 @@ require_once __DIR__ . '/header.php';
             <?php else: ?>
                 <?php foreach ($allAvis as $avis): ?>
                     <div class="avis-card">
-                        <h3><?= htmlspecialchars($avis['login']) ?></h3>
-                        <p><?= htmlspecialchars($avis['dateAvis']) ?></p>
+                        <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+                            <?php if (!empty($avis['avatar'])): ?>
+                                <img src="<?= htmlspecialchars($avis['avatar']) ?>" alt="avatar" style="width:48px;height:48px;border-radius:50%;object-fit:cover;">
+                            <?php else: ?>
+                                <div style="width:48px;height:48px;border-radius:50%;background:#ddd;display:flex;align-items:center;justify-content:center;color:#666;font-weight:700;"><?= strtoupper(substr($avis['login'] ?? 'U',0,1)) ?></div>
+                            <?php endif; ?>
+                            <div>
+                                <h3 style="margin:0;"><?= htmlspecialchars($avis['login']) ?></h3>
+                                <div style="font-size:12px;color:#6b5a7a;"><?= htmlspecialchars($avis['dateAvis']) ?></div>
+                            </div>
+                        </div>
                         <?php for ($i = 1; $i <= 5; $i++): ?>
                             <?php if ($i <= $avis['note']): ?>
                                 <i class="fa-solid fa-star" style="color: #FFD43B;"></i>

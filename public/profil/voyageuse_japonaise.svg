@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160">
+  <defs><clipPath id="c"><circle cx="80" cy="80" r="76"/></clipPath></defs>
+  <circle cx="80" cy="80" r="78" fill="#fff"/>
+  <g clip-path="url(#c)">
+    <!-- fond temple cerisiers -->
+    <rect x="0" y="0" width="160" height="160" fill="#ffe5ec"/>
+    <rect x="0" y="0" width="160" height="75" fill="#ffb3c6"/>
+    <!-- cerisiers fond -->
+    <rect x="5" y="75" width="5" height="45" fill="#5c3d11"/>
+    <ellipse cx="7" cy="68" rx="28" ry="22" fill="#ffb3c1" opacity="0.85"/>
+    <ellipse cx="20" cy="60" rx="20" ry="16" fill="#ffc8d2" opacity="0.85"/>
+    <rect x="130" y="70" width="5" height="50" fill="#5c3d11"/>
+    <ellipse cx="132" cy="63" rx="28" ry="22" fill="#ffb3c1" opacity="0.85"/>
+    <ellipse cx="118" cy="56" rx="22" ry="18" fill="#ffc8d2" opacity="0.85"/>
+    <!-- pétales tombants -->
+    <ellipse cx="40" cy="30" rx="4" ry="2" fill="#ffb3c1" transform="rotate(30,40,30)"/>
+    <ellipse cx="70" cy="20" rx="3" ry="1.5" fill="#ffc8d2" transform="rotate(-20,70,20)"/>
+    <ellipse cx="100" cy="35" rx="4" ry="2" fill="#ffb3c1" transform="rotate(15,100,35)"/>
+    <ellipse cx="130" cy="25" rx="3" ry="1.5" fill="#ffc8d2" transform="rotate(-35,130,25)"/>
+    <ellipse cx="55" cy="45" rx="3" ry="1.5" fill="#ffb3c1" transform="rotate(50,55,45)"/>
+    <!-- sol -->
+    <rect x="0" y="130" width="160" height="30" fill="#f8d7da"/>
+    <!-- jambes -->
+    <rect x="65" y="118" width="13" height="34" rx="5" fill="#f9c784"/>
+    <rect x="82" y="118" width="13" height="34" rx="5" fill="#f9c784"/>
+    <!-- socques japonaises (geta) -->
+    <rect x="60" y="146" width="20" height="8" rx="2" fill="#8B4513"/>
+    <rect x="63" y="140" width="4" height="8" fill="#5c3d11"/>
+    <rect x="71" y="140" width="4" height="8" fill="#5c3d11"/>
+    <rect x="80" y="146" width="20" height="8" rx="2" fill="#8B4513"/>
+    <rect x="83" y="140" width="4" height="8" fill="#5c3d11"/>
+    <rect x="91" y="140" width="4" height="8" fill="#5c3d11"/>
+    <!-- kimono motifs -->
+    <rect x="55" y="80" width="50" height="42" rx="4" fill="#e63946"/>
+    <!-- motifs kimono -->
+    <ellipse cx="68" cy="92" rx="6" ry="6" fill="#FFD166" opacity="0.7"/>
+    <ellipse cx="80" cy="88" rx="5" ry="5" fill="#FFD166" opacity="0.7"/>
+    <ellipse cx="92" cy="95" rx="6" ry="6" fill="#FFD166" opacity="0.7"/>
+    <ellipse cx="74" cy="104" rx="5" ry="5" fill="#FFD166" opacity="0.6"/>
+    <ellipse cx="88" cy="108" rx="5" ry="5" fill="#FFD166" opacity="0.6"/>
+    <!-- col kimono blanc -->
+    <polygon points="80,80 70,100 80,100" fill="#fff"/>
+    <polygon points="80,80 90,100 80,100" fill="#f0e0e0"/>
+    <!-- obi (ceinture) -->
+    <rect x="55" y="108" width="50" height="12" rx="3" fill="#FFD166"/>
+    <rect x="90" y="105" width="18" height="18" rx="4" fill="#FFD166"/>
+    <rect x="92" y="107" width="14" height="14" rx="3" fill="#f4c430"/>
+    <!-- nœud obi -->
+    <ellipse cx="99" cy="114" rx="8" ry="6" fill="#e6b800"/>
+    <!-- bras gauche avec ombrelle -->
+    <rect x="40" y="78" width="22" height="11" rx="5" fill="#e63946" transform="rotate(-20,51,83)"/>
+    <!-- ombrelle -->
+    <ellipse cx="30" cy="55" rx="28" ry="16" fill="#ff85a1" opacity="0.9"/>
+    <ellipse cx="30" cy="55" rx="24" ry="13" fill="#ffb3c6"/>
+    <!-- rayons ombrelle -->
+    <line x1="30" y1="55" x2="6" y2="50" stroke="#e06080" stroke-width="1"/>
+    <line x1="30" y1="55" x2="10" y2="42" stroke="#e06080" stroke-width="1"/>
+    <line x1="30" y1="55" x2="20" y2="37" stroke="#e06080" stroke-width="1"/>
+    <line x1="30" y1="55" x2="32" y2="36" stroke="#e06080" stroke-width="1"/>
+    <line x1="30" y1="55" x2="44" y2="38" stroke="#e06080" stroke-width="1"/>
+    <line x1="30" y1="55" x2="54" y2="44" stroke="#e06080" stroke-width="1"/>
+    <line x1="30" y1="55" x2="58" y2="54" stroke="#e06080" stroke-width="1"/>
+    <!-- manche ombrelle -->
+    <line x1="30" y1="60" x2="38" y2="84" stroke="#8B4513" stroke-width="3"/>
+    <!-- bras droit -->
+    <rect x="98" y="84" width="20" height="11" rx="5" fill="#e63946" transform="rotate(10,108,89)"/>
+    <!-- cou -->
+    <rect x="74" y="63" width="12" height="19" rx="4" fill="#f4d0b0"/>
+    <!-- tête -->
+    <ellipse cx="80" cy="52" rx="20" ry="22" fill="#f4d0b0"/>
+    <!-- cheveux noirs chignon -->
+    <ellipse cx="80" cy="34" rx="20" ry="11" fill="#1a1a2e"/>
+    <rect x="60" y="30" width="40" height="14" rx="3" fill="#1a1a2e"/>
+    <!-- chignon -->
+    <ellipse cx="80" cy="27" rx="14" ry="9" fill="#2d3748"/>
+    <ellipse cx="80" cy="24" rx="10" ry="6" fill="#1a1a2e"/>
+    <!-- épingles à cheveux -->
+    <line x1="72" y1="22" x2="68" y2="14" stroke="#FFD166" stroke-width="2"/>
+    <circle cx="68" cy="13" r="3" fill="#e63946"/>
+    <line x1="88" y1="22" x2="92" y2="14" stroke="#FFD166" stroke-width="2"/>
+    <circle cx="92" cy="13" r="3" fill="#ffb3c1"/>
+    <!-- fleur dans cheveux -->
+    <circle cx="80" cy="22" r="5" fill="#fff"/>
+    <circle cx="80" cy="22" r="2.5" fill="#FFD166"/>
+    <!-- yeux en amande -->
+    <ellipse cx="73" cy="51" rx="5" ry="4" fill="#fff"/>
+    <ellipse cx="87" cy="51" rx="5" ry="4" fill="#fff"/>
+    <ellipse cx="73" cy="51" rx="3.5" ry="3" fill="#1a1a2e"/>
+    <ellipse cx="87" cy="51" rx="3.5" ry="3" fill="#1a1a2e"/>
+    <circle cx="74" cy="50" r="1.2" fill="#fff"/>
+    <circle cx="88" cy="50" r="1.2" fill="#fff"/>
+    <!-- cils -->
+    <path d="M68,49 Q73,46 78,49" fill="none" stroke="#1a1a2e" stroke-width="1"/>
+    <path d="M82,49 Q87,46 92,49" fill="none" stroke="#1a1a2e" stroke-width="1"/>
+    <!-- sourcils fins -->
+    <path d="M69,46 Q73,44 77,46" fill="none" stroke="#1a1a2e" stroke-width="1.5"/>
+    <path d="M83,46 Q87,44 91,46" fill="none" stroke="#1a1a2e" stroke-width="1.5"/>
+    <!-- nez délicat -->
+    <ellipse cx="80" cy="56" rx="2.5" ry="2" fill="#e0b090"/>
+    <!-- bouche -->
+    <path d="M75,61 Q80,65 85,61" fill="#e63946"/>
+    <path d="M75,61 Q80,58 85,61" fill="#f07080" opacity="0.5"/>
+  </g>
+  <circle cx="80" cy="80" r="76" fill="none" stroke="#e63946" stroke-width="4"/>
+</svg>

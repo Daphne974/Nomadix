@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160">
+  <defs>
+    <clipPath id="cercle"><circle cx="80" cy="80" r="76"/></clipPath>
+  </defs>
+  <circle cx="80" cy="80" r="78" fill="#fff"/>
+  <g clip-path="url(#cercle)">
+    <rect x="0" y="0" width="160" height="160" fill="#a8d4f5"/>
+    <circle cx="120" cy="28" r="18" fill="#FFD166"/>
+    <rect x="0" y="90" width="160" height="70" fill="#e8f4fc"/>
+    <polygon points="0,90 55,18 110,90" fill="#7a9db5"/>
+    <polygon points="60,90 118,8 160,90" fill="#5b7fa0"/>
+    <polygon points="55,18 42,50 68,50" fill="#f0f8ff"/>
+    <polygon points="118,8 102,38 134,38" fill="#f0f8ff"/>
+    <polygon points="18,90 27,66 36,90" fill="#2d6a4f"/>
+    <polygon points="32,90 43,60 54,90" fill="#2d6a4f"/>
+    <polygon points="108,90 119,64 130,90" fill="#2d6a4f"/>
+  </g>
+  <circle cx="80" cy="80" r="76" fill="none" stroke="#5b7fa0" stroke-width="4"/>
+</svg>

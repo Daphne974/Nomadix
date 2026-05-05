@@ -22,7 +22,9 @@ class AdminController
         }
 
         if (!isset($_SESSION['user']) || !isset($_SESSION['user']['admin']) || !$_SESSION['user']['admin']) {
-            header("HTTP/1.0 403 Forbidden");
+            // Afficher la page 403 (avec header/footer) pour une meilleure UX
+            http_response_code(403);
+            require_once __DIR__ . '/../403.php';
             exit;
         }
     }

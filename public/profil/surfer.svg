@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160">
+  <defs><clipPath id="c"><circle cx="80" cy="80" r="76"/></clipPath></defs>
+  <circle cx="80" cy="80" r="78" fill="#fff"/>
+  <g clip-path="url(#c)">
+    <!-- fond océan -->
+    <rect x="0" y="0" width="160" height="160" fill="#0096c7"/>
+    <rect x="0" y="0" width="160" height="70" fill="#87CEEB"/>
+    <rect x="0" y="70" width="160" height="90" fill="#0077b6"/>
+    <!-- vagues -->
+    <path d="M0,80 Q20,68 40,80 Q60,92 80,80 Q100,68 120,80 Q140,92 160,80 L160,160 L0,160 Z" fill="#0096c7"/>
+    <path d="M0,95 Q25,83 50,95 Q75,107 100,95 Q125,83 160,95" fill="none" stroke="#90e0ef" stroke-width="3" opacity="0.7"/>
+    <!-- écume -->
+    <ellipse cx="40" cy="80" rx="30" ry="6" fill="#fff" opacity="0.5"/>
+    <ellipse cx="120" cy="80" rx="25" ry="5" fill="#fff" opacity="0.5"/>
+    <!-- planche de surf -->
+    <ellipse cx="80" cy="112" rx="48" ry="10" fill="#FFD166" transform="rotate(-15,80,112)"/>
+    <ellipse cx="80" cy="112" rx="44" ry="7" fill="#f4a261" transform="rotate(-15,80,112)"/>
+    <ellipse cx="80" cy="112" rx="10" ry="4" fill="#e63946" transform="rotate(-15,80,112)"/>
+    <!-- jambes -->
+    <rect x="66" y="105" width="13" height="22" rx="5" fill="#f9c784" transform="rotate(10,72,116)"/>
+    <rect x="80" y="103" width="13" height="22" rx="5" fill="#f9c784" transform="rotate(-5,86,114)"/>
+    <!-- short surf coloré -->
+    <rect x="62" y="94" width="36" height="18" rx="5" fill="#0077b6"/>
+    <rect x="64" y="94" width="10" height="18" fill="#FFD166" opacity="0.7"/>
+    <rect x="76" y="94" width="10" height="18" fill="#e63946" opacity="0.7"/>
+    <!-- torse bronzé -->
+    <rect x="63" y="70" width="34" height="28" rx="6" fill="#c8804a"/>
+    <!-- abdos -->
+    <ellipse cx="74" cy="80" rx="4" ry="3" fill="#b8703a" opacity="0.4"/>
+    <ellipse cx="86" cy="80" rx="4" ry="3" fill="#b8704a" opacity="0.4"/>
+    <ellipse cx="74" cy="88" rx="4" ry="3" fill="#b8704a" opacity="0.4"/>
+    <ellipse cx="86" cy="88" rx="4" ry="3" fill="#b8704a" opacity="0.4"/>
+    <!-- bras gauche levé -->
+    <rect x="42" y="58" width="22" height="12" rx="5" fill="#c8804a" transform="rotate(-50,53,64)"/>
+    <!-- bras droit équilibre -->
+    <rect x="96" y="72" width="22" height="12" rx="5" fill="#c8804a" transform="rotate(30,107,78)"/>
+    <!-- cou -->
+    <rect x="74" y="57" width="12" height="15" rx="4" fill="#d4916a"/>
+    <!-- tête -->
+    <ellipse cx="80" cy="48" rx="20" ry="21" fill="#d4916a"/>
+    <!-- cheveux blonds ébouriffés -->
+    <ellipse cx="80" cy="30" rx="21" ry="12" fill="#FFD166"/>
+    <path d="M60,40 Q58,30 65,26 Q70,22 80,24 Q90,22 95,26 Q102,30 100,40" fill="#FFD166"/>
+    <ellipse cx="68" cy="32" rx="8" ry="6" fill="#f4c430"/>
+    <ellipse cx="92" cy="32" rx="8" ry="6" fill="#f4c430"/>
+    <!-- lunettes de soleil -->
+    <rect x="63" y="44" width="14" height="9" rx="4" fill="#1a1a2e" opacity="0.85"/>
+    <rect x="83" y="44" width="14" height="9" rx="4" fill="#1a1a2e" opacity="0.85"/>
+    <line x1="77" y1="48" x2="83" y2="48" stroke="#888" stroke-width="1.5"/>
+    <line x1="63" y1="48" x2="59" y2="50" stroke="#888" stroke-width="1.5"/>
+    <line x1="97" y1="48" x2="101" y2="50" stroke="#888" stroke-width="1.5"/>
+    <!-- reflet lunettes -->
+    <ellipse cx="68" cy="46" rx="3" ry="2" fill="#fff" opacity="0.3"/>
+    <ellipse cx="88" cy="46" rx="3" ry="2" fill="#fff" opacity="0.3"/>
+    <!-- nez -->
+    <ellipse cx="80" cy="53" rx="3" ry="2" fill="#c07050"/>
+    <!-- sourire large -->
+    <path d="M72,59 Q80,66 88,59" fill="none" stroke="#a05030" stroke-width="2"/>
+    <!-- dents -->
+    <path d="M73,60 Q80,65 87,60" fill="#fff"/>
+    <!-- soleil -->
+    <circle cx="130" cy="25" r="18" fill="#FFD166"/>
+    <!-- mouettes -->
+    <path d="M20,30 Q24,26 28,30" fill="none" stroke="#444" stroke-width="1.5"/>
+    <path d="M35,22 Q39,18 43,22" fill="none" stroke="#444" stroke-width="1.5"/>
+  </g>
+  <circle cx="80" cy="80" r="76" fill="none" stroke="#0096c7" stroke-width="4"/>
+</svg>

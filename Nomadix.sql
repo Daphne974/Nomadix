@@ -67,6 +67,8 @@ CREATE TABLE `utilisateurs` (
   `motDePasse` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `dateCreation` datetime DEFAULT CURRENT_TIMESTAMP,
+  `login_changed_at` datetime DEFAULT NULL,
+  `avatar` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `admin` tinyint NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)

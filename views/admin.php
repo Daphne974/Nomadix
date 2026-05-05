@@ -191,11 +191,18 @@ $csrfToken = $controller->generateCsrfToken();
                         <div class="reviews-list">
                             <?php foreach ($recentUnverified as $review): ?>
                                 <div class="review-item">
-                                    <div class="review-header">
-                                        <strong><?= htmlspecialchars($review['login'] ?? 'Anonyme') ?></strong>
-                                        <span class="review-rating">
-                                            <?= str_repeat('<i class="fas fa-star" style="color: #FFD43B;"></i>', $review['note'] ?? 0) ?>
-                                        </span>
+                                    <div class="review-header" style="display:flex;align-items:center;gap:10px;">
+                                        <?php if (!empty($review['avatar'])): ?>
+                                            <img src="<?= htmlspecialchars($review['avatar']) ?>" alt="avatar" style="width:44px;height:44px;border-radius:50%;object-fit:cover;">
+                                        <?php else: ?>
+                                            <div style="width:44px;height:44px;border-radius:50%;background:#ddd;display:flex;align-items:center;justify-content:center;color:#666;font-weight:700;"><?= strtoupper(substr($review['login'] ?? 'A',0,1)) ?></div>
+                                        <?php endif; ?>
+                                        <div>
+                                            <strong><?= htmlspecialchars($review['login'] ?? 'Anonyme') ?></strong>
+                                            <div class="review-rating" style="margin-top:4px;">
+                                                <?= str_repeat('<i class="fas fa-star" style="color: #FFD43B;"></i>', $review['note'] ?? 0) ?>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="review-destination">
                                         Destination: <strong><?= htmlspecialchars($review['destinationNom'] ?? 'N/A') ?></strong>
@@ -317,7 +324,13 @@ $csrfToken = $controller->generateCsrfToken();
                                 <?php foreach ($reviewsToShow as $review): ?>
                                     <tr>
                                         <td><?= htmlspecialchars($review['id'] ?? '') ?></td>
-                                        <td><?= htmlspecialchars($review['login'] ?? 'Anonyme') ?></td>
+                                        <td style="display:flex;align-items:center;gap:8px;">
+                                            <?php if (!empty($review['avatar'])): ?>
+                                                <img src="<?= htmlspecialchars($review['avatar']) ?>" alt="avatar" style="width:36px;height:36px;border-radius:50%;object-fit:cover;">
+                                            <?php else: ?>
+                                                <div style="width:36px;height:36px;border-radius:50%;background:#eee;display:flex;align-items:center;justify-content:center;color:#666;font-weight:700;"><?= strtoupper(substr($review['login'] ?? 'A',0,1)) ?></div>
+                                            <?php endif; ?>
+                                            <?= htmlspecialchars($review['login'] ?? 'Anonyme') ?></td>
                                         <td><?= htmlspecialchars($review['destinationNom'] ?? 'N/A') ?></td>
                                         <td>
                                             <?= str_repeat('<i class="fas fa-star" style="color: #FFD43B; font-size: 0.9em;"></i>', $review['note'] ?? 0) ?>

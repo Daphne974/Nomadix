@@ -63,7 +63,7 @@ class AdminModel {
         $conn = Database::getClientConnection();
         $stmt = $conn->query("
             SELECT a.id, a.note, a.commentaire, a.dateAvis, a.verified,
-                   u.login, u.email,
+                   u.login, u.email, u.avatar,
                    d.nom as destinationNom, d.image
             FROM avis a
             LEFT JOIN utilisateurs u ON a.idUtilisateur = u.id
@@ -129,7 +129,7 @@ class AdminModel {
         $conn = Database::getClientConnection();
         $stmt = $conn->prepare("
             SELECT a.id, a.note, a.commentaire, a.dateAvis,
-                   u.login, d.nom as destinationNom
+                   u.login, u.avatar, d.nom as destinationNom
             FROM avis a
             LEFT JOIN utilisateurs u ON a.idUtilisateur = u.id
             LEFT JOIN destinations d ON a.idDestination = d.id

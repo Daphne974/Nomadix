@@ -35,7 +35,7 @@ class DestinationController {
             // Récupérer les avis
             $conn = Database::getClientConnection();
             $stmt = $conn->prepare("
-                SELECT a.*, u.login 
+                SELECT a.*, u.login, u.avatar
                 FROM avis a
                 INNER JOIN utilisateurs u ON a.idUtilisateur = u.id 
                 WHERE a.idDestination = ? 

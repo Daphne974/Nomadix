@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160">
+  <defs>
+    <clipPath id="cercle"><circle cx="80" cy="80" r="76"/></clipPath>
+  </defs>
+  <circle cx="80" cy="80" r="78" fill="#fff"/>
+  <g clip-path="url(#cercle)">
+    <rect x="0" y="0" width="160" height="160" fill="#ffccd5"/>
+    <rect x="0" y="0" width="160" height="62" fill="#ff85a1"/>
+    <rect x="0" y="112" width="160" height="48" fill="#ffb3c6" opacity="0.5"/>
+    <circle cx="80" cy="54" r="22" fill="#FFD166" opacity="0.85"/>
+    <rect x="43" y="96" width="74" height="20" fill="#4a1e0a"/>
+    <rect x="68" y="101" width="22" height="15" fill="#2c1810"/>
+    <path d="M68,101 Q80,95 92,101" fill="#4a1e0a"/>
+    <rect x="50" y="80" width="60" height="19" fill="#6b3520"/>
+    <path d="M43,80 Q80,65 117,80" fill="#8b4513"/>
+    <rect x="58" y="65" width="44" height="18" fill="#6b3520"/>
+    <path d="M51,65 Q80,51 109,65" fill="#8b4513"/>
+    <rect x="65" y="51" width="30" height="16" fill="#6b3520"/>
+    <path d="M58,51 Q80,39 102,51" fill="#8b4513"/>
+    <line x1="80" y1="39" x2="80" y2="29" stroke="#FFD166" stroke-width="2.5"/>
+    <circle cx="80" cy="27" r="5" fill="#FFD166"/>
+    <ellipse cx="38" cy="91" rx="7" ry="10" fill="#e63946"/>
+    <ellipse cx="38" cy="91" rx="5" ry="8" fill="#FFD166" opacity="0.5"/>
+    <line x1="38" y1="81" x2="38" y2="74" stroke="#4a1e0a" stroke-width="2"/>
+    <ellipse cx="122" cy="91" rx="7" ry="10" fill="#e63946"/>
+    <line x1="122" y1="81" x2="122" y2="74" stroke="#4a1e0a" stroke-width="2"/>
+    <ellipse cx="18" cy="23" rx="20" ry="9" fill="#fff" opacity="0.7"/>
+    <ellipse cx="140" cy="18" rx="17" ry="8" fill="#fff" opacity="0.7"/>
+    <rect x="4" y="90" width="5" height="28" fill="#5c3d11"/>
+    <ellipse cx="6" cy="84" rx="20" ry="15" fill="#ffb3c1" opacity="0.8"/>
+    <ellipse cx="16" cy="79" rx="15" ry="12" fill="#ffc8d2" opacity="0.8"/>
+    <ellipse cx="132" cy="100" rx="9" ry="6" fill="#fff"/>
+    <line x1="132" y1="106" x2="132" y2="118" stroke="#999" stroke-width="2"/>
+    <ellipse cx="127" cy="98" rx="7" ry="5" fill="#fff"/>
+    <polygon points="121,97 117,95 124,101" fill="#e63946"/>
+  </g>
+  <circle cx="80" cy="80" r="76" fill="none" stroke="#e63946" stroke-width="4"/>
+</svg>

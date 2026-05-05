@@ -42,7 +42,22 @@ class AuthController {
             // Si tout est valide, enregistrer l'utilisateur
             else {
                 $motDePasseHache = password_hash($motDePasse, PASSWORD_BCRYPT);
-                if ($userModel->registerUser($login, $email, $motDePasseHache)) {
+
+                // Choisir un avatar aléatoire depuis public/profil si présent (SVG autorisés)
+                $avatarDir = __DIR__ . '/../public/profil';
+                $avatarWebPath = null;
+                if (is_dir($avatarDir)) {
+                    $files = array_values(array_filter(scandir($avatarDir), function($f) use ($avatarDir) {
+                        return is_file($avatarDir . '/' . $f) && preg_match('/\.(jpe?g|png|gif|webp|svg)$/i', $f);
+                    }));
+                    if (count($files) > 0) {
+                        $pick = $files[array_rand($files)];
+                        // chemin relatif pour l'utilisation dans les balises img
+                        $avatarWebPath = 'public/profil/' . $pick;
+                    }
+                }
+
+                if ($userModel->registerUser($login, $email, $motDePasseHache, $avatarWebPath)) {
                     $user = $userModel->getUserByLogin($login);
                     if ($user) {
                         $_SESSION['user'] = $user;

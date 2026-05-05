@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160">
+  <defs>
+    <clipPath id="cercle"><circle cx="80" cy="80" r="76"/></clipPath>
+  </defs>
+  <circle cx="80" cy="80" r="78" fill="#fff"/>
+  <g clip-path="url(#cercle)">
+    <rect x="0" y="0" width="160" height="160" fill="#f4a261"/>
+    <rect x="0" y="0" width="160" height="50" fill="#e76f51"/>
+    <circle cx="80" cy="80" r="26" fill="#FFD166" opacity="0.9"/>
+    <rect x="0" y="92" width="160" height="68" fill="#e9c46a"/>
+    <ellipse cx="48" cy="94" rx="72" ry="20" fill="#f4a261"/>
+    <ellipse cx="128" cy="98" rx="62" ry="16" fill="#e9c46a"/>
+    <ellipse cx="100" cy="86" rx="22" ry="11" fill="#9c6b2e"/>
+    <ellipse cx="90" cy="80" rx="11" ry="9" fill="#9c6b2e"/>
+    <rect x="84" y="85" width="5" height="16" fill="#9c6b2e"/>
+    <rect x="104" y="87" width="5" height="16" fill="#9c6b2e"/>
+    <ellipse cx="88" cy="74" rx="9" ry="8" fill="#9c6b2e"/>
+    <rect x="84" y="70" width="4" height="11" fill="#9c6b2e"/>
+    <ellipse cx="105" cy="78" rx="9" ry="11" fill="#9c6b2e"/>
+    <rect x="26" y="58" width="5" height="38" fill="#5c3d11"/>
+    <ellipse cx="28" cy="55" rx="20" ry="9" fill="#2d6a4f"/>
+    <ellipse cx="18" cy="60" rx="13" ry="6" fill="#2d6a4f"/>
+    <ellipse cx="40" cy="62" rx="13" ry="6" fill="#2d6a4f"/>
+  </g>
+  <circle cx="80" cy="80" r="76" fill="none" stroke="#e76f51" stroke-width="4"/>
+</svg>

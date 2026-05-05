@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160">
+  <defs>
+    <clipPath id="cercle"><circle cx="80" cy="80" r="76"/></clipPath>
+  </defs>
+  <circle cx="80" cy="80" r="78" fill="#fff"/>
+  <g clip-path="url(#cercle)">
+    <rect x="0" y="0" width="160" height="160" fill="#04070f"/>
+    <path d="M0,58 Q40,28 80,48 Q120,68 160,38 L160,0 L0,0 Z" fill="#00b4d8" opacity="0.25"/>
+    <path d="M0,78 Q40,48 80,66 Q120,84 160,56 Q120,43 80,53 Q40,34 0,58 Z" fill="#06d6a0" opacity="0.55"/>
+    <path d="M0,88 Q40,58 80,76 Q120,94 160,64 Q120,53 80,66 Q40,48 0,78 Z" fill="#52b788" opacity="0.5"/>
+    <path d="M0,68 Q40,40 80,58 Q120,76 160,48" fill="none" stroke="#c77dff" stroke-width="9" opacity="0.35"/>
+    <path d="M0,98 Q40,68 80,88 Q120,108 160,78" fill="none" stroke="#7b2d8b" stroke-width="7" opacity="0.3"/>
+    <circle cx="9" cy="9" r="1.5" fill="#fff"/>
+    <circle cx="28" cy="23" r="2" fill="#fff"/>
+    <circle cx="54" cy="7" r="1.5" fill="#fff"/>
+    <circle cx="74" cy="17" r="2" fill="#fff"/>
+    <circle cx="99" cy="4" r="1.5" fill="#fff"/>
+    <circle cx="124" cy="14" r="1.5" fill="#fff"/>
+    <circle cx="147" cy="21" r="2" fill="#fff"/>
+    <circle cx="139" cy="4" r="1.5" fill="#fff"/>
+    <circle cx="19" cy="38" r="1.5" fill="#fff"/>
+    <rect x="0" y="120" width="160" height="40" fill="#e8f4fc"/>
+    <polygon points="13,120 24,84 35,120" fill="#0d2137"/>
+    <polygon points="33,120 47,78 61,120" fill="#0d2137"/>
+    <polygon points="98,120 109,86 120,120" fill="#0d2137"/>
+    <polygon points="118,120 131,80 144,120" fill="#0d2137"/>
+    <rect x="58" y="100" width="38" height="22" fill="#2c1810"/>
+    <polygon points="56,102 77,85 100,102" fill="#3d2415"/>
+    <rect x="69" y="109" width="9" height="13" fill="#4a1e0a"/>
+    <rect x="62" y="103" width="8" height="6" fill="#FFD166" opacity="0.8"/>
+    <rect x="82" y="103" width="8" height="6" fill="#FFD166" opacity="0.8"/>
+    <path d="M56,102 Q77,83 100,102" fill="none" stroke="#e8f4fc" stroke-width="3.5"/>
+  </g>
+  <circle cx="80" cy="80" r="76" fill="none" stroke="#06d6a0" stroke-width="4"/>
+</svg>

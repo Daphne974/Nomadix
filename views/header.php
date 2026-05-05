@@ -74,7 +74,7 @@ if (isset($_POST['deconnectetoi'])) {
                     <?php if ((int) $_SESSION['user']['admin'] === 1): ?>
                         <a href="admin.php" class="button4">Admin</a>
                     <?php endif; ?>
-                    <form method="post" style="display:inline;">
+                    <form method="post" action="logout.php" style="display:inline;">
                         <button type="submit" name="deconnectetoi" class="button3"
                             onclick="return confirm('Êtes-vous sûr de vouloir vous déconnecter?')">Déconnexion</button>
                     </form>
