@@ -56,6 +56,42 @@
     padding: 30px;
 }
 
+.admin-list-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin: 0 0 18px 0;
+    flex-wrap: wrap;
+}
+
+.admin-list-toolbar h2 {
+    margin: 0;
+}
+
+.admin-list-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.admin-search-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.admin-search-form input[type="search"] {
+    min-width: 260px;
+    padding: 10px 12px;
+    border: 1px solid #d7dce2;
+    border-radius: 8px;
+    background: #fff;
+    color: #222;
+}
+
 .admin-content h1 {
     margin-bottom: 30px;
     color: #000000;
@@ -83,6 +119,12 @@
     background-color: #eaf8ee;
     color: #216e3a;
     border: 1px solid #bfe4c9;
+}
+
+.alert-error {
+    background-color: #fff0f0;
+    color: #a52626;
+    border: 1px solid #f1bcbc;
 }
 
 .stats-grid {

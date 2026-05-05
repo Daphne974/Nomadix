@@ -66,6 +66,7 @@ $conn = Database::getAdminConnection();
 $users = $controller->getUsers($conn);
 $csrfToken = $controller->generateCsrfToken();
 $success = $_GET['success'] ?? null;
+$search = trim($_GET['q'] ?? '');
 ?>
 
 <link rel="stylesheet" href="/Nomadix/public/css/admin.css">
@@ -94,6 +95,17 @@ $success = $_GET['success'] ?? null;
             </div>
             <?php endif; ?>
 
+            <div class="admin-list-toolbar">
+                <h2>Tous les utilisateurs</h2>
+                <form method="get" class="admin-search-form">
+                    <input type="search" name="q" value="<?= htmlspecialchars($search) ?>" placeholder="Rechercher un utilisateur">
+                    <button type="submit" class="btn-small">Rechercher</button>
+                    <?php if ($search !== ''): ?>
+                        <a href="admin-users.php" class="btn-small2">Effacer</a>
+                    <?php endif; ?>
+                </form>
+            </div>
+
             <!-- Tableau des utilisateurs -->
             <div class="table-container">
                 <table class="admin-table">
@@ -108,7 +120,21 @@ $success = $_GET['success'] ?? null;
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($users as $user): ?>
+                        <?php
+                        $usersToShow = $users ?? [];
+                        if ($search !== '') {
+                            $needle = function_exists('mb_strtolower') ? mb_strtolower($search, 'UTF-8') : strtolower($search);
+                            $usersToShow = array_filter($usersToShow, function ($user) use ($needle) {
+                                $haystack = implode(' ', array_filter([
+                                    $user['login'] ?? '',
+                                    $user['email'] ?? '',
+                                ]));
+                                $haystack = function_exists('mb_strtolower') ? mb_strtolower($haystack, 'UTF-8') : strtolower($haystack);
+                                return strpos($haystack, $needle) !== false;
+                            });
+                        }
+                        ?>
+                        <?php foreach ($usersToShow as $user): ?>
                         <tr>
                             <td><?= htmlspecialchars($user['id']) ?></td>
                             <td><?= htmlspecialchars($user['login']) ?></td>

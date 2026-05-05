@@ -62,6 +62,7 @@ $conn = Database::getAdminConnection();
 $reviews = $controller->getAllReviews($conn);
 $csrfToken = $controller->generateCsrfToken();
 $success = $_GET['success'] ?? null;
+$search = trim($_GET['q'] ?? '');
 ?>
 
 <link rel="stylesheet" href="/Nomadix/public/css/admin.css">
@@ -90,10 +91,37 @@ $success = $_GET['success'] ?? null;
                 </div>
             <?php endif; ?>
 
+            <div class="admin-list-toolbar">
+                <h2>Liste des avis</h2>
+                <form method="get" class="admin-search-form">
+                    <input type="search" name="q" value="<?= htmlspecialchars($search) ?>" placeholder="Rechercher un avis">
+                    <button type="submit" class="btn-small">Rechercher</button>
+                    <?php if ($search !== ''): ?>
+                        <a href="admin-reviews.php" class="btn-small2">Effacer</a>
+                    <?php endif; ?>
+                </form>
+            </div>
+
             <!-- Liste des avis -->
-            <?php if (!empty($reviews)): ?>
+            <?php
+            $reviewsToShow = $reviews ?? [];
+            if ($search !== '') {
+                $needle = function_exists('mb_strtolower') ? mb_strtolower($search, 'UTF-8') : strtolower($search);
+                $reviewsToShow = array_filter($reviewsToShow, function ($review) use ($needle) {
+                    $haystack = implode(' ', array_filter([
+                        $review['login'] ?? '',
+                        $review['email'] ?? '',
+                        $review['destinationNom'] ?? '',
+                        $review['commentaire'] ?? '',
+                    ]));
+                    $haystack = function_exists('mb_strtolower') ? mb_strtolower($haystack, 'UTF-8') : strtolower($haystack);
+                    return strpos($haystack, $needle) !== false;
+                });
+            }
+            ?>
+            <?php if (!empty($reviewsToShow)): ?>
                 <div class="reviews-list">
-                    <?php foreach ($reviews as $review): ?>
+                    <?php foreach ($reviewsToShow as $review): ?>
                         <div class="review-card">
                             <div class="review-header">
                                 <div class="review-info">

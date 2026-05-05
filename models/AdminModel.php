@@ -68,7 +68,7 @@ class AdminModel {
             FROM avis a
             LEFT JOIN utilisateurs u ON a.idUtilisateur = u.id
             LEFT JOIN destinations d ON a.idDestination = d.id
-            ORDER BY a.dateAvis DESC
+            ORDER BY a.verified ASC, a.dateAvis DESC
         ");
         return $stmt->fetchAll();
     }

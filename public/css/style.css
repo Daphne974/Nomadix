@@ -43,9 +43,25 @@ p {
 
 .nav-buttons {
     display: flex;
+    align-items: center;
+    gap: 10px;
     position: absolute;
     top: 20px;
     right: 20px;
+}
+
+.nav-buttons form {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+.user-info {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    color: rgb(97, 0, 132);
+    font-weight: 700;
 }
 
 .button1,
@@ -60,7 +76,7 @@ p {
     border: none;
     font-weight: bold;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    margin-left: 10px;
+    margin-left: 0;
     font-size: 90%;
     cursor: pointer;
 }

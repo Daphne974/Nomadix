@@ -91,6 +91,28 @@ $stats = $controller->getStats($conn);
 $allReviews = $controller->getAllReviews($conn);
 $users = $controller->getUsers($conn);
 $csrfToken = $controller->generateCsrfToken();
+$search = trim($_GET['q'] ?? '');
+
+$matchesSearch = function (array $row, array $fields, string $term): bool {
+    if ($term === '') {
+        return true;
+    }
+
+    $needle = function_exists('mb_strtolower') ? mb_strtolower($term, 'UTF-8') : strtolower($term);
+    foreach ($fields as $field) {
+        $value = (string)($row[$field] ?? '');
+        if ($value === '') {
+            continue;
+        }
+
+        $haystack = function_exists('mb_strtolower') ? mb_strtolower($value, 'UTF-8') : strtolower($value);
+        if (strpos($haystack, $needle) !== false) {
+            return true;
+        }
+    }
+
+    return false;
+};
 ?>
 
 <link rel="stylesheet" href="/Nomadix/public/css/admin.css">
@@ -288,14 +310,27 @@ $csrfToken = $controller->generateCsrfToken();
             <?php elseif ($page === 'reviews'): ?>
                 <!-- Page dédiée aux avis -->
                 <section class="all-reviews">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <div class="admin-list-toolbar">
                         <h2><i class="fas fa-star"></i>
                             <?= isset($_GET['show_all']) ? 'Tous les avis' : 'Avis non vérifiés' ?></h2>
-                        <?php if (!isset($_GET['show_all'])): ?>
-                            <a href="admin.php?page=reviews&show_all=1" class="btn-small">Voir tous les avis</a>
-                        <?php else: ?>
-                            <a href="admin.php?page=reviews" class="btn-small">Voir uniquement les non vérifiés</a>
-                        <?php endif; ?>
+                        <div class="admin-list-actions">
+                            <form method="get" class="admin-search-form">
+                                <input type="hidden" name="page" value="reviews">
+                                <?php if (isset($_GET['show_all'])): ?>
+                                    <input type="hidden" name="show_all" value="1">
+                                <?php endif; ?>
+                                <input type="search" name="q" value="<?= htmlspecialchars($search) ?>" placeholder="Rechercher un avis">
+                                <button type="submit" class="btn-small">Rechercher</button>
+                                <?php if ($search !== ''): ?>
+                                    <a href="admin.php?page=reviews<?= isset($_GET['show_all']) ? '&show_all=1' : '' ?>" class="btn-small2">Effacer</a>
+                                <?php endif; ?>
+                            </form>
+                            <?php if (!isset($_GET['show_all'])): ?>
+                                <a href="admin.php?page=reviews&show_all=1" class="btn-small">Voir tous les avis</a>
+                            <?php else: ?>
+                                <a href="admin.php?page=reviews" class="btn-small">Voir uniquement les non vérifiés</a>
+                            <?php endif; ?>
+                        </div>
                     </div>
 
                     <table class="admin-table">
@@ -317,6 +352,11 @@ $csrfToken = $controller->generateCsrfToken();
                             } else {
                                 $reviewsToShow = array_filter($allReviews ?? [], function ($review) {
                                     return !($review['verified'] ?? false);
+                                });
+                            }
+                            if ($search !== '') {
+                                $reviewsToShow = array_filter($reviewsToShow, function ($review) use ($matchesSearch, $search) {
+                                    return $matchesSearch($review, ['login', 'email', 'destinationNom', 'commentaire'], $search);
                                 });
                             }
                             ?>
@@ -375,7 +415,17 @@ $csrfToken = $controller->generateCsrfToken();
             <?php elseif ($page === 'users'): ?>
                 <!-- Page dédiée aux utilisateurs -->
                 <section class="all-users">
-                    <h2><i class="fas fa-users"></i> Tous les utilisateurs</h2>
+                    <div class="admin-list-toolbar">
+                        <h2><i class="fas fa-users"></i> Tous les utilisateurs</h2>
+                        <form method="get" class="admin-search-form">
+                            <input type="hidden" name="page" value="users">
+                            <input type="search" name="q" value="<?= htmlspecialchars($search) ?>" placeholder="Rechercher un utilisateur">
+                            <button type="submit" class="btn-small">Rechercher</button>
+                            <?php if ($search !== ''): ?>
+                                <a href="admin.php?page=users" class="btn-small2">Effacer</a>
+                            <?php endif; ?>
+                        </form>
+                    </div>
                     <table class="admin-table">
                         <thead>
                             <tr>
@@ -387,8 +437,16 @@ $csrfToken = $controller->generateCsrfToken();
                             </tr>
                         </thead>
                         <tbody>
-                            <?php if (!empty($users)): ?>
-                                <?php foreach ($users as $user): ?>
+                            <?php
+                            $usersToShow = $users ?? [];
+                            if ($search !== '') {
+                                $usersToShow = array_filter($usersToShow, function ($user) use ($matchesSearch, $search) {
+                                    return $matchesSearch($user, ['login', 'email'], $search);
+                                });
+                            }
+                            ?>
+                            <?php if (!empty($usersToShow)): ?>
+                                <?php foreach ($usersToShow as $user): ?>
                                     <tr>
                                         <td><?= htmlspecialchars($user['id'] ?? '') ?></td>
                                         <td><?= htmlspecialchars($user['login'] ?? '') ?></td>

@@ -227,20 +227,34 @@ class AdminController
             die("Token CSRF invalide");
         }
 
+        $imageUrl = trim($_POST['image_url'] ?? '');
+        if ($imageUrl === '' || empty($_FILES['image_file']['name'])) {
+            header("Location: " . siteUrl('/admin') . "?page=destinations&error=photos_required");
+            exit;
+        }
+        if (!$this->isValidImageUrl($imageUrl)) {
+            header("Location: " . siteUrl('/admin') . "?page=destinations&error=image_url_invalid");
+            exit;
+        }
+
         $data = [
             'nom' => $_POST['nom'] ?? '',
             'description' => $_POST['description'] ?? '',
             'pays' => $_POST['pays'] ?? '',
             'ville' => $_POST['ville'] ?? '',
-            'image' => $_POST['image_url'] ?? null
+            'image' => $imageUrl
         ];
 
-        // handle file upload if any (save local copy named after the city)
-        if (!empty($_FILES['image_file']['name'])) {
-            $ville = $data['ville'] ?? '';
-            $uploadedLocal = $this->handleImageUpload($_FILES['image_file'], $ville);
-            // do not overwrite DB image field here: keep remote URL in DB (image)
-            // uploaded local image is saved to public/images/<ville>.jpg
+        if (!$this->isUploadedJpeg($_FILES['image_file'])) {
+            header("Location: " . siteUrl('/admin') . "?page=destinations&error=image_not_jpg");
+            exit;
+        }
+
+        $ville = $data['ville'] ?? '';
+        $uploadedLocal = $this->handleImageUpload($_FILES['image_file'], $ville);
+        if ($uploadedLocal === null) {
+            header("Location: " . siteUrl('/admin') . "?page=destinations&error=upload_failed");
+            exit;
         }
 
         $this->adminModel->createDestination($data);
@@ -263,17 +277,28 @@ class AdminController
         }
 
         $id = (int) $_POST['destinationId'];
+        $imageUrl = trim($_POST['image_url'] ?? '');
+        if ($imageUrl !== '' && !$this->isValidImageUrl($imageUrl)) {
+            header("Location: " . siteUrl('/admin') . "?page=destinations&edit=" . $id . "&error=image_url_invalid");
+            exit;
+        }
         $data = [
             'nom' => $_POST['nom'] ?? '',
             'description' => $_POST['description'] ?? '',
             'pays' => $_POST['pays'] ?? '',
             'ville' => $_POST['ville'] ?? '',
-            'image' => $_POST['image_url'] ?? null
+            'image' => $imageUrl !== '' ? $imageUrl : null
         ];
 
+        $existing = $this->adminModel->getDestinationById($id);
+
         if (!empty($_FILES['image_file']['name'])) {
+            if (!$this->isUploadedJpeg($_FILES['image_file'])) {
+                header("Location: " . siteUrl('/admin') . "?page=destinations&edit=" . $id . "&error=image_not_jpg");
+                exit;
+            }
+
             // remove previous local image (if any) before saving the new one
-            $existing = $this->adminModel->getDestinationById($id);
             if (!empty($existing) && !empty($existing['ville'])) {
                 $oldName = $this->sanitizeVille($existing['ville']) . '.jpg';
                 $oldPath = __DIR__ . '/../public/images/' . $oldName;
@@ -285,6 +310,15 @@ class AdminController
             $ville = $data['ville'] ?? '';
             $uploadedLocal = $this->handleImageUpload($_FILES['image_file'], $ville);
             // keep DB image as URL field from form unless explicitly changed in image_url
+        } elseif (!empty($existing) && !empty($existing['ville']) && !empty($data['ville'])) {
+            $oldName = $this->sanitizeVille($existing['ville']) . '.jpg';
+            $newName = $this->sanitizeVille($data['ville']) . '.jpg';
+            $oldPath = __DIR__ . '/../public/images/' . $oldName;
+            $newPath = __DIR__ . '/../public/images/' . $newName;
+
+            if ($oldName !== $newName && is_file($oldPath) && !is_file($newPath)) {
+                @rename($oldPath, $newPath);
+            }
         }
 
         $this->adminModel->updateDestination($id, $data);
@@ -303,6 +337,16 @@ class AdminController
         }
 
         if ($file['error'] !== UPLOAD_ERR_OK) {
+            return null;
+        }
+
+        $info = @getimagesize($file['tmp_name']);
+        if ($info === false || ($info['mime'] ?? '') !== 'image/jpeg') {
+            return null;
+        }
+
+        $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+        if (!in_array($ext, ['jpg', 'jpeg'], true)) {
             return null;
         }
 
@@ -331,72 +375,13 @@ class AdminController
             @file_put_contents($storageDir.'upload_debug.log', $line, FILE_APPEND);
         };
 
-        // First try moving the uploaded file directly (most reliable)
         if (@move_uploaded_file($file['tmp_name'], $destPath)) {
             @chmod($destPath, 0644);
-            $log("moved uploaded file to $destPath");
+            $log("moved uploaded jpeg file to $destPath");
             return '/Nomadix/public/images/' . $destFilename;
         }
 
-        $log("move_uploaded_file failed for $destPath; attempting GD conversion fallback");
-
-        // Try to convert uploaded image to JPEG to ensure .jpg using GD (fallback)
-        $info = @getimagesize($file['tmp_name']);
-        if ($info === false) {
-            $log("getimagesize failed: not an image");
-            return null;
-        }
-
-        $mime = $info['mime'];
-
-        if (!function_exists('imagejpeg') || !function_exists('imagecreatefromstring')) {
-            $log('GD not available');
-            return null;
-        }
-
-        $img = null;
-        switch ($mime) {
-            case 'image/jpeg':
-                $img = @imagecreatefromjpeg($file['tmp_name']);
-                break;
-            case 'image/png':
-                $img = @imagecreatefrompng($file['tmp_name']);
-                if ($img !== false) {
-                    $bg = imagecreatetruecolor(imagesx($img), imagesy($img));
-                    $white = imagecolorallocate($bg, 255, 255, 255);
-                    imagefill($bg, 0, 0, $white);
-                    imagecopy($bg, $img, 0, 0, 0, 0, imagesx($img), imagesy($img));
-                    imagedestroy($img);
-                    $img = $bg;
-                }
-                break;
-            case 'image/gif':
-                $img = @imagecreatefromgif($file['tmp_name']);
-                break;
-            case 'image/webp':
-                if (function_exists('imagecreatefromwebp')) {
-                    $img = @imagecreatefromwebp($file['tmp_name']);
-                }
-                break;
-            default:
-                $img = null;
-        }
-
-        if ($img !== null && $img !== false) {
-            if (@imagejpeg($img, $destPath, 85)) {
-                @chmod($destPath, 0644);
-                imagedestroy($img);
-                $log("converted image to JPEG at $destPath");
-                return '/Nomadix/public/images/' . $destFilename;
-            } else {
-                $log("imagejpeg failed for $destPath");
-            }
-            imagedestroy($img);
-        } else {
-            $log('GD could not create image resource from uploaded file');
-        }
-
-        $log('upload handling failed');
+        $log('move_uploaded_file failed');
         return null;
     }
 
@@ -479,6 +464,37 @@ class AdminController
         return isset($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
     }
 
+    /**
+     * Verifie qu'une URL d'image est syntaxiquement valide.
+     */
+    private function isValidImageUrl(string $url): bool
+    {
+        if (!filter_var($url, FILTER_VALIDATE_URL)) {
+            return false;
+        }
+
+        $scheme = strtolower((string) parse_url($url, PHP_URL_SCHEME));
+        return in_array($scheme, ['http', 'https'], true);
+    }
+
+    /**
+     * Verifie qu'un fichier televerse est un JPEG.
+     */
+    private function isUploadedJpeg(array $file): bool
+    {
+        if (empty($file['name']) || ($file['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK) {
+            return false;
+        }
+
+        $info = @getimagesize($file['tmp_name']);
+        if ($info === false || ($info['mime'] ?? '') !== 'image/jpeg') {
+            return false;
+        }
+
+        $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+        return in_array($ext, ['jpg', 'jpeg'], true);
+    }
+
     // Nomadix/controllers/AdminController.php
     public function showAdminPanel()
     {
@@ -507,7 +523,7 @@ class AdminController
             $query .= " WHERE avis.verified = 0"; // Filtre pour les avis non vérifiés
         }
 
-        $query .= " ORDER BY avis.dateAvis DESC";
+        $query .= " ORDER BY avis.verified ASC, avis.dateAvis DESC";
         
         if (!$showAll) {
             $query .= " LIMIT 5";
