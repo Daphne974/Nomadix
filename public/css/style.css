@@ -102,24 +102,72 @@ p {
 /* ========================= */
 
 .message {
-    max-width: 400px;
+    max-width: 680px;
     margin: 20px auto;
-    padding: 15px;
+    padding: 14px 44px 14px 18px;
     text-align: center;
-    border-radius: 6px;
-    font-weight: bold;
+    border-radius: 8px;
+    font-weight: 700;
+    position: relative;
+    box-shadow: 0 10px 24px rgba(35, 16, 60, 0.12);
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    overflow: hidden;
 }
 
 .success {
-    background-color: #d4edda;
-    color: rgb(0, 246, 57);
-    border: 1px solid #c3e6cb;
+    background-color: #eaf8ee;
+    color: #216e3a;
+    border: 1px solid #bfe4c9;
 }
 
 .error {
-    background-color: #f8d7da;
-    color: rgb(242, 6, 30);
-    border: 1px solid #f5c6cb;
+    background-color: #fff0f0;
+    color: #a52626;
+    border: 1px solid #f1bcbc;
+}
+
+.message.hidden,
+.flash.hidden,
+.alert.hidden {
+    opacity: 0;
+    transform: translateY(-8px);
+}
+
+.close-btn {
+    position: absolute;
+    top: 8px;
+    right: 14px;
+    color: inherit;
+    cursor: pointer;
+    font-size: 22px;
+    line-height: 1;
+    opacity: 0.65;
+}
+
+.close-btn:hover {
+    opacity: 1;
+}
+
+.progress-bar {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 100%;
+    background: currentColor;
+    opacity: 0.4;
+    animation: flash-progress 10s linear forwards;
+}
+
+@keyframes flash-progress {
+    from {
+        width: 100%;
+    }
+    to {
+        width: 0;
+    }
 }
 
 /* ========================= */
@@ -691,9 +739,22 @@ footer {
 .profil-forms button:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(107,47,163,0.14); }
 .profil-forms .danger { background: #e74c3c; }
 
-.flash { max-width: 980px; margin: 6px auto 0 auto; padding: 12px 20px; border-radius: 10px; font-weight: 600; text-align: center; }
-.flash.success { background: #eaf8ee; color: #216e3a; border: 1px solid #cfe9d4; }
-.flash.error { background: #fff0f0; color: #b02a2a; border: 1px solid #f3c6c6; }
+.flash {
+    max-width: 680px;
+    margin: 20px auto;
+    padding: 14px 18px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 10px 24px rgba(35, 16, 60, 0.12);
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    overflow: hidden;
+}
+.flash.success { background: #eaf8ee; color: #216e3a; border: 1px solid #bfe4c9; }
+.flash.error { background: #fff0f0; color: #a52626; border: 1px solid #f1bcbc; }
 
 @media (min-width:900px) {
     .profil-body { grid-template-columns: 1fr 1fr; }
