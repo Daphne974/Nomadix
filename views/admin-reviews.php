@@ -98,9 +98,14 @@ $success = $_GET['success'] ?? null;
                             <div class="review-header">
                                 <div class="review-info">
                                     <h3><?= htmlspecialchars($review['destinationNom'] ?? 'Destination inconnue') ?></h3>
-                                    <p class="review-user">
-                                        Par: <strong><?= htmlspecialchars($review['login'] ?? 'Anonyme') ?></strong>
-                                        (<?= htmlspecialchars($review['email'] ?? '-') ?>)
+                                    <p class="review-user" style="display:flex;align-items:center;gap:10px;">
+                                        <?php if (!empty($review['avatar'])): ?>
+                                            <img src="<?= htmlspecialchars($review['avatar']) ?>" alt="avatar" style="width:44px;height:44px;border-radius:50%;object-fit:cover;">
+                                        <?php else: ?>
+                                            <div style="width:44px;height:44px;border-radius:50%;background:#eee;display:flex;align-items:center;justify-content:center;color:#666;font-weight:700;"><?= strtoupper(substr($review['login'] ?? 'A',0,1)) ?></div>
+                                        <?php endif; ?>
+                                        <span>Par: <strong><?= htmlspecialchars($review['login'] ?? 'Anonyme') ?></strong>
+                                        (<?= htmlspecialchars($review['email'] ?? '-') ?>)</span>
                                     </p>
                                 </div>
                                 <div class="review-rating">
