@@ -383,6 +383,13 @@ p {
     font-size: 0.95rem;
 }
 
+.comment-text,
+.avis-card p {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    white-space: normal;
+}
+
 .nav-button {
     position: absolute;
     top: 50%;
@@ -752,6 +759,12 @@ footer {
     transform: translateY(0);
     transition: opacity 0.5s ease, transform 0.5s ease;
     overflow: hidden;
+}
+
+.comment-limit {
+    color: #6b5a7a;
+    font-size: 0.9rem;
+    text-align: right;
 }
 .flash.success { background: #eaf8ee; color: #216e3a; border: 1px solid #bfe4c9; }
 .flash.error { background: #fff0f0; color: #a52626; border: 1px solid #f1bcbc; }

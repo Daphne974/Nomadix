@@ -73,7 +73,7 @@ $currentPage = match ($routePath) {
             </div>
             <nav class="nav-buttons">
                 <?php if (isset($_SESSION["user"])): ?>
-                    <span class="user-info">Utilisateur : <?= htmlspecialchars($_SESSION["user"]["login"]) ?></span>
+                    <span class="user-info"><?= htmlspecialchars($_SESSION["user"]["login"]) ?></span>
                     <a href="<?= htmlspecialchars(siteUrl('/profil')) ?>" class="button4">Profil</a>
                     <?php if ((int) $_SESSION['user']['admin'] === 1): ?>
                         <a href="<?= htmlspecialchars(siteUrl('/admin')) ?>" class="button4">Admin</a>

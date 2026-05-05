@@ -122,7 +122,7 @@ $success = $_GET['success'] ?? null;
 
                             <div class="review-content">
                                 <p class="review-text">
-                                    <?= htmlspecialchars($review['commentaire'] ?? '(Aucun commentaire)') ?>
+                                    <?= nl2br(htmlspecialchars($review['commentaire'] ?? '(Aucun commentaire)')) ?>
                                 </p>
                                 <p class="review-date">
                                     <?= date('d/m/Y à H:i', strtotime($review['dateAvis'])) ?>

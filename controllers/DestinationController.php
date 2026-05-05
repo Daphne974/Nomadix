@@ -76,7 +76,16 @@ class DestinationController {
 
                     if (isset($_POST['note'])) {
                         $note = (int)$_POST['note'];
-                        $commentaire = sanitizeInput($_POST['commentaire'] ?? '');
+                        $commentaireBrut = trim($_POST['commentaire'] ?? '');
+                        $longueurCommentaire = function_exists('mb_strlen')
+                            ? mb_strlen($commentaireBrut, 'UTF-8')
+                            : strlen($commentaireBrut);
+
+                        if ($longueurCommentaire > 1000) {
+                            throw new Exception("Le commentaire ne doit pas depasser 1000 caracteres");
+                        }
+
+                        $commentaire = sanitizeInput($commentaireBrut);
 
                         // Valider la note
                         if ($note < 1 || $note > 5) {

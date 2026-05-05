@@ -89,6 +89,7 @@ require_once __DIR__ . '/header.php';
                     </div>
                     <textarea name="commentaire" placeholder="Partagez votre expérience..."
                         maxlength="1000"><?= htmlspecialchars($userAvis['commentaire'] ?? '') ?></textarea>
+                    <small class="comment-limit">1000 caracteres maximum.</small>
                     <?php if ($userAvis): ?>
                         <div class="boutons_modifetsupp">
                             <button name="ok" type="submit" class="envoyer"
@@ -133,7 +134,7 @@ require_once __DIR__ . '/header.php';
                                 <i class="fa-solid fa-star" style="color: #FFF;"></i>
                             <?php endif; ?>
                         <?php endfor; ?>
-                        <p style="font-size: 16px; margin-top: 10px;"><?= nl2br(htmlspecialchars($avis['commentaire'])) ?></p>
+                        <p class="comment-text" style="font-size: 16px; margin-top: 10px;"><?= nl2br(htmlspecialchars($avis['commentaire'])) ?></p>
                     </div>
                 <?php endforeach; ?>
             <?php endif; ?>

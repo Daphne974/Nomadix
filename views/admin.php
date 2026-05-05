@@ -208,7 +208,7 @@ $csrfToken = $controller->generateCsrfToken();
                                         Destination: <strong><?= htmlspecialchars($review['destinationNom'] ?? 'N/A') ?></strong>
                                     </div>
                                     <p class="review-text">
-                                        <?= htmlspecialchars(substr($review['commentaire'] ?? '', 0, 100)) ?>...
+                                        <?= nl2br(htmlspecialchars(substr($review['commentaire'] ?? '', 0, 1000))) ?>
                                     </p>
                                     <div
                                         style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">

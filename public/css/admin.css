@@ -164,6 +164,9 @@
 .review-text {
     margin: 8px 0;
     color: #333;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    white-space: normal;
 }
 
 .review-date {
@@ -188,6 +191,8 @@
 .admin-table td {
     padding: 12px;
     border-bottom: 1px solid rgb(97, 0, 132, 0.135);
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 .admin-table tr:hover {
@@ -321,6 +326,9 @@
     background-color: white;
     border-left: 3px solid rgb(97, 0, 132, 0.2);
     border-radius: 2px;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    white-space: normal;
 }
 
 .review-date {
