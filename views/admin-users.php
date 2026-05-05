@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $conn->prepare("UPDATE utilisateurs SET admin = ? WHERE id = ?");
             $stmt->execute([$newAdminStatus, $userId]);
         }
-        header("Location: admin-users.php?success=1");
+        header("Location: " . siteUrl('/admin') . "?page=users&success=1");
         exit;
     } elseif ($action === 'delete_user') {
         if (!isset($_POST['userId']) || !isset($_POST['csrf_token'])) {
@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $conn = Database::getAdminConnection();
         $stmt = $conn->prepare("DELETE FROM utilisateurs WHERE id = ?");
         $stmt->execute([$userId]);
-        header("Location: admin-users.php?success=deleted");
+        header("Location: " . siteUrl('/admin') . "?page=users&success=deleted");
         exit;
     }
 }
@@ -67,6 +67,7 @@ $users = $controller->getUsers($conn);
 $csrfToken = $controller->generateCsrfToken();
 $success = $_GET['success'] ?? null;
 $search = trim($_GET['q'] ?? '');
+$page = 'users';
 ?>
 
 <link rel="stylesheet" href="/Nomadix/public/css/admin.css">
@@ -97,11 +98,12 @@ $search = trim($_GET['q'] ?? '');
 
             <div class="admin-list-toolbar">
                 <h2>Tous les utilisateurs</h2>
-                <form method="get" class="admin-search-form">
+                <form method="get" action="<?= htmlspecialchars(siteUrl('/admin')) ?>" class="admin-search-form">
+                    <input type="hidden" name="page" value="users">
                     <input type="search" name="q" value="<?= htmlspecialchars($search) ?>" placeholder="Rechercher un utilisateur">
                     <button type="submit" class="btn-small">Rechercher</button>
                     <?php if ($search !== ''): ?>
-                        <a href="admin-users.php" class="btn-small2">Effacer</a>
+                        <a href="<?= htmlspecialchars(siteUrl('/admin')) ?>?page=users" class="btn-small2">Effacer</a>
                     <?php endif; ?>
                 </form>
             </div>

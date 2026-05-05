@@ -3,7 +3,7 @@
 // Variables disponibles: $user
 ?>
 
-<main>
+<main class="profil-page">
     <div class="profil-wrapper">
         <?php if (isset($_SESSION['flash_message'])): ?>
             <div class="flash <?= htmlspecialchars($_SESSION['flash_message_class'] ?? '') ?>">
@@ -13,7 +13,7 @@
         <?php endif; ?>
 
         <div class="profil-card">
-            <div class="profil-top">
+            <div class="profil-top profil-hero">
                 <div class="profil-avatar">
                     <?php if (!empty($user['avatar'])): ?>
                         <img src="<?= htmlspecialchars(siteUrl('/' . $user['avatar'])) ?>" alt="Avatar" style="width:86px;height:86px;border-radius:50%;object-fit:cover;">
@@ -28,27 +28,39 @@
             </div>
 
             <div class="profil-body">
-                <div class="profil-info">
-                    <p><strong>Login :</strong> <?= htmlspecialchars($user['login'] ?? 'N/A') ?></p>
-                    <p><strong>Email :</strong> <?= htmlspecialchars($user['email'] ?? 'N/A') ?></p>
+                <div class="profil-info-panel">
+                    <div class="profil-info-card">
+                        <span>Login</span>
+                        <strong><?= htmlspecialchars($user['login'] ?? 'N/A') ?></strong>
+                    </div>
+                    <div class="profil-info-card">
+                        <span>Email</span>
+                        <strong><?= htmlspecialchars($user['email'] ?? 'N/A') ?></strong>
+                    </div>
                     <?php if (isset($user['dateCreation'])): ?>
-                        <p><strong>Compte créé le :</strong> <?= date('d/m/Y H:i', strtotime($user['dateCreation'])) ?></p>
+                        <div class="profil-info-card">
+                            <span>Compte créé le</span>
+                            <strong><?= date('d/m/Y H:i', strtotime($user['dateCreation'])) ?></strong>
+                        </div>
                     <?php endif; ?>
-                    <?php if (isset($user['admin']) && $user['admin']): ?>
-                        <p><strong>Statut :</strong> <span style="color: #ff0000;">Administrateur</span></p>
-                    <?php else: ?>
-                        <p><strong>Statut :</strong> <span>Utilisateur</span></p>
-                    <?php endif; ?>
+                    <div class="profil-info-card">
+                        <span>Statut</span>
+                        <?php if (isset($user['admin']) && $user['admin']): ?>
+                            <strong class="profil-role admin">Administrateur</strong>
+                        <?php else: ?>
+                            <strong class="profil-role user">Utilisateur</strong>
+                        <?php endif; ?>
+                    </div>
                 </div>
 
                 <div class="profil-forms">
-                    <div>
+                    <div class="profil-panel">
                         <h3>Choisir un avatar</h3>
-                        <div style="display:flex;flex-wrap:wrap;gap:10px;">
+                        <div class="avatar-grid">
                             <?php
                             $avatarDir = __DIR__ . '/../public/profil';
                             if (is_dir($avatarDir)) {
-                                $files = array_values(array_filter(scandir($avatarDir), function($f) use ($avatarDir) {
+                                $files = array_values(array_filter(scandir($avatarDir), function ($f) use ($avatarDir) {
                                     return is_file($avatarDir . '/' . $f) && preg_match('/\.(jpe?g|png|gif|webp|svg)$/i', $f);
                                 }));
                                 foreach ($files as $f):
@@ -58,16 +70,17 @@
                                 <form method="post" action="<?= htmlspecialchars(siteUrl('/profil')) ?>" style="margin:0;">
                                     <input type="hidden" name="action" value="update_avatar">
                                     <input type="hidden" name="avatar" value="<?= htmlspecialchars($path) ?>">
-                                    <button type="submit" style="border:0;background:none;padding:0;cursor:pointer;">
-                                        <img src="<?= htmlspecialchars($avatarUrl) ?>" alt="avatar" style="width:60px;height:60px;border-radius:8px;object-fit:cover;border:2px solid #eee;">
+                                    <button type="submit" class="avatar-choice">
+                                        <img src="<?= htmlspecialchars($avatarUrl) ?>" alt="avatar" style="width:60px;height:60px;border-radius:12px;object-fit:cover;">
                                     </button>
                                 </form>
                             <?php endforeach; }
                             ?>
                         </div>
                     </div>
+
                     <div class="forms-grid">
-                        <div>
+                        <div class="profil-panel">
                             <h3>Changer l'e-mail</h3>
                             <form method="post" action="<?= htmlspecialchars(siteUrl('/profil')) ?>">
                                 <input type="hidden" name="action" value="update_email">
@@ -77,7 +90,7 @@
                             </form>
                         </div>
 
-                        <div>
+                        <div class="profil-panel">
                             <h3>Changer le mot de passe</h3>
                             <form method="post" action="<?= htmlspecialchars(siteUrl('/profil')) ?>">
                                 <input type="hidden" name="action" value="update_password">
@@ -91,7 +104,7 @@
                     </div>
 
                     <div class="forms-grid">
-                        <div>
+                        <div class="profil-panel">
                             <h3>Changer le pseudo (1 fois tous les 4 mois)</h3>
                             <form method="post" action="<?= htmlspecialchars(siteUrl('/profil')) ?>">
                                 <input type="hidden" name="action" value="update_login">
@@ -100,7 +113,7 @@
                             </form>
                         </div>
 
-                        <div>
+                        <div class="profil-panel danger-panel">
                             <h3>Supprimer mon compte</h3>
                             <form method="post" action="<?= htmlspecialchars(siteUrl('/profil')) ?>" onsubmit="return confirm('Cette action est irreversible. Confirmer la suppression de votre compte ?');">
                                 <input type="hidden" name="action" value="delete_account">

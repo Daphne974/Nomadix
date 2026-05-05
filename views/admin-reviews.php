@@ -93,11 +93,12 @@ $search = trim($_GET['q'] ?? '');
 
             <div class="admin-list-toolbar">
                 <h2>Liste des avis</h2>
-                <form method="get" class="admin-search-form">
+                <form method="get" action="<?= htmlspecialchars(siteUrl('/admin')) ?>" class="admin-search-form">
+                    <input type="hidden" name="page" value="reviews">
                     <input type="search" name="q" value="<?= htmlspecialchars($search) ?>" placeholder="Rechercher un avis">
                     <button type="submit" class="btn-small">Rechercher</button>
                     <?php if ($search !== ''): ?>
-                        <a href="admin-reviews.php" class="btn-small2">Effacer</a>
+                        <a href="<?= htmlspecialchars(siteUrl('/admin')) ?>?page=reviews" class="btn-small2">Effacer</a>
                     <?php endif; ?>
                 </form>
             </div>
