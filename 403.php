@@ -1,5 +1,6 @@
 <?php
 // Nomadix/403.php
+require_once __DIR__ . '/config/config.php';
 http_response_code(403);
 require_once __DIR__ . '/views/header.php';
 ?>
@@ -10,9 +11,9 @@ require_once __DIR__ . '/views/header.php';
         <p>Désolé, vous n'avez pas la permission d'accéder à cette page.</p>
         <div class="error-actions">
             <?php if (isset($_SESSION['user'])): ?>
-                <a href="index.php" class="connect-button">Retour à l'accueil</a>
+                <a href="<?= htmlspecialchars(siteUrl('/')) ?>" class="connect-button">Retour à l'accueil</a>
             <?php else: ?>
-                <a href="connexion.php" class="connect-button">Se connecter</a>
+                <a href="<?= htmlspecialchars(siteUrl('/connexion')) ?>" class="connect-button">Se connecter</a>
             <?php endif; ?>
         </div>
     </div>

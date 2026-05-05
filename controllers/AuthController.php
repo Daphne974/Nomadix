@@ -61,7 +61,7 @@ class AuthController {
                     $user = $userModel->getUserByLogin($login);
                     if ($user) {
                         $_SESSION['user'] = $user;
-                        header("Location: index.php");
+                        header("Location: " . siteUrl('/'));
                         exit;
                     }
                     $message = "Inscription réussie !";
@@ -110,9 +110,9 @@ class AuthController {
                     
                     // Redirection selon le rôle
                     if ($_SESSION['user']['is_admin']) {
-                        header("Location: admin.php");
+                        header("Location: " . siteUrl('/admin'));
                     } else {
-                        header("Location: index.php");
+                        header("Location: " . siteUrl('/'));
                     }
                     exit;
                 } else {

@@ -7,7 +7,9 @@ ErrorDocument 403 /Nomadix/403.php
 # Definir la page 404 personnalisee
 ErrorDocument 404 /Nomadix/404.php
 
-# Rediriger les requetes invalides vers 404.php
+# Laisser Apache servir directement les fichiers et dossiers reels
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ /Nomadix/404.php [L]
+
+# Envoyer les autres URL vers le routeur central
+RewriteRule ^(.*)$ /Nomadix/index.php [L,QSA]

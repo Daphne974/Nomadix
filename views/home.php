@@ -14,7 +14,7 @@ require_once __DIR__ . '/header.php';
     <?php endif; ?>
 
     <div class="search">
-        <form method="POST" action="index.php">
+        <form method="POST" action="<?= htmlspecialchars(siteUrl('/')) ?>">
             <input type="text" name="recherche" value="<?= htmlspecialchars($recherche ?? '') ?>"
                 placeholder="Recherche..." autofocus autocomplete="on">
             <input type="submit" value="Search!">
@@ -31,9 +31,9 @@ require_once __DIR__ . '/header.php';
             <?php
             $ville = $dest['ville'];
             $villeURL = normalizeString($ville);
-            $imagePath = "public/images/" . $villeURL . ".jpg";
+            $imagePath = siteUrl("/public/images/" . $villeURL . ".jpg");
             ?>
-            <a href="destination.php?ville=<?= urlencode($ville) ?>">
+            <a href="<?= htmlspecialchars(siteUrl('/destination')) ?>?ville=<?= urlencode($ville) ?>">
                 <div class="destination">
                     <img src="<?= $imagePath ?>" alt="<?= htmlspecialchars($ville) ?>">
                     <div class="city-name">

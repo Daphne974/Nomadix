@@ -1,5 +1,7 @@
 <?php
 // Nomadix/logout.php
+require_once __DIR__ . '/config/config.php';
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -14,5 +16,5 @@ if (ini_get("session.use_cookies")) {
     );
 }
 session_destroy();
-header('Location: index.php');
+header('Location: ' . siteUrl('/'));
 exit;

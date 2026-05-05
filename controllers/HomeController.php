@@ -27,7 +27,7 @@ class HomeController {
         if (isset($_POST["deconnectetoi"])) {
             session_unset();
             session_destroy();
-            header("Location: index.php");
+            header("Location: " . siteUrl('/'));
             exit();
         }
 
@@ -42,7 +42,7 @@ class HomeController {
 
         // Vérifier que l'utilisateur est connecté
         if (!isset($_SESSION['user'])) {
-            header("Location: connexion.php");
+            header("Location: " . siteUrl('/connexion'));
             exit;
         }
 
@@ -51,7 +51,7 @@ class HomeController {
         $user = $userModel->getUserById($userId);
 
         if (!$user) {
-            header('Location: 404.php');
+            header('Location: ' . siteUrl('/404'));
             exit;
         }
 
@@ -188,7 +188,7 @@ class HomeController {
                             // Détruire la session et rediriger
                             session_unset();
                             session_destroy();
-                            header('Location: index.php');
+                            header('Location: ' . siteUrl('/'));
                             exit;
                         } else {
                             $message = 'Erreur lors de la suppression du compte.';
@@ -202,7 +202,7 @@ class HomeController {
                 $_SESSION['flash_message_class'] = $messageClass;
             }
 
-            header('Location: profil.php');
+            header('Location: ' . siteUrl('/profil'));
             exit;
         }
 

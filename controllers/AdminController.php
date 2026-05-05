@@ -1,5 +1,6 @@
 <?php
 // Nomadix/controllers/AdminController.php
+require_once __DIR__ . '/../config/config.php';
 require_once __DIR__ . '/../models/AdminModel.php';
 require_once __DIR__ . '/../models/Database.php';
 
@@ -92,7 +93,7 @@ class AdminController
         $newAdminStatus = $user['admin'] ? 0 : 1;
         $this->adminModel->updateAdminStatus($userId, $newAdminStatus);
 
-        header("Location: admin.php?page=users&success=1");
+        header("Location: " . siteUrl('/admin') . "?page=users&success=1");
         exit;
     }
 
@@ -122,7 +123,7 @@ class AdminController
 
         $this->adminModel->deleteUser($userId);
 
-        header("Location: admin.php?page=users&success=deleted");
+        header("Location: " . siteUrl('/admin') . "?page=users&success=deleted");
         exit;
     }
 
@@ -145,7 +146,7 @@ class AdminController
         $reviewId = (int) $_POST['reviewId'];
         $this->adminModel->deleteReview($reviewId);
 
-        header("Location: admin.php?page=reviews&success=deleted");
+        header("Location: " . siteUrl('/admin') . "?page=reviews&success=deleted");
         exit;
     }
 
@@ -243,7 +244,7 @@ class AdminController
         }
 
         $this->adminModel->createDestination($data);
-        header("Location: admin.php?page=destinations&success=1");
+        header("Location: " . siteUrl('/admin') . "?page=destinations&success=1");
         exit;
     }
 
@@ -287,7 +288,7 @@ class AdminController
         }
 
         $this->adminModel->updateDestination($id, $data);
-        header("Location: admin.php?page=destinations&success=1");
+        header("Location: " . siteUrl('/admin') . "?page=destinations&success=1");
         exit;
     }
 
@@ -446,7 +447,7 @@ class AdminController
 
         $this->adminModel->deleteDestination($destinationId);
 
-        header("Location: admin.php?page=destinations&success=deleted");
+        header("Location: " . siteUrl('/admin') . "?page=destinations&success=deleted");
         exit;
     }
 
@@ -525,7 +526,7 @@ class AdminController
     public function toggleReviewVerification()
     {
         if (!isset($_GET['id'])) {
-            header("Location: admin.php");
+            header("Location: " . siteUrl('/admin'));
             exit;
         }
 
@@ -545,7 +546,7 @@ class AdminController
         $stmt = $conn->prepare("UPDATE avis SET verified = ? WHERE id = ?");
         $stmt->execute([$newVerifiedStatus, $reviewId]);
 
-        header("Location: admin.php?success=1");
+        header("Location: " . siteUrl('/admin') . "?success=1");
         exit;
     }
 

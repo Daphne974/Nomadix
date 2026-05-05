@@ -99,7 +99,7 @@ class DestinationController {
                         
                         $_SESSION['flash_message'] = $message;
                         $_SESSION['flash_message_class'] = $messageClass;
-                        header("Location: destination.php?ville=" . urlencode($ville));
+                        header("Location: " . siteUrl('/destination') . "?ville=" . urlencode($ville));
                         exit;
                     } elseif (isset($_POST['supprimer_avis']) && $userAvis) {
                         $conn = Database::getAdminConnection();
@@ -108,7 +108,7 @@ class DestinationController {
                         
                         $_SESSION['flash_message'] = "✓ Avis supprimé avec succès.";
                         $_SESSION['flash_message_class'] = "success";
-                        header("Location: destination.php?ville=" . urlencode($ville));
+                        header("Location: " . siteUrl('/destination') . "?ville=" . urlencode($ville));
                         exit;
                     }
                 } else {
@@ -122,7 +122,7 @@ class DestinationController {
         } catch (Exception $e) {
             $_SESSION['flash_message'] = "❌ Erreur : " . htmlspecialchars($e->getMessage());
             $_SESSION['flash_message_class'] = "error";
-            header("Location: index.php");
+            header("Location: " . siteUrl('/'));
             exit;
         }
     }

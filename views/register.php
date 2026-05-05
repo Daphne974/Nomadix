@@ -30,7 +30,7 @@ require_once __DIR__ . '/header.php';
             <input type="submit" value="S'inscrire"><br><br>
         </form>
         <div class="register-link">
-                <p>Déjà un compte ? <a href="connexion.php">Se connecter</a></p>
+                <p>Deja un compte ? <a href="<?= htmlspecialchars(siteUrl('/connexion')) ?>">Se connecter</a></p>
         </div>
     </div>
 </main>

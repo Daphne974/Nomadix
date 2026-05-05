@@ -16,7 +16,7 @@
             <div class="profil-top">
                 <div class="profil-avatar">
                     <?php if (!empty($user['avatar'])): ?>
-                        <img src="<?= htmlspecialchars($user['avatar']) ?>" alt="Avatar" style="width:86px;height:86px;border-radius:50%;object-fit:cover;">
+                        <img src="<?= htmlspecialchars(siteUrl('/' . $user['avatar'])) ?>" alt="Avatar" style="width:86px;height:86px;border-radius:50%;object-fit:cover;">
                     <?php else: ?>
                         <?= htmlspecialchars(strtoupper(substr($user['login'] ?? 'U', 0, 2))) ?>
                     <?php endif; ?>
@@ -53,12 +53,13 @@
                                 }));
                                 foreach ($files as $f):
                                     $path = 'public/profil/' . $f;
+                                    $avatarUrl = siteUrl('/' . $path);
                             ?>
-                                <form method="post" action="profil.php" style="margin:0;">
+                                <form method="post" action="<?= htmlspecialchars(siteUrl('/profil')) ?>" style="margin:0;">
                                     <input type="hidden" name="action" value="update_avatar">
                                     <input type="hidden" name="avatar" value="<?= htmlspecialchars($path) ?>">
                                     <button type="submit" style="border:0;background:none;padding:0;cursor:pointer;">
-                                        <img src="<?= htmlspecialchars($path) ?>" alt="avatar" style="width:60px;height:60px;border-radius:8px;object-fit:cover;border:2px solid #eee;">
+                                        <img src="<?= htmlspecialchars($avatarUrl) ?>" alt="avatar" style="width:60px;height:60px;border-radius:8px;object-fit:cover;border:2px solid #eee;">
                                     </button>
                                 </form>
                             <?php endforeach; }
@@ -68,7 +69,7 @@
                     <div class="forms-grid">
                         <div>
                             <h3>Changer l'e-mail</h3>
-                            <form method="post" action="profil.php">
+                            <form method="post" action="<?= htmlspecialchars(siteUrl('/profil')) ?>">
                                 <input type="hidden" name="action" value="update_email">
                                 <label>Nouveau e-mail:<br><input type="email" name="email" required></label>
                                 <label>Mot de passe actuel:<br><input type="password" name="currentPassword" required></label>
@@ -78,7 +79,7 @@
 
                         <div>
                             <h3>Changer le mot de passe</h3>
-                            <form method="post" action="profil.php">
+                            <form method="post" action="<?= htmlspecialchars(siteUrl('/profil')) ?>">
                                 <input type="hidden" name="action" value="update_password">
                                 <label>Mot de passe actuel:<br><input type="password" name="currentPassword" required></label>
                                 <label>Nouveau mot de passe:<br><input type="password" name="newPassword" required></label>
@@ -92,7 +93,7 @@
                     <div class="forms-grid">
                         <div>
                             <h3>Changer le pseudo (1 fois tous les 4 mois)</h3>
-                            <form method="post" action="profil.php">
+                            <form method="post" action="<?= htmlspecialchars(siteUrl('/profil')) ?>">
                                 <input type="hidden" name="action" value="update_login">
                                 <label>Nouveau pseudo:<br><input type="text" name="login" required></label>
                                 <button type="submit">Mettre à jour le pseudo</button>
@@ -101,7 +102,7 @@
 
                         <div>
                             <h3>Supprimer mon compte</h3>
-                            <form method="post" action="profil.php" onsubmit="return confirm('Cette action est irréversible. Confirmer la suppression de votre compte ?');">
+                            <form method="post" action="<?= htmlspecialchars(siteUrl('/profil')) ?>" onsubmit="return confirm('Cette action est irreversible. Confirmer la suppression de votre compte ?');">
                                 <input type="hidden" name="action" value="delete_account">
                                 <label>Mot de passe actuel:<br><input type="password" name="currentPassword" required></label>
                                 <button type="submit" class="danger">Supprimer mon compte</button>
