@@ -17,6 +17,62 @@ if (isset($_SESSION['flash_message']) && isset($_SESSION['flash_message_class'])
     unset($_SESSION['flash_message_class']);
 }
 
+$avisTri = $_GET['tri_avis'] ?? 'best';
+$triOptions = ['best', 'worst', 'recent', 'old'];
+if (!in_array($avisTri, $triOptions, true)) {
+    $avisTri = 'best';
+}
+
+$avisNoteFilter = isset($_GET['note_avis']) ? (int) $_GET['note_avis'] : 0;
+if ($avisNoteFilter < 1 || $avisNoteFilter > 5) {
+    $avisNoteFilter = 0;
+}
+
+$avisStats = [
+    'total' => count($allAvis),
+    'average' => 0,
+    'counts' => [1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0],
+];
+$totalNotes = 0;
+foreach ($allAvis as $avisItem) {
+    $noteItem = (int) ($avisItem['note'] ?? 0);
+    if ($noteItem >= 1 && $noteItem <= 5) {
+        $avisStats['counts'][$noteItem]++;
+        $totalNotes += $noteItem;
+    }
+}
+if ($avisStats['total'] > 0) {
+    $avisStats['average'] = round($totalNotes / $avisStats['total'], 1);
+}
+
+$avisFiltres = array_values(array_filter($allAvis, function ($avisItem) use ($avisNoteFilter) {
+    return $avisNoteFilter === 0 || (int) ($avisItem['note'] ?? 0) === $avisNoteFilter;
+}));
+
+usort($avisFiltres, function ($a, $b) use ($avisTri) {
+    $noteA = (int) ($a['note'] ?? 0);
+    $noteB = (int) ($b['note'] ?? 0);
+    $dateA = strtotime($a['dateAvis'] ?? '') ?: 0;
+    $dateB = strtotime($b['dateAvis'] ?? '') ?: 0;
+
+    return match ($avisTri) {
+        'worst' => [$noteA, -$dateA] <=> [$noteB, -$dateB],
+        'recent' => $dateB <=> $dateA,
+        'old' => $dateA <=> $dateB,
+        default => [$noteB, $dateB] <=> [$noteA, $dateA],
+    };
+});
+
+$avisUrl = function (string $tri, int $note = 0) use ($destination): string {
+    $params = [
+        'ville' => $destination['ville'],
+        'tri_avis' => $tri,
+    ];
+    if ($note > 0) {
+        $params['note_avis'] = $note;
+    }
+    return siteUrl('/destination') . '?' . http_build_query($params) . '#avis';
+};
 
 require_once __DIR__ . '/header.php';
 ?>
@@ -88,8 +144,8 @@ require_once __DIR__ . '/header.php';
                         <label for="star1">&#9733;</label>
                     </div>
                     <textarea name="commentaire" placeholder="Partagez votre expérience..."
-                        maxlength="1000"><?= htmlspecialchars($userAvis['commentaire'] ?? '') ?></textarea>
-                    <small class="comment-limit">1000 caracteres maximum.</small>
+                        maxlength="500"><?= htmlspecialchars($userAvis['commentaire'] ?? '') ?></textarea>
+                    <small class="comment-limit">500 caracteres maximum.</small>
                     <?php if ($userAvis): ?>
                         <div class="boutons_modifetsupp">
                             <button name="ok" type="submit" class="envoyer"
@@ -103,59 +159,107 @@ require_once __DIR__ . '/header.php';
                 </form>
             <?php endif; ?>
         </div>
-    </div>
 
-    <div class="avis-wrapper">
-        <button class="nav-button left" onclick="scrollAvis(-1)">&#139;</button>
-        <div class="avis-container" id="avis-container">
-            <?php if (empty($allAvis)): ?>
-                <div class="avis-card">
-                    <h3>Aucun avis pour le moment.</h3>
-                    <p>Soyez le premier à en laisser un ! 😉</p>
+    <section class="avis-wrapper" id="avis">
+        <div class="avis-section-header">
+            <div>
+                <h2>Avis des voyageurs</h2>
+                <p><?= htmlspecialchars($avisStats['total']) ?> avis au total</p>
+            </div>
+        </div>
+
+        <div class="avis-dashboard">
+            <div class="avis-summary-card avis-summary-main">
+                <span class="avis-summary-label">Note moyenne</span>
+                <strong><?= htmlspecialchars(number_format((float) $avisStats['average'], 1)) ?>/5</strong>
+                <span><?= htmlspecialchars($avisStats['total']) ?> avis</span>
+            </div>
+            <?php for ($note = 5; $note >= 1; $note--): ?>
+                <?php
+                $countNote = $avisStats['counts'][$note];
+                $percentNote = $avisStats['total'] > 0 ? round(($countNote / $avisStats['total']) * 100) : 0;
+                ?>
+                <a href="<?= htmlspecialchars($avisUrl($avisTri, $note)) ?>" class="avis-summary-card <?= $avisNoteFilter === $note ? 'active' : '' ?>">
+                    <span class="avis-summary-label"><?= $note ?> etoile<?= $note > 1 ? 's' : '' ?></span>
+                    <strong><?= htmlspecialchars($countNote) ?></strong>
+                    <span class="avis-bar"><span style="width: <?= htmlspecialchars($percentNote) ?>%;"></span></span>
+                </a>
+            <?php endfor; ?>
+        </div>
+
+        <div class="avis-toolbar">
+            <div class="avis-filter-links">
+                <a href="<?= htmlspecialchars($avisUrl($avisTri, 0)) ?>" class="<?= $avisNoteFilter === 0 ? 'active' : '' ?>">Tous</a>
+                <?php for ($note = 5; $note >= 1; $note--): ?>
+                    <a href="<?= htmlspecialchars($avisUrl($avisTri, $note)) ?>" class="<?= $avisNoteFilter === $note ? 'active' : '' ?>"><?= $note ?> etoiles</a>
+                <?php endfor; ?>
+            </div>
+            <form method="get" action="<?= htmlspecialchars(siteUrl('/destination')) ?>" class="avis-sort-form">
+                <input type="hidden" name="ville" value="<?= htmlspecialchars($destination['ville']) ?>">
+                <?php if ($avisNoteFilter > 0): ?>
+                    <input type="hidden" name="note_avis" value="<?= htmlspecialchars($avisNoteFilter) ?>">
+                <?php endif; ?>
+                <label for="tri_avis">Trier</label>
+                <select id="tri_avis" name="tri_avis" onchange="this.form.submit()">
+                    <option value="best" <?= $avisTri === 'best' ? 'selected' : '' ?>>Meilleurs avis</option>
+                    <option value="worst" <?= $avisTri === 'worst' ? 'selected' : '' ?>>Moins bons avis</option>
+                    <option value="recent" <?= $avisTri === 'recent' ? 'selected' : '' ?>>Plus recents</option>
+                    <option value="old" <?= $avisTri === 'old' ? 'selected' : '' ?>>Plus anciens</option>
+                </select>
+            </form>
+        </div>
+
+        <div class="avis-table-wrap">
+            <?php if (empty($avisFiltres)): ?>
+                <div class="avis-empty-state">
+                    <h3>Aucun avis trouve</h3>
+                    <p>Changez le filtre ou consultez tous les avis.</p>
                 </div>
             <?php else: ?>
-                <?php foreach ($allAvis as $avis): ?>
-                    <div class="avis-card">
-                        <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
-                            <?php if (!empty($avis['avatar'])): ?>
-                                <img src="<?= htmlspecialchars($avis['avatar']) ?>" alt="avatar" style="width:48px;height:48px;border-radius:50%;object-fit:cover;">
-                            <?php else: ?>
-                                <div style="width:48px;height:48px;border-radius:50%;background:#ddd;display:flex;align-items:center;justify-content:center;color:#666;font-weight:700;"><?= strtoupper(substr($avis['login'] ?? 'U',0,1)) ?></div>
-                            <?php endif; ?>
-                            <div>
-                                <h3 style="margin:0;"><?= htmlspecialchars($avis['login']) ?></h3>
-                                <div style="font-size:12px;color:#6b5a7a;"><?= htmlspecialchars($avis['dateAvis']) ?></div>
-                            </div>
-                        </div>
-                        <?php for ($i = 1; $i <= 5; $i++): ?>
-                            <?php if ($i <= $avis['note']): ?>
-                                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                            <?php else: ?>
-                                <i class="fa-solid fa-star" style="color: #FFF;"></i>
-                            <?php endif; ?>
-                        <?php endfor; ?>
-                        <p class="comment-text" style="font-size: 16px; margin-top: 10px;"><?= nl2br(htmlspecialchars($avis['commentaire'])) ?></p>
-                    </div>
-                <?php endforeach; ?>
+                <table class="avis-table">
+                    <thead>
+                        <tr>
+                            <th>Voyageur</th>
+                            <th>Note</th>
+                            <th>Commentaire</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($avisFiltres as $avis): ?>
+                            <tr>
+                                <td data-label="Voyageur">
+                                    <div class="avis-user-cell">
+                                        <?php if (!empty($avis['avatar'])): ?>
+                                            <img src="<?= htmlspecialchars($avis['avatar']) ?>" alt="avatar" class="avis-avatar">
+                                        <?php else: ?>
+                                            <div class="avis-avatar avis-avatar-fallback"><?= htmlspecialchars(strtoupper(substr($avis['login'] ?? 'U', 0, 1))) ?></div>
+                                        <?php endif; ?>
+                                        <strong><?= htmlspecialchars($avis['login'] ?? 'Utilisateur') ?></strong>
+                                    </div>
+                                </td>
+                                <td data-label="Note">
+                                    <span class="avis-note-badge"><?= htmlspecialchars($avis['note']) ?>/5</span>
+                                </td>
+                                <td data-label="Commentaire">
+                                    <p class="avis-table-comment"><?= nl2br(htmlspecialchars($avis['commentaire'] ?? '')) ?></p>
+                                </td>
+                                <td data-label="Date">
+                                    <?= htmlspecialchars(date('d/m/Y H:i', strtotime($avis['dateAvis']))) ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             <?php endif; ?>
         </div>
-        <button class="nav-button right" onclick="scrollAvis(1)">&#155;</button>
+    </section>
     </div>
 
     <?php
     require_once __DIR__ . '/footer.php';
     ?>
 
-    <script>
-        function scrollAvis(direction) {
-            const container = document.getElementById("avis-container");
-            const cardWidth = 320;
-            container.scrollBy({
-                left: direction * cardWidth,
-                behavior: "smooth"
-            });
-        }
-    </script>
 </body>
 
 </html>

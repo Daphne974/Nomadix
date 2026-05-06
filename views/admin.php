@@ -230,7 +230,7 @@ $matchesSearch = function (array $row, array $fields, string $term): bool {
                                         Destination: <strong><?= htmlspecialchars($review['destinationNom'] ?? 'N/A') ?></strong>
                                     </div>
                                     <p class="review-text">
-                                        <?= nl2br(htmlspecialchars(substr($review['commentaire'] ?? '', 0, 1000))) ?>
+                                        <?= nl2br(htmlspecialchars_decode(substr($review['commentaire'] ?? '', 0, 1000))) ?>
                                     </p>
                                     <div
                                         style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">

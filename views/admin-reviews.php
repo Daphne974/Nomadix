@@ -151,7 +151,7 @@ $search = trim($_GET['q'] ?? '');
 
                             <div class="review-content">
                                 <p class="review-text">
-                                    <?= nl2br(htmlspecialchars($review['commentaire'] ?? '(Aucun commentaire)')) ?>
+                                    <?= nl2br(htmlspecialchars_decode($review['commentaire'] ?? '(Aucun commentaire)')) ?>
                                 </p>
                                 <p class="review-date">
                                     <?= date('d/m/Y à H:i', strtotime($review['dateAvis'])) ?>
