@@ -17,7 +17,7 @@ require_once __DIR__ . '/header.php';
         <form method="POST" action="<?= htmlspecialchars(siteUrl('/')) ?>">
             <input type="text" name="recherche" value="<?= htmlspecialchars($recherche ?? '') ?>"
                 placeholder="Recherche..." autofocus autocomplete="on">
-            <input type="submit" value="Search!">
+            <input type="submit" value="Rechercher">
         </form>
     </div>
 

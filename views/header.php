@@ -68,7 +68,7 @@ $currentPage = match ($routePath) {
                     <a href="<?= htmlspecialchars(siteUrl('/')) ?>">
                         <h1>Bienvenue sur Nomadix</h1>
                     </a>
-                    <p>Decouvrez nos destinations et <a href="<?= htmlspecialchars(siteUrl('/inscription')) ?>" style="color: rgb(152, 0, 207);">creez votre compte</a> des maintenant !</p>
+                    <p>Découvrez nos destinations et <a href="<?= htmlspecialchars(siteUrl('/inscription')) ?>" style="color: rgb(152, 0, 207);">créez votre compte</a> dès maintenant !</p>
                 <?php endif; ?>
             </div>
             <nav class="nav-buttons">
