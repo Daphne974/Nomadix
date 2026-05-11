@@ -235,14 +235,14 @@ require_once __DIR__ . '/header.php';
                                         <?php else: ?>
                                             <div class="avis-avatar avis-avatar-fallback"><?= htmlspecialchars(strtoupper(substr($avis['login'] ?? 'U', 0, 1))) ?></div>
                                         <?php endif; ?>
-                                        <strong><?= htmlspecialchars($avis['login'] ?? 'Utilisateur') ?></strong>
+                                        <strong><?= htmlspecialchars_decode($avis['login'] ?? 'Utilisateur') ?></strong>
                                     </div>
                                 </td>
                                 <td data-label="Note">
                                     <span class="avis-note-badge"><?= htmlspecialchars($avis['note']) ?>/5</span>
                                 </td>
                                 <td data-label="Commentaire">
-                                    <p class="avis-table-comment"><?= nl2br(htmlspecialchars($avis['commentaire'] ?? '')) ?></p>
+                                    <p class="avis-table-comment"><?= nl2br(htmlspecialchars_decode($avis['commentaire'] ?? '')) ?></p>
                                 </td>
                                 <td data-label="Date">
                                     <?= htmlspecialchars(date('d/m/Y H:i', strtotime($avis['dateAvis']))) ?>
