@@ -1,0 +1,301 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="2300" viewBox="0 0 1600 2300" role="img" aria-labelledby="title desc">
+  <title id="title">Maquettes des pages du projet Nomadix</title>
+  <desc id="desc">Planche SVG contenant les maquettes filaires des principales pages Nomadix : accueil, destination, connexion, inscription, profil, administration, avis, utilisateurs, destinations et erreurs.</desc>
+
+  <defs>
+    <style>
+      .bg { fill: #f5f7fb; }
+      .title { font: 700 38px Arial, sans-serif; fill: #182026; }
+      .subtitle { font: 400 18px Arial, sans-serif; fill: #586774; }
+      .page-title { font: 700 18px Arial, sans-serif; fill: #17212b; }
+      .text { font: 400 13px Arial, sans-serif; fill: #30404d; }
+      .small { font: 400 11px Arial, sans-serif; fill: #617280; }
+      .label { font: 700 11px Arial, sans-serif; fill: #30404d; }
+      .screen { fill: #ffffff; stroke: #c8d2dc; stroke-width: 2; rx: 14; }
+      .browser { fill: #e9eef4; stroke: #c8d2dc; stroke-width: 1.5; }
+      .nav { fill: #263238; }
+      .nav-text { font: 700 11px Arial, sans-serif; fill: #ffffff; }
+      .footer { fill: #eef2f5; }
+      .hero { fill: #dcecf8; stroke: #9dbed8; stroke-width: 1; }
+      .image { fill: #b8d6c6; stroke: #7fb395; stroke-width: 1; }
+      .card { fill: #ffffff; stroke: #d8e0e7; stroke-width: 1.3; rx: 8; }
+      .panel { fill: #f8fafc; stroke: #d8e0e7; stroke-width: 1.2; rx: 8; }
+      .input { fill: #ffffff; stroke: #aebdca; stroke-width: 1.2; rx: 5; }
+      .button { fill: #2d7dd2; rx: 5; }
+      .button-alt { fill: #3aa76d; rx: 5; }
+      .button-danger { fill: #d94d4d; rx: 5; }
+      .button-text { font: 700 10px Arial, sans-serif; fill: #ffffff; }
+      .line { stroke: #b8c4cf; stroke-width: 1; }
+      .star { fill: #f5b301; }
+      .muted { fill: #d8e0e7; }
+      .admin-side { fill: #1f2933; }
+      .admin-content { fill: #f8fafc; }
+      .stat-blue { fill: #e8f4ff; stroke: #2d7dd2; }
+      .stat-green { fill: #e9f8ef; stroke: #3aa76d; }
+      .stat-yellow { fill: #fff6d8; stroke: #f5b301; }
+      .stat-red { fill: #ffe8e8; stroke: #d94d4d; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1600" height="2300"/>
+  <text x="800" y="58" text-anchor="middle" class="title">Maquettes des pages - Nomadix</text>
+  <text x="800" y="88" text-anchor="middle" class="subtitle">Representation filaire des ecrans principaux du site</text>
+
+  <!-- Shared symbols drawn as simple shapes inside each screen -->
+
+  <!-- 1 Accueil -->
+  <g transform="translate(60 140)">
+    <text x="0" y="-18" class="page-title">1. Accueil / Recherche</text>
+    <rect class="screen" width="450" height="320"/>
+    <rect class="browser" x="0" y="0" width="450" height="24" rx="14"/>
+    <circle cx="18" cy="12" r="4" fill="#d94d4d"/><circle cx="34" cy="12" r="4" fill="#f5b301"/><circle cx="50" cy="12" r="4" fill="#3aa76d"/>
+    <rect class="nav" x="0" y="24" width="450" height="42"/>
+    <text x="22" y="50" class="nav-text">NOMADIX</text>
+    <text x="270" y="50" class="nav-text">Accueil</text>
+    <text x="335" y="50" class="nav-text">Connexion</text>
+    <text x="410" y="50" text-anchor="end" class="nav-text">Profil</text>
+    <rect class="hero" x="24" y="88" width="402" height="58" rx="8"/>
+    <text x="225" y="113" text-anchor="middle" class="text">Barre de recherche</text>
+    <rect class="input" x="75" y="122" width="215" height="18"/>
+    <rect class="button" x="300" y="122" width="76" height="18"/>
+    <text x="338" y="135" text-anchor="middle" class="button-text">Rechercher</text>
+    <g transform="translate(24 172)">
+      <rect class="card" width="120" height="90"/><rect class="image" x="8" y="8" width="104" height="50" rx="5"/><text x="60" y="75" text-anchor="middle" class="small">Paris - France</text>
+      <rect class="card" x="140" width="120" height="90"/><rect class="image" x="148" y="8" width="104" height="50" rx="5"/><text x="200" y="75" text-anchor="middle" class="small">Tokyo - Japon</text>
+      <rect class="card" x="280" width="120" height="90"/><rect class="image" x="288" y="8" width="104" height="50" rx="5"/><text x="340" y="75" text-anchor="middle" class="small">Rome - Italie</text>
+    </g>
+    <rect class="footer" x="0" y="288" width="450" height="32" rx="0"/>
+    <text x="225" y="308" text-anchor="middle" class="small">Footer</text>
+  </g>
+
+  <!-- 2 Destination -->
+  <g transform="translate(575 140)">
+    <text x="0" y="-18" class="page-title">2. Page destination</text>
+    <rect class="screen" width="450" height="320"/>
+    <rect class="browser" width="450" height="24" rx="14"/>
+    <circle cx="18" cy="12" r="4" fill="#d94d4d"/><circle cx="34" cy="12" r="4" fill="#f5b301"/><circle cx="50" cy="12" r="4" fill="#3aa76d"/>
+    <rect class="nav" x="0" y="24" width="450" height="42"/>
+    <text x="22" y="50" class="nav-text">NOMADIX</text>
+    <rect class="hero" x="0" y="66" width="450" height="122"/>
+    <text x="30" y="102" class="page-title">Destination, Pays</text>
+    <g transform="translate(30 118)">
+      <polygon class="star" points="8,0 10,6 16,6 11,10 13,16 8,12 3,16 5,10 0,6 6,6"/>
+      <polygon class="star" points="30,0 32,6 38,6 33,10 35,16 30,12 25,16 27,10 22,6 28,6"/>
+      <polygon class="star" points="52,0 54,6 60,6 55,10 57,16 52,12 47,16 49,10 44,6 50,6"/>
+      <polygon class="star" points="74,0 76,6 82,6 77,10 79,16 74,12 69,16 71,10 66,6 72,6"/>
+      <polygon class="muted" points="96,0 98,6 104,6 99,10 101,16 96,12 91,16 93,10 88,6 94,6"/>
+      <text x="118" y="14" class="text">4.2/5</text>
+    </g>
+    <rect x="30" y="148" width="260" height="7" class="muted" rx="3"/>
+    <rect x="30" y="162" width="220" height="7" class="muted" rx="3"/>
+    <rect class="panel" x="24" y="205" width="160" height="82"/>
+    <text x="104" y="229" text-anchor="middle" class="label">Donner un avis</text>
+    <rect class="input" x="44" y="242" width="120" height="16"/>
+    <rect class="button-alt" x="72" y="266" width="64" height="16"/>
+    <text x="104" y="278" text-anchor="middle" class="button-text">Envoyer</text>
+    <rect class="panel" x="205" y="205" width="221" height="82"/>
+    <text x="222" y="228" class="label">Avis voyageurs</text>
+    <rect class="muted" x="222" y="242" width="160" height="7" rx="3"/>
+    <rect class="muted" x="222" y="258" width="185" height="7" rx="3"/>
+    <rect class="muted" x="222" y="274" width="130" height="7" rx="3"/>
+  </g>
+
+  <!-- 3 Connexion -->
+  <g transform="translate(1090 140)">
+    <text x="0" y="-18" class="page-title">3. Connexion</text>
+    <rect class="screen" width="450" height="320"/>
+    <rect class="browser" width="450" height="24" rx="14"/>
+    <circle cx="18" cy="12" r="4" fill="#d94d4d"/><circle cx="34" cy="12" r="4" fill="#f5b301"/><circle cx="50" cy="12" r="4" fill="#3aa76d"/>
+    <rect class="nav" x="0" y="24" width="450" height="42"/>
+    <text x="22" y="50" class="nav-text">NOMADIX</text>
+    <rect class="panel" x="110" y="92" width="230" height="175"/>
+    <text x="225" y="122" text-anchor="middle" class="page-title">Se connecter</text>
+    <text x="140" y="152" class="small">Login</text>
+    <rect class="input" x="140" y="160" width="170" height="24"/>
+    <text x="140" y="203" class="small">Mot de passe</text>
+    <rect class="input" x="140" y="211" width="170" height="24"/>
+    <rect class="button" x="168" y="250" width="114" height="24"/>
+    <text x="225" y="266" text-anchor="middle" class="button-text">Se connecter</text>
+    <text x="225" y="292" text-anchor="middle" class="small">Lien vers inscription</text>
+  </g>
+
+  <!-- 4 Inscription -->
+  <g transform="translate(60 545)">
+    <text x="0" y="-18" class="page-title">4. Inscription</text>
+    <rect class="screen" width="450" height="345"/>
+    <rect class="browser" width="450" height="24" rx="14"/>
+    <circle cx="18" cy="12" r="4" fill="#d94d4d"/><circle cx="34" cy="12" r="4" fill="#f5b301"/><circle cx="50" cy="12" r="4" fill="#3aa76d"/>
+    <rect class="nav" x="0" y="24" width="450" height="42"/>
+    <text x="22" y="50" class="nav-text">NOMADIX</text>
+    <rect class="panel" x="105" y="82" width="240" height="230"/>
+    <text x="225" y="112" text-anchor="middle" class="page-title">Inscription</text>
+    <text x="135" y="140" class="small">Login</text><rect class="input" x="135" y="148" width="180" height="22"/>
+    <text x="135" y="188" class="small">Email</text><rect class="input" x="135" y="196" width="180" height="22"/>
+    <text x="135" y="236" class="small">Mot de passe</text><rect class="input" x="135" y="244" width="180" height="22"/>
+    <text x="135" y="284" class="small">Confirmation</text><rect class="input" x="135" y="292" width="180" height="22"/>
+    <rect class="button-alt" x="170" y="322" width="110" height="24"/>
+    <text x="225" y="338" text-anchor="middle" class="button-text">S'inscrire</text>
+  </g>
+
+  <!-- 5 Profil -->
+  <g transform="translate(575 545)">
+    <text x="0" y="-18" class="page-title">5. Profil utilisateur</text>
+    <rect class="screen" width="450" height="345"/>
+    <rect class="browser" width="450" height="24" rx="14"/>
+    <circle cx="18" cy="12" r="4" fill="#d94d4d"/><circle cx="34" cy="12" r="4" fill="#f5b301"/><circle cx="50" cy="12" r="4" fill="#3aa76d"/>
+    <rect class="nav" x="0" y="24" width="450" height="42"/>
+    <text x="22" y="50" class="nav-text">NOMADIX</text>
+    <rect class="hero" x="24" y="88" width="402" height="70" rx="8"/>
+    <circle cx="68" cy="123" r="25" fill="#ffffff" stroke="#9dbed8"/>
+    <text x="112" y="118" class="page-title">Pseudo utilisateur</text>
+    <text x="112" y="140" class="small">email@exemple.com</text>
+    <g transform="translate(24 178)">
+      <rect class="card" width="94" height="44"/><text x="12" y="18" class="small">Login</text><rect x="12" y="27" width="58" height="6" class="muted" rx="3"/>
+      <rect class="card" x="103" width="94" height="44"/><text x="115" y="18" class="small">Email</text><rect x="115" y="27" width="58" height="6" class="muted" rx="3"/>
+      <rect class="card" x="206" width="94" height="44"/><text x="218" y="18" class="small">Date</text><rect x="218" y="27" width="58" height="6" class="muted" rx="3"/>
+      <rect class="card" x="309" width="94" height="44"/><text x="321" y="18" class="small">Statut</text><rect x="321" y="27" width="58" height="6" class="muted" rx="3"/>
+    </g>
+    <rect class="panel" x="24" y="240" width="124" height="74"/><text x="86" y="262" text-anchor="middle" class="label">Avatar</text><circle cx="58" cy="288" r="12" class="muted"/><circle cx="88" cy="288" r="12" class="muted"/><circle cx="118" cy="288" r="12" class="muted"/>
+    <rect class="panel" x="164" y="240" width="124" height="74"/><text x="226" y="262" text-anchor="middle" class="label">Email</text><rect class="input" x="184" y="276" width="84" height="14"/><rect class="button" x="198" y="298" width="56" height="12"/>
+    <rect class="panel" x="302" y="240" width="124" height="74"/><text x="364" y="262" text-anchor="middle" class="label">Mot de passe</text><rect class="input" x="322" y="276" width="84" height="14"/><rect class="button" x="336" y="298" width="56" height="12"/>
+  </g>
+
+  <!-- 6 Admin dashboard -->
+  <g transform="translate(1090 545)">
+    <text x="0" y="-18" class="page-title">6. Admin - Tableau de bord</text>
+    <rect class="screen" width="450" height="345"/>
+    <rect class="browser" width="450" height="24" rx="14"/>
+    <circle cx="18" cy="12" r="4" fill="#d94d4d"/><circle cx="34" cy="12" r="4" fill="#f5b301"/><circle cx="50" cy="12" r="4" fill="#3aa76d"/>
+    <rect class="admin-side" x="0" y="24" width="110" height="321"/>
+    <text x="18" y="56" class="nav-text">Admin</text>
+    <text x="18" y="92" class="nav-text">Dashboard</text>
+    <text x="18" y="122" class="nav-text">Avis</text>
+    <text x="18" y="152" class="nav-text">Users</text>
+    <text x="18" y="182" class="nav-text">Destinations</text>
+    <rect class="admin-content" x="110" y="24" width="340" height="321"/>
+    <text x="135" y="58" class="page-title">Tableau de bord</text>
+    <g transform="translate(135 82)">
+      <rect class="card stat-blue" width="86" height="55"/><text x="16" y="24" class="label">Users</text><text x="16" y="43" class="small">total</text>
+      <rect class="card stat-red" x="104" width="86" height="55"/><text x="120" y="24" class="label">Admins</text><text x="120" y="43" class="small">total</text>
+      <rect class="card stat-yellow" x="208" width="86" height="55"/><text x="224" y="24" class="label">Avis</text><text x="224" y="43" class="small">total</text>
+      <rect class="card stat-green" y="72" width="86" height="55"/><text x="16" y="96" class="label">Dest.</text><text x="16" y="115" class="small">total</text>
+      <rect class="card stat-yellow" x="104" y="72" width="86" height="55"/><text x="120" y="96" class="label">Note</text><text x="120" y="115" class="small">moyenne</text>
+      <rect class="card stat-green" x="208" y="72" width="86" height="55"/><text x="224" y="96" class="label">Mois</text><text x="224" y="115" class="small">nouveaux</text>
+    </g>
+    <rect class="panel" x="135" y="230" width="285" height="85"/>
+    <text x="155" y="254" class="label">Avis recents non verifies</text>
+    <rect class="muted" x="155" y="270" width="230" height="7" rx="3"/>
+    <rect class="muted" x="155" y="288" width="250" height="7" rx="3"/>
+    <rect class="muted" x="155" y="306" width="190" height="7" rx="3"/>
+  </g>
+
+  <!-- 7 Admin avis -->
+  <g transform="translate(60 975)">
+    <text x="0" y="-18" class="page-title">7. Admin - Gestion des avis</text>
+    <rect class="screen" width="450" height="345"/>
+    <rect class="browser" width="450" height="24" rx="14"/>
+    <circle cx="18" cy="12" r="4" fill="#d94d4d"/><circle cx="34" cy="12" r="4" fill="#f5b301"/><circle cx="50" cy="12" r="4" fill="#3aa76d"/>
+    <rect class="admin-side" x="0" y="24" width="110" height="321"/>
+    <text x="18" y="56" class="nav-text">Admin</text><text x="18" y="92" class="nav-text">Dashboard</text><text x="18" y="122" class="nav-text">Avis</text><text x="18" y="152" class="nav-text">Users</text>
+    <rect class="admin-content" x="110" y="24" width="340" height="321"/>
+    <text x="135" y="58" class="page-title">Liste des avis</text>
+    <rect class="input" x="135" y="78" width="165" height="22"/><rect class="button" x="308" y="78" width="78" height="22"/><text x="347" y="93" text-anchor="middle" class="button-text">Chercher</text>
+    <rect class="panel" x="135" y="118" width="285" height="176"/>
+    <line class="line" x1="135" y1="145" x2="420" y2="145"/>
+    <text x="148" y="136" class="label">User</text><text x="220" y="136" class="label">Destination</text><text x="318" y="136" class="label">Note</text><text x="366" y="136" class="label">Actions</text>
+    <rect class="muted" x="148" y="165" width="54" height="7" rx="3"/><rect class="muted" x="220" y="165" width="70" height="7" rx="3"/><rect class="muted" x="318" y="163" width="30" height="11" rx="4"/><rect class="button-alt" x="366" y="160" width="22" height="14"/><rect class="button-danger" x="394" y="160" width="18" height="14"/>
+    <rect class="muted" x="148" y="200" width="54" height="7" rx="3"/><rect class="muted" x="220" y="200" width="70" height="7" rx="3"/><rect class="muted" x="318" y="198" width="30" height="11" rx="4"/><rect class="button-alt" x="366" y="195" width="22" height="14"/><rect class="button-danger" x="394" y="195" width="18" height="14"/>
+    <rect class="muted" x="148" y="235" width="54" height="7" rx="3"/><rect class="muted" x="220" y="235" width="70" height="7" rx="3"/><rect class="muted" x="318" y="233" width="30" height="11" rx="4"/><rect class="button-alt" x="366" y="230" width="22" height="14"/><rect class="button-danger" x="394" y="230" width="18" height="14"/>
+  </g>
+
+  <!-- 8 Admin utilisateurs -->
+  <g transform="translate(575 975)">
+    <text x="0" y="-18" class="page-title">8. Admin - Utilisateurs</text>
+    <rect class="screen" width="450" height="345"/>
+    <rect class="browser" width="450" height="24" rx="14"/>
+    <circle cx="18" cy="12" r="4" fill="#d94d4d"/><circle cx="34" cy="12" r="4" fill="#f5b301"/><circle cx="50" cy="12" r="4" fill="#3aa76d"/>
+    <rect class="admin-side" x="0" y="24" width="110" height="321"/>
+    <text x="18" y="56" class="nav-text">Admin</text><text x="18" y="92" class="nav-text">Dashboard</text><text x="18" y="122" class="nav-text">Avis</text><text x="18" y="152" class="nav-text">Users</text>
+    <rect class="admin-content" x="110" y="24" width="340" height="321"/>
+    <text x="135" y="58" class="page-title">Gestion utilisateurs</text>
+    <rect class="input" x="135" y="78" width="185" height="22"/><rect class="button" x="328" y="78" width="70" height="22"/><text x="363" y="93" text-anchor="middle" class="button-text">Filtrer</text>
+    <rect class="panel" x="135" y="120" width="285" height="174"/>
+    <line class="line" x1="135" y1="147" x2="420" y2="147"/>
+    <text x="150" y="138" class="label">Avatar</text><text x="210" y="138" class="label">Login</text><text x="290" y="138" class="label">Role</text><text x="360" y="138" class="label">Action</text>
+    <circle cx="166" cy="169" r="12" class="muted"/><rect class="muted" x="210" y="164" width="55" height="8" rx="4"/><rect class="stat-blue" x="290" y="159" width="45" height="17" rx="5"/><rect class="button-alt" x="360" y="159" width="36" height="17"/>
+    <circle cx="166" cy="207" r="12" class="muted"/><rect class="muted" x="210" y="202" width="55" height="8" rx="4"/><rect class="stat-red" x="290" y="197" width="45" height="17" rx="5"/><rect class="button-danger" x="360" y="197" width="36" height="17"/>
+    <circle cx="166" cy="245" r="12" class="muted"/><rect class="muted" x="210" y="240" width="55" height="8" rx="4"/><rect class="stat-blue" x="290" y="235" width="45" height="17" rx="5"/><rect class="button-alt" x="360" y="235" width="36" height="17"/>
+  </g>
+
+  <!-- 9 Admin destinations -->
+  <g transform="translate(1090 975)">
+    <text x="0" y="-18" class="page-title">9. Admin - Destinations</text>
+    <rect class="screen" width="450" height="345"/>
+    <rect class="browser" width="450" height="24" rx="14"/>
+    <circle cx="18" cy="12" r="4" fill="#d94d4d"/><circle cx="34" cy="12" r="4" fill="#f5b301"/><circle cx="50" cy="12" r="4" fill="#3aa76d"/>
+    <rect class="admin-side" x="0" y="24" width="110" height="321"/>
+    <text x="18" y="56" class="nav-text">Admin</text><text x="18" y="92" class="nav-text">Dashboard</text><text x="18" y="122" class="nav-text">Destinations</text>
+    <rect class="admin-content" x="110" y="24" width="340" height="321"/>
+    <text x="135" y="58" class="page-title">Gestion destinations</text>
+    <rect class="button-alt" x="326" y="42" width="94" height="24"/><text x="373" y="58" text-anchor="middle" class="button-text">Ajouter</text>
+    <rect class="panel" x="135" y="82" width="285" height="80"/>
+    <text x="152" y="106" class="label">Formulaire destination</text>
+    <rect class="input" x="152" y="118" width="88" height="18"/><rect class="input" x="250" y="118" width="88" height="18"/><rect class="button" x="348" y="118" width="50" height="18"/>
+    <rect class="panel" x="135" y="182" width="285" height="112"/>
+    <text x="152" y="206" class="label">Liste</text>
+    <rect class="image" x="152" y="222" width="52" height="34" rx="4"/><rect class="muted" x="218" y="232" width="94" height="8" rx="4"/><rect class="button" x="326" y="224" width="32" height="16"/><rect class="button-danger" x="366" y="224" width="32" height="16"/>
+    <rect class="image" x="152" y="266" width="52" height="34" rx="4"/><rect class="muted" x="218" y="276" width="94" height="8" rx="4"/><rect class="button" x="326" y="268" width="32" height="16"/><rect class="button-danger" x="366" y="268" width="32" height="16"/>
+  </g>
+
+  <!-- 10 Erreur 403/404 -->
+  <g transform="translate(315 1405)">
+    <text x="0" y="-18" class="page-title">10. Pages erreur 403 / 404</text>
+    <rect class="screen" width="450" height="300"/>
+    <rect class="browser" width="450" height="24" rx="14"/>
+    <circle cx="18" cy="12" r="4" fill="#d94d4d"/><circle cx="34" cy="12" r="4" fill="#f5b301"/><circle cx="50" cy="12" r="4" fill="#3aa76d"/>
+    <rect class="nav" x="0" y="24" width="450" height="42"/>
+    <text x="22" y="50" class="nav-text">NOMADIX</text>
+    <text x="225" y="132" text-anchor="middle" style="font:700 52px Arial,sans-serif;fill:#d94d4d;">404</text>
+    <text x="225" y="166" text-anchor="middle" class="page-title">Page introuvable</text>
+    <rect class="muted" x="130" y="188" width="190" height="8" rx="4"/>
+    <rect class="button" x="165" y="222" width="120" height="28"/>
+    <text x="225" y="241" text-anchor="middle" class="button-text">Retour accueil</text>
+  </g>
+
+  <!-- 11 Header / navigation shared -->
+  <g transform="translate(835 1405)">
+    <text x="0" y="-18" class="page-title">11. Composants communs</text>
+    <rect class="screen" width="450" height="300"/>
+    <rect class="browser" width="450" height="24" rx="14"/>
+    <circle cx="18" cy="12" r="4" fill="#d94d4d"/><circle cx="34" cy="12" r="4" fill="#f5b301"/><circle cx="50" cy="12" r="4" fill="#3aa76d"/>
+    <rect class="nav" x="24" y="54" width="402" height="48" rx="6"/>
+    <text x="48" y="84" class="nav-text">Logo Nomadix</text>
+    <text x="226" y="84" class="nav-text">Navigation</text>
+    <text x="395" y="84" text-anchor="end" class="nav-text">Compte</text>
+    <rect class="panel" x="24" y="130" width="402" height="80"/>
+    <text x="48" y="158" class="label">Message flash</text>
+    <rect class="stat-green" x="48" y="172" width="340" height="22" rx="6"/>
+    <text x="62" y="187" class="small">Operation effectuee avec succes</text>
+    <rect class="footer" x="24" y="238" width="402" height="38" rx="6"/>
+    <text x="225" y="262" text-anchor="middle" class="small">Footer commun</text>
+  </g>
+
+  <!-- Legend -->
+  <g transform="translate(160 1795)">
+    <rect class="screen" width="1280" height="360"/>
+    <text x="40" y="48" class="page-title">Legende et correspondance avec le projet</text>
+    <rect class="hero" x="40" y="82" width="42" height="24" rx="4"/><text x="98" y="99" class="text">Zone hero ou image de destination</text>
+    <rect class="card" x="40" y="126" width="42" height="24"/><text x="98" y="143" class="text">Carte de destination, statistique ou bloc de contenu</text>
+    <rect class="input" x="40" y="170" width="42" height="24"/><text x="98" y="187" class="text">Champ de formulaire ou recherche</text>
+    <rect class="button" x="40" y="214" width="42" height="24"/><text x="98" y="231" class="text">Action principale : rechercher, envoyer, modifier</text>
+    <rect class="button-danger" x="40" y="258" width="42" height="24"/><text x="98" y="275" class="text">Action dangereuse : suppression d'avis, compte ou destination</text>
+
+    <text x="600" y="96" class="text">Pages incluses :</text>
+    <text x="600" y="126" class="small">Accueil, destination, connexion, inscription, profil utilisateur.</text>
+    <text x="600" y="154" class="small">Administration : tableau de bord, avis, utilisateurs, destinations.</text>
+    <text x="600" y="182" class="small">Pages d'erreur et composants communs : header, message flash, footer.</text>
+    <text x="600" y="230" class="text">Objectif :</text>
+    <text x="600" y="260" class="small">Donner une vue globale des interfaces avant ou pendant la presentation du projet.</text>
+    <text x="600" y="288" class="small">Chaque maquette est volontairement simplifiee pour montrer la structure, pas le rendu CSS final.</text>
+  </g>
+</svg>
