@@ -104,7 +104,7 @@ class DestinationController {
 
                         // Valider la note
                         if ($note < 1 || $note > 5) {
-                            throw new Exception("La note doit être entre 1 et 5");
+                            throw new Exception("Vous devez sélectionner au moins une étoile");
                         }
 
                         $conn = Database::getAdminConnection();

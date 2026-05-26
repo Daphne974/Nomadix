@@ -129,20 +129,21 @@ require_once __DIR__ . '/header.php';
                     <button onclick="window.location.href='inscription.php'">S'inscrire</button>
                 </div>
             <?php else: ?>
-                <form action="" method="post" class="avis-form" onsubmit="return validateRating(this)">
+                <form action="" method="post" class="avis-form" novalidate onsubmit="return validateRating(this, event)">
                     <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken) ?>">
-                    <div class="evaluation">
-                        <input type="radio" name="note" id="star5" value="5" <?= ($userAvis && $userAvis['note'] == 5) ? 'checked' : '' ?> required>
+                    <div class="evaluation" aria-describedby="rating-error">
+                        <input type="radio" name="note" id="star5" value="5" <?= ($userAvis && $userAvis['note'] == 5) ? 'checked' : '' ?>>
                         <label for="star5">&#9733;</label>
-                        <input type="radio" name="note" id="star4" value="4" <?= ($userAvis && $userAvis['note'] == 4) ? 'checked' : '' ?> required>
+                        <input type="radio" name="note" id="star4" value="4" <?= ($userAvis && $userAvis['note'] == 4) ? 'checked' : '' ?>>
                         <label for="star4">&#9733;</label>
-                        <input type="radio" name="note" id="star3" value="3" <?= ($userAvis && $userAvis['note'] == 3) ? 'checked' : '' ?> required>
+                        <input type="radio" name="note" id="star3" value="3" <?= ($userAvis && $userAvis['note'] == 3) ? 'checked' : '' ?>>
                         <label for="star3">&#9733;</label>
-                        <input type="radio" name="note" id="star2" value="2" <?= ($userAvis && $userAvis['note'] == 2) ? 'checked' : '' ?> required>
+                        <input type="radio" name="note" id="star2" value="2" <?= ($userAvis && $userAvis['note'] == 2) ? 'checked' : '' ?>>
                         <label for="star2">&#9733;</label>
-                        <input type="radio" name="note" id="star1" value="1" <?= ($userAvis && $userAvis['note'] == 1) ? 'checked' : '' ?> required>
+                        <input type="radio" name="note" id="star1" value="1" <?= ($userAvis && $userAvis['note'] == 1) ? 'checked' : '' ?>>
                         <label for="star1">&#9733;</label>
                     </div>
+                    <small id="rating-error" class="rating-error" aria-live="polite"></small>
                     <textarea name="commentaire" placeholder="Partagez votre expérience..."
                         maxlength="500"><?= htmlspecialchars($userAvis['commentaire'] ?? '') ?></textarea>
                     <small class="comment-limit">500 caracteres maximum.</small>
