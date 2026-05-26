@@ -237,11 +237,27 @@ class AdminController
             exit;
         }
 
+        $nom = $_POST['nom'] ?? '';
+        $ville = $_POST['ville'] ?? '';
+        $pays = $_POST['pays'] ?? '';
+        $description = $_POST['description'] ?? '';
+
+        // Vérifier les doublons
+        $duplicateCheck = $this->adminModel->checkDestinationExists($nom, $ville, $pays);
+        if ($duplicateCheck['exists']) {
+            if ($duplicateCheck['reason'] === 'ville') {
+                header("Location: " . siteUrl('/admin') . "?page=destinations&error=duplicate_ville");
+            } else {
+                header("Location: " . siteUrl('/admin') . "?page=destinations&error=duplicate_destination");
+            }
+            exit;
+        }
+
         $data = [
-            'nom' => $_POST['nom'] ?? '',
-            'description' => $_POST['description'] ?? '',
-            'pays' => $_POST['pays'] ?? '',
-            'ville' => $_POST['ville'] ?? '',
+            'nom' => $nom,
+            'description' => $description,
+            'pays' => $pays,
+            'ville' => $ville,
             'image' => $imageUrl
         ];
 
@@ -257,6 +273,7 @@ class AdminController
             exit;
         }
 
+        // Keep the image URL as the main image (local image is stored on disk, not in DB)
         $this->adminModel->createDestination($data);
         header("Location: " . siteUrl('/admin') . "?page=destinations&success=1");
         exit;
@@ -282,15 +299,17 @@ class AdminController
             header("Location: " . siteUrl('/admin') . "?page=destinations&edit=" . $id . "&error=image_url_invalid");
             exit;
         }
+
+        $existing = $this->adminModel->getDestinationById($id);
+
         $data = [
             'nom' => $_POST['nom'] ?? '',
             'description' => $_POST['description'] ?? '',
             'pays' => $_POST['pays'] ?? '',
             'ville' => $_POST['ville'] ?? '',
-            'image' => $imageUrl !== '' ? $imageUrl : null
+            // Use the provided image URL if given, otherwise keep the existing image
+            'image' => $imageUrl !== '' ? $imageUrl : ($existing['image'] ?? null)
         ];
-
-        $existing = $this->adminModel->getDestinationById($id);
 
         if (!empty($_FILES['image_file']['name'])) {
             if (!$this->isUploadedJpeg($_FILES['image_file'])) {
@@ -300,7 +319,7 @@ class AdminController
 
             // remove previous local image (if any) before saving the new one
             if (!empty($existing) && !empty($existing['ville'])) {
-                $oldName = $this->sanitizeVille($existing['ville']) . '.jpg';
+                $oldName = normalizeString($existing['ville']) . '.jpg';
                 $oldPath = __DIR__ . '/../public/images/' . $oldName;
                 if (is_file($oldPath)) {
                     @unlink($oldPath);
@@ -309,10 +328,10 @@ class AdminController
 
             $ville = $data['ville'] ?? '';
             $uploadedLocal = $this->handleImageUpload($_FILES['image_file'], $ville);
-            // keep DB image as URL field from form unless explicitly changed in image_url
+            // Local image is stored on disk, not in DB - keep the image URL
         } elseif (!empty($existing) && !empty($existing['ville']) && !empty($data['ville'])) {
-            $oldName = $this->sanitizeVille($existing['ville']) . '.jpg';
-            $newName = $this->sanitizeVille($data['ville']) . '.jpg';
+            $oldName = normalizeString($existing['ville']) . '.jpg';
+            $newName = normalizeString($data['ville']) . '.jpg';
             $oldPath = __DIR__ . '/../public/images/' . $oldName;
             $newPath = __DIR__ . '/../public/images/' . $newName;
 
@@ -350,13 +369,9 @@ class AdminController
             return null;
         }
 
-        // sanitize ville to build filename
+        // sanitize ville to build filename using normalizeString for consistency
         $name = $ville ?: pathinfo($file['name'], PATHINFO_FILENAME);
-        // remove accents, spaces and unwanted chars
-        $name = iconv('UTF-8', 'ASCII//TRANSLIT', $name);
-        $name = preg_replace('/[^A-Za-z0-9-_]/', '-', $name);
-        $name = trim($name, '-');
-        $name = strtolower($name);
+        $name = normalizeString($name);
         if ($name === '') {
             $name = bin2hex(random_bytes(6));
         }

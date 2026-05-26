@@ -41,7 +41,7 @@ $currentPage = match ($routePath) {
         } elseif ($currentPage === 'admin.php') {
             echo "Administration - Nomadix";
         } else {
-            echo "Nomadix - Decouvrez le monde";
+            echo "Nomadix - Découvrez le monde";
         }
         ?>
     </title>

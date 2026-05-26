@@ -43,3 +43,18 @@ function setupFlashMessages() {
 }
 
 document.addEventListener('DOMContentLoaded', setupFlashMessages);
+
+/**
+ * Valide que une note a été sélectionnée avant de soumettre le formulaire d'avis
+ */
+function validateRating(form) {
+    const ratingInputs = form.querySelectorAll('input[name="note"]');
+    const isChecked = Array.from(ratingInputs).some(input => input.checked);
+    
+    if (!isChecked) {
+        alert('Veuillez sélectionner une note avant de soumettre votre avis.');
+        return false;
+    }
+    
+    return true;
+}

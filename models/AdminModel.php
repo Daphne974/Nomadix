@@ -184,6 +184,35 @@ class AdminModel {
     }
 
     /**
+     * Vérifie si une destination existe déjà (par nom, ville ou combinaison)
+     */
+    public function checkDestinationExists($nom, $ville, $pays, $excludeId = null) {
+        $conn = Database::getAdminConnection();
+        
+        // Vérifier par ville (clé unique)
+        $stmt = $conn->prepare("SELECT id FROM destinations WHERE ville = ?");
+        $stmt->execute([$ville]);
+        $result = $stmt->fetch();
+        if ($result) {
+            if ($excludeId === null || $result['id'] != $excludeId) {
+                return ['exists' => true, 'reason' => 'ville'];
+            }
+        }
+        
+        // Vérifier par nom + pays
+        $stmt = $conn->prepare("SELECT id FROM destinations WHERE nom = ? AND pays = ?");
+        $stmt->execute([$nom, $pays]);
+        $result = $stmt->fetch();
+        if ($result) {
+            if ($excludeId === null || $result['id'] != $excludeId) {
+                return ['exists' => true, 'reason' => 'nom_pays'];
+            }
+        }
+        
+        return ['exists' => false];
+    }
+
+    /**
      * Crée une nouvelle destination
      */
     public function createDestination($data) {

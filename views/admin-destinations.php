@@ -46,6 +46,12 @@ if (!empty($editDestination['ville'])) {
                         case 'image_not_jpg':
                             echo 'L image televerse doit etre un fichier JPG ou JPEG.';
                             break;
+                        case 'duplicate_ville':
+                            echo 'Une destination avec cette ville existe déjà.';
+                            break;
+                        case 'duplicate_destination':
+                            echo 'Une destination avec ce nom et ce pays existe déjà.';
+                            break;
                         default:
                             echo 'Une erreur est survenue.';
                     }
@@ -108,7 +114,7 @@ if (!empty($editDestination['ville'])) {
 
                             <div class="form-right">
                                 <div>
-                                    <label>Image de couverture</label>
+                                    <label>Image de fond</label>
                                     <input id="image-url-input" type="url" name="image_url" placeholder="Image URL"
                                         value="<?= htmlspecialchars($editDestination['image'] ?? '') ?>"
                                         <?= isset($editDestination) && $editDestination ? '' : 'required' ?>>
@@ -121,7 +127,7 @@ if (!empty($editDestination['ville'])) {
                                     </div>
                                 </div>
                                 <div style="margin-top:10px;">
-                                    <label>Image locale / remplacer l'image</label>
+                                    <label>Image de couverture</label>
                                     <input id="image-file-input" type="file" name="image_file"
                                         accept=".jpg,.jpeg,image/jpeg" <?= isset($editDestination) && $editDestination ? '' : 'required' ?>>
                                     <div class="image-preview" style="margin-top:8px;">

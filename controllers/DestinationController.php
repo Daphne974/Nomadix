@@ -84,7 +84,12 @@ class DestinationController {
                         $_SESSION['flash_message_class'] = "success";
                         header("Location: " . siteUrl('/destination') . "?ville=" . urlencode($ville));
                         exit;
-                    } elseif (isset($_POST['note'])) {
+                    } elseif (isset($_POST['ok']) || isset($_POST['note'])) {
+                        // Vérifier que la note est fournie et valide
+                        if (!isset($_POST['note']) || empty($_POST['note'])) {
+                            throw new Exception("Vous devez sélectionner une note");
+                        }
+
                         $note = (int)$_POST['note'];
                         $commentaireBrut = trim($_POST['commentaire'] ?? '');
                         $longueurCommentaire = function_exists('mb_strlen')
