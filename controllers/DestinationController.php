@@ -100,7 +100,7 @@ class DestinationController {
                             $message = "✓ Avis modifié avec succès.";
                             $messageClass = "success";
                         } else {
-                            $stmt = $conn->prepare("INSERT INTO avis (idUtilisateur, idDestination, note, commentaire, dateAvis) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)");
+                            $stmt = $conn->prepare("INSERT INTO avis (idUtilisateur, idDestination, note, commentaire, dateAvis, verified) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP, 0)");
                             $stmt->execute([$userId, (int)$destination['id'], $note, $commentaire]);
                             $message = "✓ Avis ajouté avec succès.";
                             $messageClass = "success";

@@ -72,4 +72,15 @@ function sanitizeInput($input) {
 function isAdminUser() {
     return isset($_SESSION['user']) && (int)$_SESSION['user']['admin'] === 1;
 }
+
+/**
+ * Génère une URL complète avec le chemin de base de l'application
+ */
+function siteUrl($path = '/') {
+    $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
+    if ($basePath === '/' || $basePath === '') {
+        $basePath = '';
+    }
+    return $basePath . '/' . ltrim($path, '/');
+}
 ?>
