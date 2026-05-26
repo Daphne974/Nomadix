@@ -74,7 +74,17 @@ class DestinationController {
                 if (isset($_SESSION['user'])) {
                     $userId = (int)$_SESSION['user']['id'];
 
-                    if (isset($_POST['note'])) {
+                    // Vérifier la suppression EN PREMIER
+                    if (isset($_POST['supprimer_avis']) && $userAvis) {
+                        $conn = Database::getAdminConnection();
+                        $stmt = $conn->prepare("DELETE FROM avis WHERE id = ? AND idUtilisateur = ?");
+                        $stmt->execute([(int)$userAvis['id'], $userId]);
+                        
+                        $_SESSION['flash_message'] = "✓ Avis supprimé avec succès.";
+                        $_SESSION['flash_message_class'] = "success";
+                        header("Location: " . siteUrl('/destination') . "?ville=" . urlencode($ville));
+                        exit;
+                    } elseif (isset($_POST['note'])) {
                         $note = (int)$_POST['note'];
                         $commentaireBrut = trim($_POST['commentaire'] ?? '');
                         $longueurCommentaire = function_exists('mb_strlen')
@@ -108,15 +118,6 @@ class DestinationController {
                         
                         $_SESSION['flash_message'] = $message;
                         $_SESSION['flash_message_class'] = $messageClass;
-                        header("Location: " . siteUrl('/destination') . "?ville=" . urlencode($ville));
-                        exit;
-                    } elseif (isset($_POST['supprimer_avis']) && $userAvis) {
-                        $conn = Database::getAdminConnection();
-                        $stmt = $conn->prepare("DELETE FROM avis WHERE id = ? AND idUtilisateur = ?");
-                        $stmt->execute([(int)$userAvis['id'], $userId]);
-                        
-                        $_SESSION['flash_message'] = "✓ Avis supprimé avec succès.";
-                        $_SESSION['flash_message_class'] = "success";
                         header("Location: " . siteUrl('/destination') . "?ville=" . urlencode($ville));
                         exit;
                     }
