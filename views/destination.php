@@ -99,7 +99,7 @@ require_once __DIR__ . '/header.php';
             </h1>
             <h2 class="destination-note">
                 <?php if ($noteMoyenne === null): ?>
-                    Aucun avis.
+                    Aucun avis sur ce lieu.
                 <?php else: ?>
                     <?php
                     $moyenneArrondi = round($noteMoyenne * 2) / 2;
