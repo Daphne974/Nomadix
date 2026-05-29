@@ -619,9 +619,23 @@ class AdminController
         return $stats;
     }
 
-    public function getUsers($conn)
+    public function getUsersByDate($conn, $order)
     {
-        $stmt = $conn->prepare("SELECT id, login, email, dateCreation, admin FROM utilisateurs ORDER BY dateCreation DESC");
+        $stmt = $conn->prepare("SELECT COUNT(avis.id) AS 'nb_avis', utilisateurs.id, utilisateurs.login, utilisateurs.email, utilisateurs.dateCreation, utilisateurs.admin FROM utilisateurs LEFT JOIN avis ON utilisateurs.id = avis.idUtilisateur GROUP BY utilisateurs.id, utilisateurs.login, utilisateurs.email, utilisateurs.dateCreation, utilisateurs.admin ORDER BY utilisateurs.dateCreation $order");
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    public function getUsersByNote($conn, $order)
+    {
+        $stmt = $conn->prepare("SELECT COUNT(avis.id) AS 'nb_avis', utilisateurs.id, utilisateurs.login, utilisateurs.email, utilisateurs.dateCreation, utilisateurs.admin FROM utilisateurs LEFT JOIN avis ON utilisateurs.id = avis.idUtilisateur GROUP BY utilisateurs.id, utilisateurs.login, utilisateurs.email, utilisateurs.dateCreation, utilisateurs.admin ORDER BY nb_avis $order");
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    public function getUsersByNom($conn, $order)
+    {
+        $stmt = $conn->prepare("SELECT COUNT(avis.id) AS 'nb_avis', utilisateurs.id, utilisateurs.login, utilisateurs.email, utilisateurs.dateCreation, utilisateurs.admin FROM utilisateurs LEFT JOIN avis ON utilisateurs.id = avis.idUtilisateur GROUP BY utilisateurs.id, utilisateurs.login, utilisateurs.email, utilisateurs.dateCreation, utilisateurs.admin ORDER BY utilisateurs.login $order");
         $stmt->execute();
         return $stmt->fetchAll();
     }

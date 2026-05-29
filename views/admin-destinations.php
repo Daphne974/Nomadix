@@ -155,7 +155,7 @@ if (!empty($editDestination['ville'])) {
                 <table class="admin-table">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>Note Moyenne</th>
                             <th>Nom</th>
                             <th>Pays</th>
                             <th>Ville</th>
@@ -184,7 +184,7 @@ if (!empty($editDestination['ville'])) {
                         <?php if (!empty($destinationsToShow)): ?>
                             <?php foreach ($destinationsToShow as $d): ?>
                                 <tr>
-                                    <td><?= htmlspecialchars($d['id']) ?></td>
+                                    <td><?= htmlspecialchars(round($d['moyenne'] ?? 0, 2)) ?></td>
                                     <td><?= htmlspecialchars($d['nom']) ?></td>
                                     <td><?= htmlspecialchars($d['pays']) ?></td>
                                     <td><?= htmlspecialchars($d['ville'] ?? '') ?></td>

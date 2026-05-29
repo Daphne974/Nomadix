@@ -89,7 +89,7 @@ $success = $_GET['success'] ?? null;
 $conn = Database::getAdminConnection();
 $stats = $controller->getStats($conn);
 $allReviews = $controller->getAllReviews($conn);
-$users = $controller->getUsers($conn);
+$users = $controller->getUsersByDate($conn, "DESC");
 $csrfToken = $controller->generateCsrfToken();
 $search = trim($_GET['q'] ?? '');
 
@@ -277,7 +277,7 @@ $matchesSearch = function (array $row, array $fields, string $term): bool {
                     <table class="admin-table">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>Avis</th>
                                 <th>Login</th>
                                 <th>Email</th>
                                 <th>Admin</th>
@@ -287,7 +287,7 @@ $matchesSearch = function (array $row, array $fields, string $term): bool {
                         <tbody>
                             <?php foreach (array_slice($users ?? [], 0, 5) as $user): ?>
                                 <tr>
-                                    <td><?= htmlspecialchars($user['id'] ?? '') ?></td>
+                                    <td><?= htmlspecialchars($user['nb_avis'] ?? '') ?></td>
                                     <td><?= htmlspecialchars($user['login'] ?? '') ?></td>
                                     <td><?= htmlspecialchars($user['email'] ?? '') ?></td>
                                     <td>

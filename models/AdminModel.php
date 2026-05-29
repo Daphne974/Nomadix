@@ -145,7 +145,7 @@ class AdminModel {
      */
     public function getAllDestinations() {
         $conn = Database::getAdminConnection();
-        $stmt = $conn->query("SELECT id, nom, pays, ville, image FROM destinations ORDER BY id DESC");
+        $stmt = $conn->query("SELECT (SUM(avis.note)/COUNT(avis.id)) AS 'moyenne', destinations.id,destinations.nom, destinations.pays, destinations.ville, destinations.image FROM destinations LEFT JOIN avis ON destinations.id = avis.idDestination GROUP BY destinations.id, destinations.nom, destinations.pays, destinations.ville, destinations.image ORDER BY moyenne DESC");
         return $stmt->fetchAll();
     }
 

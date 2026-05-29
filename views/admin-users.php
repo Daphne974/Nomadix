@@ -63,10 +63,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Récupère les utilisateurs
 $conn = Database::getAdminConnection();
-$users = $controller->getUsers($conn);
+$users = $controller->getUsersByDate($conn, "DESC");
 $csrfToken = $controller->generateCsrfToken();
 $success = $_GET['success'] ?? null;
 $search = trim($_GET['q'] ?? '');
+$tri = $_GET['tri'] ?? 'date_desc';
 $page = 'users';
 ?>
 
@@ -99,6 +100,14 @@ $page = 'users';
             <div class="admin-list-toolbar">
                 <h2>Tous les utilisateurs</h2>
                 <form method="get" action="<?= htmlspecialchars(siteUrl('/admin')) ?>" class="admin-search-form">
+                    <select name="tri" onchange="this.form.submit()">
+                        <option value="date_desc" <?= ($tri ?? '') === 'date_desc' ? 'selected' : '' ?>>Date de création (décroissant)</option>
+                        <option value="date_asc" <?= ($tri ?? '') === 'date_asc' ? 'selected' : '' ?>>Date de création (croissant)</option>
+                        <option value="note_az" <?= ($tri ?? '') === 'note_az' ? 'selected' : '' ?>>Nombre de notes (croissant)</option>
+                        <option value="note_za" <?= ($tri ?? '') === 'note_za' ? 'selected' : '' ?>>Nombre de notes (décroissant)</option>
+                        <option value="nom_az" <?= ($tri ?? '') === 'nom_az' ? 'selected' : '' ?>>Nom A-Z</option>
+                        <option value="nom_za" <?= ($tri ?? '') === 'nom_za' ? 'selected' : '' ?>>Nom Z-A</option>
+                    </select>
                     <input type="hidden" name="page" value="users">
                     <input type="search" name="q" value="<?= htmlspecialchars($search) ?>" placeholder="Rechercher un utilisateur">
                     <button type="submit" class="btn-small">Rechercher</button>
@@ -113,7 +122,7 @@ $page = 'users';
                 <table class="admin-table">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>Avis</th>
                             <th>Login</th>
                             <th>Email</th>
                             <th>Admin</th>
@@ -123,6 +132,19 @@ $page = 'users';
                     </thead>
                     <tbody>
                         <?php
+                        if ($tri === 'date_asc') {
+                            $users = $controller->getUsersByDate($conn, "ASC");
+                        } elseif ($tri === 'note_az') {
+                            $users = $controller->getUsersByNote($conn, "ASC");
+                        } elseif ($tri === 'note_za') {
+                            $users = $controller->getUsersByNote($conn, "DESC");
+                        } elseif ($tri === 'nom_az') {
+                            $users = $controller->getUsersByNom($conn, "ASC");
+                        } elseif ($tri === 'nom_za') {
+                            $users = $controller->getUsersByNom($conn, "DESC");
+                        } else {
+                            $users = $controller->getUsersByDate($conn, "DESC");
+                        }
                         $usersToShow = $users ?? [];
                         if ($search !== '') {
                             $needle = function_exists('mb_strtolower') ? mb_strtolower($search, 'UTF-8') : strtolower($search);
@@ -138,7 +160,7 @@ $page = 'users';
                         ?>
                         <?php foreach ($usersToShow as $user): ?>
                         <tr>
-                            <td><?= htmlspecialchars($user['id']) ?></td>
+                            <td><?= htmlspecialchars($user['nb_avis']) ?></td>
                             <td><?= htmlspecialchars($user['login']) ?></td>
                             <td><?= htmlspecialchars($user['email']) ?></td>
                             <td>
